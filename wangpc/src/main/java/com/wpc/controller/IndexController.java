@@ -44,18 +44,23 @@ import com.wpc.service.MyDemoService;
  * 
  */
 @Controller
-@RequestMapping("/welcome")
+@RequestMapping("/")
 public class IndexController {
   
   @Autowired
   private MyDemoService myDemoService;
   
+//  @RequestMapping(method = RequestMethod.GET)
+//  public String index(ModelMap model) {
+//    model.addAttribute("message", "Spring4 MVC 例子");
+//    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+//    model.addAttribute("date", dateFormat.format(new java.util.Date()));
+//    return "hello";
+//  }
+  
   @RequestMapping(method = RequestMethod.GET)
   public String index(ModelMap model) {
-    model.addAttribute("message", "Spring4 MVC 例子");
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
-    model.addAttribute("date", dateFormat.format(new java.util.Date()));
-    return "hello";
+    return "index";
   }
   
   @RequestMapping(value="index2", method = RequestMethod.GET)
