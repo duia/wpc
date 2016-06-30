@@ -63,6 +63,11 @@ public class IndexController {
     return "index";
   }
   
+  @RequestMapping(value="buttons", method = RequestMethod.GET)
+  public String index3(ModelMap model) {
+    return "ui_buttons";
+  }
+  
   @RequestMapping(value="index2", method = RequestMethod.GET)
   public String index2(HttpServletRequest request, HttpServletResponse response, 
       ModelMap model,

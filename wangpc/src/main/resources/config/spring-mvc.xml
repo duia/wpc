@@ -70,5 +70,7 @@
 	<mvc:resources mapping="/static/js/**" location="/static/js/" />
 	<mvc:resources mapping="/static/data/**" location="/static/data/" />
 	<mvc:resources mapping="/static/other/**" location="/static/other/" />
+	<mvc:resources mapping="/static/plugins/**" location="/static/plugins/" />
+	<mvc:resources mapping="/static/html/**" location="/static/html/" />
 
 </beans>
