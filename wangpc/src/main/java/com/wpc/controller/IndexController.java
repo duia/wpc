@@ -84,5 +84,10 @@ public class IndexController {
     model.addAttribute("date", dateFormat.format(new java.util.Date()));
     return "hello";
   }
+  
+  @RequestMapping(value="dd", method = RequestMethod.GET)
+  public String a(ModelMap model) {
+    return "dragDrop/index";
+  }
 
 }
