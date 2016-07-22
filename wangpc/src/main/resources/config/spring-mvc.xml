@@ -58,8 +58,9 @@
 
 	<!-- 配置文件上传解析器 -->
 	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
-		上面配置是固定的，下面是配置上传文件的最大大小 <property name="maxUploadSize" value="1000000"/> 
-		</bean> -->
+		上面配置是固定的，下面是配置上传文件的最大大小 
+		<property name="maxUploadSize" value="1000000"/> 
+	</bean> -->
 	
 	<!-- 在地址栏访问 "网站根路径 + /404",所跳转到的页面404.jsp -->
 	<!-- <mvc:view-controller path="/404" view-name="404"/> <mvc:view-controller 
@@ -72,5 +73,6 @@
 	<mvc:resources mapping="/static/other/**" location="/static/other/" />
 	<mvc:resources mapping="/static/plugins/**" location="/static/plugins/" />
 	<mvc:resources mapping="/static/html/**" location="/static/html/" />
+	<mvc:resources mapping="/ueditor/**" location="/ueditor/" />
 
 </beans>
