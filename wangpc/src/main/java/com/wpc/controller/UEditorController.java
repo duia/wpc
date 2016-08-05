@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wpc.core.ueditor.ActionEnter;
+import com.wpc.model.Title;
 
 /**
  * <dl>
@@ -47,6 +49,18 @@ public class UEditorController {
 	@RequestMapping
 	public String index() {
 		return "ueditor/index";
+	}
+	
+	@RequestMapping(value="/validate")
+	public String indexValidate() {
+		return "ueditor/validate";
+	}
+	
+	@RequestMapping(value="/submit")
+	@ResponseBody
+	public String submit(Title title){
+		System.out.println(title);
+		return "OK";
 	}
 
 	@RequestMapping(value = "/config")
