@@ -4,89 +4,246 @@
 String path = request.getContextPath();    
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>首页</title>
-<base href="${basePath}">
-<!-- <link href="static/plugins/bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet" /> -->
-<link href="/static/plugins/bootflat/css/site.min.css" rel="stylesheet" />
-<link href="/static/plugins/font-awesome-4.5.0/css/font-awesome.css" rel="stylesheet"/>
-<link href="/static/css/index.css" rel="stylesheet"/>
+  <meta charset="utf-8" />
+  <title>Color Admin | Dashboard</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+  <meta content="" name="description" />
+  <meta content="" name="author" />
+  
+  <!-- ================== BEGIN BASE CSS STYLE ================== -->
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <link href="static/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.css" rel="stylesheet" />
+  <link href="static/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="static/plugins/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="static/plugins/color_admin/css/animate.min.css" rel="stylesheet" />
+  <link href="static/plugins/color_admin/css/style.min.css" rel="stylesheet" />
+  <link href="static/plugins/color_admin/css/style-responsive.min.css" rel="stylesheet" />
+  <link href="static/plugins/color_admin/css/theme/default.css" rel="stylesheet" id="theme" />
+  <!-- ================== END BASE CSS STYLE ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+ 
+  <!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>
 <body>
-
-<nav role="navigation" class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button data-target="#bs-example-navbar-collapse-4" data-toggle="collapse" class="navbar-toggle" type="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="#" class="navbar-brand">wpcfree</a>
-    </div>
-    <div id="bs-example-navbar-collapse-4" class="collapse navbar-collapse navbar-right">
-      <a class="btn btn-warning navbar-btn" href="static/plugins/bootflat/documentation.html" target="_blank">查看</a>
-    </div>
-  </div>
-</nav>
-
-<div class="row" style="margin-top: 0px;">
-	<div class="col-md-2">
-		<div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title" style="padding: 10px 15px 10px 0px; font-size: 16px; font-weight: 700;">Panel title</h3>
-          </div>
-          <ul class="accordion" id="accordion">
-			<li>
-				<div class="link"><i class="fa fa-paint-brush"></i>Diseño web<i class="fa fa-chevron-down"></i></div>
-				<ul class="submenu">
-					<li><a href="#">Photoshop</a></li>
-					<li><a href="#">HTML</a></li>
-					<li><a href="#">CSS</a></li>
-					<li><a href="#">Maquetacion web</a></li>
-				</ul>
-			</li>
-			<li>
-				<div class="link"><i class="fa fa-code"></i>Desarrollo front-end<i class="fa fa-chevron-down"></i></div>
-				<ul class="submenu">
-					<li><a href="#">Javascript</a></li>
-					<li><a href="#">jQuery</a></li>
-					<li><a href="#">Frameworks javascript</a></li>
-				</ul>
-			</li>
-			<li>
-				<div class="link"><i class="fa fa-mobile"></i>Diseño responsive<i class="fa fa-chevron-down"></i></div>
-				<ul class="submenu">
-					<li><a href="#">Tablets</a></li>
-					<li><a href="#">Dispositivos mobiles</a></li>
-					<li><a href="#">Medios de escritorio</a></li>
-					<li><a href="#">Otros dispositivos</a></li>
-				</ul>
-			</li>
-			<li><div class="link"><i class="fa fa-globe"></i>Posicionamiento web<i class="fa fa-chevron-down"></i></div>
-				<ul class="submenu">
-					<li><a href="#">Google</a></li>
-					<li><a href="#">Bing</a></li>
-					<li><a href="#">Yahoo</a></li>
-					<li><a href="#">Otros buscadores</a></li>
-				</ul>
-			</li>
-		  </ul>
+  <!-- begin #page-loader -->
+  <div id="page-loader" class="fade in"><span class="spinner"></span></div>
+  <!-- end #page-loader -->
+  <!-- begin #page-container -->
+  <div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+    <!-- begin #header -->
+    <div id="header" class="header navbar navbar-default navbar-fixed-top">
+      <!-- begin container-fluid -->
+      <div class="container-fluid">
+        <!-- begin mobile sidebar expand / collapse button -->
+        <div class="navbar-header">
+          <a href="javascript:;" class="navbar-brand"><span class="navbar-logo"></span> wpc</a>
         </div>
-	</div>
-	<div class="col-md-10">
-		<div id="ajax-content"></div>
-	</div>
-</div>
+        <!-- end mobile sidebar expand / collapse button -->
+        
+        <!-- begin header navigation right -->
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown navbar-user">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="static/plugins/color_admin/img/user-11.jpg" alt="" /> 
+              <span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu animated fadeInLeft">
+              <li class="arrow"></li>
+              <li><a href="javascript:;">Edit Profile</a></li>
+              <li><a href="javascript:;"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
+              <li><a href="javascript:;">Calendar</a></li>
+              <li><a href="javascript:;">Setting</a></li>
+              <li class="divider"></li>
+              <li><a href="javascript:;">Log Out</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- end header navigation right -->
+      </div>
+      <!-- end container-fluid -->
+    </div>
+    <!-- end #header -->
 
-<script type="text/javascript" src="/static/js/jquery-2.1.3.min.js"></script>
-<script type="text/javascript" src="/static/plugins/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
-<script type="text/javascript" src="/static/js/index.js"></script>
-<script type="text/javascript">
-</script>
+    <!-- begin #sidebar -->
+    <div id="sidebar" class="sidebar">
+      <!-- begin sidebar scrollbar -->
+      <div data-scrollbar="true" data-height="100%">
+        <!-- begin sidebar user -->
+        <ul class="nav">
+          <li class="nav-profile">
+            <div class="image">
+              <a href="javascript:;"><img src="static/plugins/color_admin/img/user-11.jpg" alt="" /></a>
+            </div>
+            <div class="info">
+              WPC
+              <small>Front end developer</small>
+            </div>
+          </li>
+        </ul>
+        <!-- end sidebar user -->
+        <!-- begin sidebar nav -->
+        <ul class="nav">
+          <li class="nav-header">Navigation</li>
+          <li>
+            <a href="#"><i class="fa fa-laptop"></i> <span>Dashboard</span></a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="badge pull-right">10</span>
+              <i class="fa fa-inbox"></i> <span>Inbox</span>
+            </a>
+          </li>
+          <li class="has-sub">
+            <a href="javascript:;">
+              <i class="fa fa-suitcase"></i> 
+              <b class="caret pull-right"></b>
+              <span>UI Elements</span> 
+            </a>
+            <ul class="sub-menu">
+              <li><a href="ui_general.html">General</a></li>
+              <li><a href="ui_typography.html">Typography</a></li>
+              <li><a href="ui_tabs_accordions.html">Tabs & Accordions</a></li>
+              <li><a href="ui_modal_notification.html">Modal & Notification</a></li>
+              <li><a href="ui_widget_boxes.html">Widget Boxes</a></li>
+              <li><a href="ui_media_object.html">Media Object</a></li>
+              <li><a href="ui_buttons.html">Buttons</a></li>
+              <li><a href="ui_icons.html">Icons</a></li>
+            </ul>
+          </li>
+          <!-- begin sidebar minify button -->
+          <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+          <!-- end sidebar minify button -->
+        </ul>
+        <!-- end sidebar nav -->
+      </div>
+      <!-- end sidebar scrollbar -->
+    </div>
+    <div class="sidebar-bg"></div>
+    <!-- end #sidebar -->
+
+    <!-- begin #content -->
+    <div id="content" class="content">
+      <!-- begin breadcrumb -->
+      <ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">Home</a></li>
+        <li><a href="javascript:;">Page Options</a></li>
+        <li class="active">Blank Page</li>
+      </ol>
+      <!-- end breadcrumb -->
+      <!-- begin page-header -->
+      <h1 class="page-header">Blank Page <small>header small text goes here...</small></h1>
+      <!-- end page-header -->
+      
+      <!-- Page Content Here -->
+
+      <!-- begin panel -->
+      <div class="panel panel-inverse">
+        <div class="panel-heading">
+          <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+          </div>
+          <h4 class="panel-title">Panel Title here</h4>
+        </div>
+        <div class="panel-body">
+          Panel Content Here
+        </div>
+      </div>
+      <!-- end panel -->
+
+      <!-- begin theme-panel -->
+      <div class="theme-panel">
+        <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn">
+          <i class="fa fa-cog"></i>
+        </a>
+        <div class="theme-panel-content">
+          <h5 class="m-t-0">Color Theme</h5>
+          <ul class="theme-list clearfix">
+            <li class="active"><a href="javascript:;" class="bg-green" data-theme="default" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Default"> </a></li>
+            <li><a href="javascript:;" class="bg-red" data-theme="red" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Red"> </a></li>
+            <li><a href="javascript:;" class="bg-blue" data-theme="blue" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Blue"> </a></li>
+            <li><a href="javascript:;" class="bg-purple" data-theme="purple" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Purple"> </a></li>
+            <li><a href="javascript:;" class="bg-orange" data-theme="orange" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Orange"> </a></li>
+            <li><a href="javascript:;" class="bg-black" data-theme="black" data-click="theme-selector" data-toggle="tooltip" data-trigger="hover" data-container="body" data-title="Black"> </a></li>
+          </ul>
+          <div class="divider"></div>
+          <div class="row m-t-10">
+            <div class="col-md-5 control-label double-line">Header Styling</div>
+            <div class="col-md-7">
+              <select name="header-styling" class="form-control input-sm">
+                <option value="1">default</option>
+                <option value="2">inverse</option>
+              </select>
+            </div>
+          </div>
+          <div class="row m-t-10">
+            <div class="col-md-5 control-label">Header</div>
+            <div class="col-md-7">
+              <select name="header-fixed" class="form-control input-sm">
+                <option value="1">fixed</option>
+                <option value="2">default</option>
+              </select>
+            </div>
+          </div>
+          <div class="row m-t-10">
+            <div class="col-md-5 control-label double-line">Sidebar Styling</div>
+            <div class="col-md-7">
+              <select name="sidebar-styling" class="form-control input-sm">
+                <option value="1">default</option>
+                <option value="2">grid</option>
+              </select>
+            </div>
+          </div>
+          <div class="row m-t-10">
+            <div class="col-md-5 control-label">Sidebar</div>
+            <div class="col-md-7">
+              <select name="sidebar-fixed" class="form-control input-sm">
+                <option value="1">fixed</option>
+                <option value="2">default</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end theme-panel -->
+
+    </div>
+    <!-- end #content -->
+  </div>
+
+
+
+<!-- ================== BEGIN BASE JS ================== -->
+  <script src="static/js/jquery-2.1.3.min.js"></script>
+  <script src="static/js/jquery-migrate-1.1.0.min.js"></script>
+  <script src="static/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+  <script src="static/plugins/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="static/plugins/color_admin/crossbrowserjs/html5shiv.js"></script>
+    <script src="static/plugins/color_admin/crossbrowserjs/respond.min.js"></script>
+    <script src="static/plugins/color_admin/crossbrowserjs/excanvas.min.js"></script>
+  <![endif]-->
+  <script src="static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="static/plugins/jquery-cookie/jquery.cookie.js"></script>
+  <!-- ================== END BASE JS ================== -->
+  
+  <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+  <script src="static/plugins/color_admin/js/apps.min.js"></script>
+  <!-- ================== END PAGE LEVEL JS ================== -->
+  <script>
+    $(document).ready(function() {
+      App.init();
+    });
+  </script>
 </body>
-</html>	
+</html>
