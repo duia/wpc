@@ -103,7 +103,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</li>
 					<li>
 						<a href="#"> 
-							<span class="badge pull-right">10</span>
 							<i class="fa fa-inbox"></i> <span>Inbox</span>
 						</a>
 					</li>

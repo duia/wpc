@@ -1,4 +1,4 @@
-package com.wpc.mapper;
+package com.wpc.dao;
 
 public interface MyDemoMapper {
   

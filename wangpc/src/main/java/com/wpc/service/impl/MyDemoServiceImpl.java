@@ -15,7 +15,7 @@ package com.wpc.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wpc.mapper.MyDemoMapper;
+import com.wpc.dao.MyDemoMapper;
 import com.wpc.service.MyDemoService;
 
 /**

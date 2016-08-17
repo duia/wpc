@@ -25,19 +25,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.wpc.admin.service.UserService;
 import com.wpc.service.MyDemoService;
 
 /**
- * <dl>  Class Description
- *  <dd> 项目名称：springmvc
- *  <dd> 类名称：IndexController
- *  <dd> 类描述：概述类的作用
- *  <dd> 创建人：王鹏程
- *  <dd> 创建时间：2015年12月31日 上午9:43:33
- *  <dd> 修改人：无
- *  <dd> 修改时间：无
- *  <dd> 修改备注：无
+ * <dl>
+ * Class Description
+ * <dd>项目名称：springmvc
+ * <dd>类名称：IndexController
+ * <dd>类描述：概述类的作用
+ * <dd>创建人：王鹏程
+ * <dd>创建时间：2015年12月31日 上午9:43:33
+ * <dd>修改人：无
+ * <dd>修改时间：无
+ * <dd>修改备注：无
  * </dl>
+ * 
  * @author weaver
  * @see
  * @version 1.0
@@ -46,48 +49,54 @@ import com.wpc.service.MyDemoService;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-  
-  @Autowired
-  private MyDemoService myDemoService;
-  
-//  @RequestMapping(method = RequestMethod.GET)
-//  public String index(ModelMap model) {
-//    model.addAttribute("message", "Spring4 MVC 例子");
-//    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
-//    model.addAttribute("date", dateFormat.format(new java.util.Date()));
-//    return "hello";
-//  }
-  
-  @RequestMapping(method = RequestMethod.GET)
-  public String index(ModelMap model) {
-    return "index";
-  }
-  
-  @RequestMapping(value="buttons", method = RequestMethod.GET)
-  public String index3(ModelMap model) {
-    return "ui_buttons";
-  }
-  
-  @RequestMapping(value="index2", method = RequestMethod.GET)
-  public String index2(HttpServletRequest request, HttpServletResponse response, 
-      ModelMap model,
-      String a, @RequestParam("b") int bbb) {
-//    String a = request.getParameter("a");
-//    model.addAttribute("a", a);
-    
-    Cookie cookie = new Cookie("username","helloweenvsfei"); // 新建Cookie
-    cookie.setMaxAge(Integer.MAX_VALUE); // 设置生命周期为MAX_VALUE
-    response.addCookie(cookie); // 输出到客户端
-    
-    model.addAttribute("message", "Spring3 MVC 例子 2" + a + "-" + bbb + " 计数：" + myDemoService.selectCount());
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
-    model.addAttribute("date", dateFormat.format(new java.util.Date()));
-    return "hello";
-  }
-  
-  @RequestMapping(value="dd", method = RequestMethod.GET)
-  public String a(ModelMap model) {
-    return "dragDrop/index";
-  }
+
+	@Autowired
+	private MyDemoService myDemoService;
+	@Autowired
+	private UserService userService;
+
+	// @RequestMapping(method = RequestMethod.GET)
+	// public String index(ModelMap model) {
+	// model.addAttribute("message", "Spring4 MVC 例子");
+	// SimpleDateFormat dateFormat = new
+	// SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+	// model.addAttribute("date", dateFormat.format(new java.util.Date()));
+	// return "hello";
+	// }
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String index(ModelMap model) {
+		System.out.println(userService.selectUserById(1));
+		return "index";
+	}
+
+	@RequestMapping(value = "buttons", method = RequestMethod.GET)
+	public String index3(ModelMap model) {
+		return "ui_buttons";
+	}
+
+	@RequestMapping(value = "index2", method = RequestMethod.GET)
+	public String index2(HttpServletRequest request,
+			HttpServletResponse response, ModelMap model, String a,
+			@RequestParam("b") int bbb) {
+		// String a = request.getParameter("a");
+		// model.addAttribute("a", a);
+
+		Cookie cookie = new Cookie("username", "helloweenvsfei"); // 新建Cookie
+		cookie.setMaxAge(Integer.MAX_VALUE); // 设置生命周期为MAX_VALUE
+		response.addCookie(cookie); // 输出到客户端
+
+		model.addAttribute("message", "Spring3 MVC 例子 2" + a + "-" + bbb
+				+ " 计数：" + myDemoService.selectCount());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy年MM月dd日HH时mm分ss秒");
+		model.addAttribute("date", dateFormat.format(new java.util.Date()));
+		return "hello";
+	}
+
+	@RequestMapping(value = "dd", method = RequestMethod.GET)
+	public String a(ModelMap model) {
+		return "dragDrop/index";
+	}
 
 }
