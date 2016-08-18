@@ -22,16 +22,18 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 
 /**
- * <dl>  Class Description
- *  <dd> 项目名称：springmvc
- *  <dd> 类名称：HandshakeInterceptor
- *  <dd> 类描述：概述类的作用
- *  <dd> 创建人：王鹏程
- *  <dd> 创建时间：2016年6月8日 下午2:53:00
- *  <dd> 修改人：无
- *  <dd> 修改时间：无
- *  <dd> 修改备注：无
+ * <dl>
+ * Class Description
+ * <dd>项目名称：springmvc
+ * <dd>类名称：HandshakeInterceptor
+ * <dd>类描述：概述类的作用
+ * <dd>创建人：王鹏程
+ * <dd>创建时间：2016年6月8日 下午2:53:00
+ * <dd>修改人：无
+ * <dd>修改时间：无
+ * <dd>修改备注：无
  * </dl>
+ * 
  * @author weaver
  * @see
  * @version 1.0
@@ -39,27 +41,29 @@ import org.springframework.web.socket.WebSocketHandler;
  */
 public class MyHandshakeInterceptor implements org.springframework.web.socket.server.HandshakeInterceptor {
 
-  @Override
-  public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler webSocketHandler, Exception exception) {
-    // TODO Auto-generated method stub
-    
-  }
+	@Override
+	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
+					WebSocketHandler webSocketHandler, Exception exception) {
+		// TODO Auto-generated method stub
 
-  //进入hander之前的拦截
-  @Override
-  public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler webSocketHandler,
-      Map<String, Object> map) throws Exception {
-    if (request instanceof ServletServerHttpRequest) {
-      ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-      HttpSession session = servletRequest.getServletRequest().getSession(false);
-      String userName = "xq";
-      if (session != null) {
-          //使用userName区分WebSocketHandler，以便定向发送消息
-//          String userName = (String) session.getAttribute("WEBSOCKET_USERNAME");
-          map.put("WEBSOCKET_USERNAME",userName);
-      }
-    }
-    return true;
-  }
+	}
+
+	// 进入hander之前的拦截
+	@Override
+	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
+					WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
+		if (request instanceof ServletServerHttpRequest) {
+			ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
+			HttpSession session = servletRequest.getServletRequest().getSession(false);
+			String userName = "xq";
+			if (session != null) {
+				// 使用userName区分WebSocketHandler，以便定向发送消息
+				// String userName = (String)
+				// session.getAttribute("WEBSOCKET_USERNAME");
+				map.put("WEBSOCKET_USERNAME", userName);
+			}
+		}
+		return true;
+	}
 
 }

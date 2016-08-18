@@ -64,9 +64,10 @@ public class IndexController {
 	// return "hello";
 	// }
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model) {
-		System.out.println(userService.selectUserById(1));
+		// System.out.println(userService.selectUserById(1));
+		System.out.println("==================");
 		return "index";
 	}
 
@@ -76,9 +77,8 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "index2", method = RequestMethod.GET)
-	public String index2(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model, String a,
-			@RequestParam("b") int bbb) {
+	public String index2(HttpServletRequest request, HttpServletResponse response, ModelMap model, String a,
+					@RequestParam("b") int bbb) {
 		// String a = request.getParameter("a");
 		// model.addAttribute("a", a);
 
@@ -86,10 +86,8 @@ public class IndexController {
 		cookie.setMaxAge(Integer.MAX_VALUE); // 设置生命周期为MAX_VALUE
 		response.addCookie(cookie); // 输出到客户端
 
-		model.addAttribute("message", "Spring3 MVC 例子 2" + a + "-" + bbb
-				+ " 计数：" + myDemoService.selectCount());
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy年MM月dd日HH时mm分ss秒");
+		model.addAttribute("message", "Spring3 MVC 例子 2" + a + "-" + bbb + " 计数：" + myDemoService.selectCount());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
 		model.addAttribute("date", dateFormat.format(new java.util.Date()));
 		return "hello";
 	}

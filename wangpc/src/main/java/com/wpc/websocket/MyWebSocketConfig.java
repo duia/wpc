@@ -18,29 +18,33 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 /**
- * <dl>  Class Description
- *  <dd> 项目名称：springmvc
- *  <dd> 类名称：WebSocketConfig
- *  <dd> 类描述：概述类的作用
- *  <dd> 创建人：王鹏程
- *  <dd> 创建时间：2016年6月8日 下午2:51:36
- *  <dd> 修改人：无
- *  <dd> 修改时间：无
- *  <dd> 修改备注：无
+ * <dl>
+ * Class Description
+ * <dd>项目名称：springmvc
+ * <dd>类名称：WebSocketConfig
+ * <dd>类描述：概述类的作用
+ * <dd>创建人：王鹏程
+ * <dd>创建时间：2016年6月8日 下午2:51:36
+ * <dd>修改人：无
+ * <dd>修改时间：无
+ * <dd>修改备注：无
  * </dl>
+ * 
  * @author weaver
  * @see
  * @version 1.0
  * 
  */
 @Configuration
-@EnableWebSocket//开启websocket
+@EnableWebSocket // 开启websocket
 public class MyWebSocketConfig implements WebSocketConfigurer {
 
-  @Override
-  public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-    registry.addHandler(new MyWebSocketHander(),"/echo").addInterceptors(new MyHandshakeInterceptor()); //支持websocket 的访问链接
-    registry.addHandler(new MyWebSocketHander(),"/sockjs/echo").addInterceptors(new MyHandshakeInterceptor()).withSockJS(); //不支持websocket的访问链接
-  }
+	@Override
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		registry.addHandler(new MyWebSocketHander(), "/echo").addInterceptors(new MyHandshakeInterceptor()); // 支持websocket
+																												// 的访问链接
+		registry.addHandler(new MyWebSocketHander(), "/sockjs/echo").addInterceptors(new MyHandshakeInterceptor())
+						.withSockJS(); // 不支持websocket的访问链接
+	}
 
 }

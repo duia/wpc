@@ -55,7 +55,7 @@ public class WebConfigController {
   String c = "E:/txt/slapd.conf";
   private Map<String, Node> map = new HashMap<String, Node>();
   
-  @RequestMapping(value="", method={RequestMethod.GET})
+  @RequestMapping(value="/", method={RequestMethod.GET})
   public String jump(){
     return "web/webConfig";
   }
