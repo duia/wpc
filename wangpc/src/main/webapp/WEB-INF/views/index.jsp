@@ -18,7 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta content="" name="author" />
 
 <!-- ================== BEGIN BASE CSS STYLE ================== -->
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 <link href="static/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.css" rel="stylesheet" />
 <link href="static/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="static/plugins/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -29,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- ================== END BASE CSS STYLE ================== -->
 
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-
+<script src="static/plugins/pace/pace.min.js"></script>
 <!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>
 <body>
@@ -39,8 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<!-- end #page-loader -->
 	<!-- begin #page-container -->
-	<div id="page-container"
-		class="fade page-sidebar-fixed page-header-fixed">
+	<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
 		<!-- 头部 -->
 		<div id="header" class="header navbar navbar-default navbar-fixed-top">
 			<!-- begin container-fluid -->
@@ -98,36 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- begin sidebar nav -->
 				<ul class="nav">
 					<li class="nav-header">菜单</li>
-					<li>
-						<a href="#"><i class="fa fa-laptop"></i> <span>Dashboard</span></a>
-					</li>
-					<li>
-						<a href="#"> 
-							<i class="fa fa-inbox"></i> <span>Inbox</span>
-						</a>
-					</li>
-					<li class="has-sub">
-						<a href="javascript:;">
-							<i class="fa fa-suitcase"></i> 
-							<b class="caret pull-right"></b> 
-							<span>UI Elements</span>
-						</a>
-						<ul class="sub-menu">
-							<li><a href="ui_general.html">General</a></li>
-							<li><a href="ui_typography.html">Typography</a></li>
-							<li><a href="ui_tabs_accordions.html">Tabs & Accordions</a></li>
-							<li><a href="ui_modal_notification.html">Modal & Notification</a></li>
-							<li><a href="ui_widget_boxes.html">Widget Boxes</a></li>
-							<li><a href="ui_media_object.html">Media Object</a></li>
-							<li><a href="ui_buttons.html">Buttons</a></li>
-							<li><a href="ui_icons.html">Icons</a></li>
-						</ul>
-					</li>
-					<!-- begin sidebar minify button -->
-					<li>
-						<a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a>
-					</li>
-					<!-- end sidebar minify button -->
+					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 				</ul>
 				<!-- end sidebar nav -->
 			</div>
@@ -137,86 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- 菜单 -->
 
 		<!-- 内容 -->
-		<div id="content" class="content">
-			<!-- 面包屑 -->
-			<ol class="breadcrumb pull-right">
-				<li><a href="javascript:;">Home</a></li>
-				<li><a href="javascript:;">Page Options</a></li>
-				<li class="active">Blank Page</li>
-			</ol>
-			<!-- 面包屑  -->
-			
-			<!-- begin page-header -->
-			<h1 class="page-header">
-				Blank Page <small>header small text goes here...</small>
-			</h1>
-			<div class="panel panel-inverse">
-				<div class="panel-heading">
-					<div class="panel-heading-btn">
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a> 
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a> 
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-					</div>
-					<h4 class="panel-title">Panel Title here</h4>
-				</div>
-				<div class="panel-body">
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-				</div>
-			</div>
-			<!-- end panel -->
-			<div class="panel panel-inverse">
-				<div class="panel-heading">
-					<div class="panel-heading-btn">
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a> 
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a> 
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-					</div>
-					<h4 class="panel-title">Panel Title here</h4>
-				</div>
-				<div class="panel-body">
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-					<p>Panel Content Here</p>
-				</div>
-			</div>
-
-		</div>
+		<div id="ajax-content"></div>
 		<!-- 内容 -->
 		
 		<!-- 页尾 -->
@@ -225,12 +115,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<!-- 页尾 -->
 	
-		<!-- 回到顶部 -->
-		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"> 
-			<i class="fa fa-angle-up"></i>
-		</a>
-		<!-- 回到顶部 -->
-		
 		<!-- 主题设置 -->
 		<div class="theme-panel">
 			<a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"> <i class="fa fa-cog"></i>
@@ -286,6 +170,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<!-- 主题设置 -->
 		
+		<!-- 回到顶部 -->
+		<a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"> 
+			<i class="fa fa-angle-up"></i>
+		</a>
+		<!-- 回到顶部 -->
+		
 	</div>
 
 <!-- ================== BEGIN BASE JS ================== -->
@@ -298,17 +188,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="static/plugins/color_admin/crossbrowserjs/respond.min.js"></script>
 <script src="static/plugins/color_admin/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
+<script src="static/plugins/jquery-hashchange/jquery.hashchange.min.js"></script>
 <script src="static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="static/plugins/jquery-cookie/jquery.cookie.js"></script>
 <!-- ================== END BASE JS ================== -->
 
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-<script src="static/plugins/color_admin/js/apps.min.js"></script>
+<script src="static/plugins/color_admin/js/apps.js"></script>
+<script src="static/js/index.js"></script>
 <!-- ================== END PAGE LEVEL JS ================== -->
 <script>
-	$(document).ready(function() {
-	  App.init();
-	});
+	
 </script>
 </body>
 </html>

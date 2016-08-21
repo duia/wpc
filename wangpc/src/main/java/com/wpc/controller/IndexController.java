@@ -67,16 +67,25 @@ public class IndexController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model) {
 		// System.out.println(userService.selectUserById(1));
-		System.out.println("==================");
 		return "index";
 	}
 
-	@RequestMapping(value = "buttons", method = RequestMethod.GET)
+	@RequestMapping(value = "/main")
+	public String main1(ModelMap model) {
+		return "main";
+	}
+	
+	@RequestMapping(value = "/test")
+	public String test(ModelMap model) {
+		return "test";
+	}
+	
+	@RequestMapping(value = "buttons")
 	public String index3(ModelMap model) {
 		return "ui_buttons";
 	}
-
-	@RequestMapping(value = "index2", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "index2")
 	public String index2(HttpServletRequest request, HttpServletResponse response, ModelMap model, String a,
 					@RequestParam("b") int bbb) {
 		// String a = request.getParameter("a");

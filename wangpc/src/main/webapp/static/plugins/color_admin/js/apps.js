@@ -1,4 +1,4 @@
-/*   
+/*
 Template Name: Color Admin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
 Version: 1.9.0
 Author: Sean Ngu
@@ -28,25 +28,29 @@ Website: http://www.seantheme.com/color-admin-v1.9/admin/
     13. Handle Save Panel Position Function - added in V1.5
     14. Handle Draggable Panel Local Storage Function - added in V1.5
     15. Handle Reset Local Storage - added in V1.5
+    16. Handle Ajax Page Load - added in V1.5
+    17. Handle Ajax Page Load Url - added in V1.5
+    18. Handle Ajax Sidebar Toggle Content - added in V1.5
+    19. Handle Url Hash Change - added in V1.5
+    20. Handle Pace Page Loading Plugins - added in V1.5
     
     <!-- ======== Added in V1.6 ======== -->
-    16. Handle IE Full Height Page Compatibility - added in V1.6
-    17. Handle Unlimited Nav Tabs - added in V1.6
-    
+    21. Handle IE Full Height Page Compatibility - added in V1.6
+    22. Handle Unlimited Nav Tabs - added in V1.6
+        
     <!-- ======== Added in V1.7 ======== -->
-    18. Handle Mobile Sidebar Scrolling Feature - added in V1.7
+    23. Handle Mobile Sidebar Scrolling Feature - added in V1.7
     
     <!-- ======== Added in V1.9 ======== -->
-    19. Handle Top Menu - Unlimited Top Menu Render - added in V1.9
-    20. Handle Top Menu - Sub Menu Toggle - added in V1.9
-    21. Handle Top Menu - Mobile Sub Menu Toggle - added in V1.9
-    22. Handle Top Menu - Mobile Top Menu Toggle - added in V1.9
-    23. Handle Clear Sidebar Selection & Hide Mobile Menu - added in V1.9
+    24. Handle Top Menu - Unlimited Top Menu Render - added in V1.9
+    25. Handle Top Menu - Sub Menu Toggle - added in V1.9
+    26. Handle Top Menu - Mobile Sub Menu Toggle - added in V1.9
+    27. Handle Top Menu - Mobile Top Menu Toggle - added in V1.9
+    28. Handle Clear Sidebar Selection & Hide Mobile Menu - added in V1.9
 	
     <!-- ======== APPLICATION SETTING ======== -->
     Application Controller
 */
-
 
 
 /* 01. Handle Scrollbar
@@ -204,7 +208,7 @@ var handleSidebarMinify = function() {
             }
         } else {
             $(targetContainer).addClass(sidebarClass);
-    
+            
             if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
                 if ($(targetContainer).hasClass('page-sidebar-fixed')) {
                     $('#sidebar [data-scrollbar="true"]').slimScroll({destroy: true});
@@ -695,7 +699,79 @@ var handleResetLocalStorage = function() {
 };
 
 
-/* 16. Handle IE Full Height Page Compatibility - added in V1.6
+/* 16. Handle Ajax Page Load - added in V1.5
+------------------------------------------------ */
+var default_content = '<div class="p-t-40 p-b-40 text-center f-s-20 content"><i class="fa fa-warning fa-lg text-muted m-r-5"></i> <span class="f-w-600 text-inverse">Error 404! Page not found.</span></div>';
+
+var handleLoadPage = function(hash) {
+    Pace.restart();
+    var targetUrl = hash.replace('#','');
+    $('.jvectormap-label, .jvector-label, .AutoFill_border ,#gritter-notice-wrapper, .ui-autocomplete, .colorpicker, .FixedHeader_Header, .FixedHeader_Cloned .lightboxOverlay, .lightbox').remove();
+    $.ajax({
+        type: 'POST',
+        url: targetUrl,	//with the page number as a parameter
+        dataType: 'html',	//expect html to be returned
+        success: function(data) {
+            $('#ajax-content').html(data);
+            $('html, body').animate({
+                scrollTop: $("body").offset().top
+            }, 250);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            $('#ajax-content').html(default_content);
+        }
+    });
+};
+
+
+/* 17. Handle Ajax Page Load Url - added in V1.5
+------------------------------------------------ */
+var handleCheckPageLoadUrl = function(hash) {
+    hash = (hash) ? hash : '#main';
+    
+    if (hash === '') {
+        $('#ajax-content').html(default_content);
+    } else {
+        $('.sidebar [href="'+hash+'"][data-toggle=ajax]').trigger('click');
+        handleLoadPage(hash);
+    }
+};
+
+
+/* 18. Handle Ajax Sidebar Toggle Content - added in V1.5
+------------------------------------------------ */
+var handleSidebarAjaxClick = function() {
+    $('.sidebar [data-toggle=ajax]').click(function() {
+        var targetLi = $(this).closest('li');
+        var targetParentLi = $(this).parents();
+        $('.sidebar li').not(targetLi).not(targetParentLi).removeClass('active');
+        $(targetLi).addClass('active');
+        $(targetParentLi).addClass('active');
+    });
+};
+
+
+/* 19. Handle Url Hash Change - added in V1.5
+------------------------------------------------ */
+var handleHashChange = function() {
+    $(window).hashchange(function() {
+        if (window.location.hash) {
+            handleLoadPage(window.location.hash);
+        }
+    });
+};
+
+
+/* 20. Handle Pace Page Loading Plugins - added in V1.5
+------------------------------------------------ */
+var handlePaceLoadingPlugins = function() {
+    Pace.on('hide', function(){
+        $('.pace').addClass('hide');
+    });
+};
+
+
+/* 21. Handle IE Full Height Page Compatibility - added in V1.6
 ------------------------------------------------ */
 var handleIEFullHeightContent = function() {
     var userAgent = window.navigator.userAgent;
@@ -711,7 +787,7 @@ var handleIEFullHeightContent = function() {
 };
 
 
-/* 17. Handle Unlimited Nav Tabs - added in V1.6
+/* 22. Handle Unlimited Nav Tabs - added in V1.6
 ------------------------------------------------ */
 var handleUnlimitedTabsRender = function() {
     
@@ -822,13 +898,13 @@ var handleUnlimitedTabsRender = function() {
     }
     
     // handle tab next button click action
-    $('[data-click="next-tab"]').click(function(e) {
+    $('[data-click="next-tab"]').live('click', function(e) {
         e.preventDefault();
         handleTabButtonAction(this,'next');
     });
     
     // handle tab prev button click action
-    $('[data-click="prev-tab"]').click(function(e) {
+    $('[data-click="prev-tab"]').live('click', function(e) {
         e.preventDefault();
         handleTabButtonAction(this,'prev');
 
@@ -844,7 +920,7 @@ var handleUnlimitedTabsRender = function() {
 };
 
 
-/* 18. Handle Mobile Sidebar Scrolling Feature - added in V1.7
+/* 23. Handle Mobile Sidebar Scrolling Feature - added in V1.7
 ------------------------------------------------ */
 var handleMobileSidebar = function() {
     "use strict";
@@ -900,7 +976,7 @@ var handleMobileSidebar = function() {
 };
 
 
-/* 19. Handle Top Menu - Unlimited Top Menu Render - added in V1.9
+/* 24. Handle Top Menu - Unlimited Top Menu Render - added in V1.9
 ------------------------------------------------ */
 var handleUnlimitedTopMenuRender = function() {
     "use strict";
@@ -994,13 +1070,13 @@ var handleUnlimitedTopMenuRender = function() {
     }
 
     // handle menu next button click action
-    $('[data-click="next-menu"]').click(function(e) {
+    $('[data-click="next-menu"]').live('click', function(e) {
         e.preventDefault();
         handleMenuButtonAction(this,'next');
     });
 
     // handle menu prev button click action
-    $('[data-click="prev-menu"]').click(function(e) {
+    $('[data-click="prev-menu"]').live('click', function(e) {
         e.preventDefault();
         handleMenuButtonAction(this,'prev');
 
@@ -1016,7 +1092,7 @@ var handleUnlimitedTopMenuRender = function() {
 };
 
 
-/* 20. Handle Top Menu - Sub Menu Toggle - added in V1.9
+/* 25. Handle Top Menu - Sub Menu Toggle - added in V1.9
 ------------------------------------------------ */
 var handleTopMenuSubMenu = function() {
     "use strict";
@@ -1038,7 +1114,7 @@ var handleTopMenuSubMenu = function() {
 };
 
 
-/* 21. Handle Top Menu - Mobile Sub Menu Toggle - added in V1.9
+/* 26. Handle Top Menu - Mobile Sub Menu Toggle - added in V1.9
 ------------------------------------------------ */
 var handleMobileTopMenuSubMenu = function() {
     "use strict";
@@ -1062,7 +1138,7 @@ var handleMobileTopMenuSubMenu = function() {
 };
 
 
-/* 22. Handle Top Menu - Mobile Top Menu Toggle - added in V1.9
+/* 27. Handle Top Menu - Mobile Top Menu Toggle - added in V1.9
 ------------------------------------------------ */
 var handleTopMenuMobileToggle = function() {
     "use strict";
@@ -1072,7 +1148,7 @@ var handleTopMenuMobileToggle = function() {
 };
 
 
-/* 23. Handle Clear Sidebar Selection & Hide Mobile Menu - added in V1.9
+/* 28. Handle Clear Sidebar Selection & Hide Mobile Menu - added in V1.9
 ------------------------------------------------ */
 var handleClearSidebarSelection = function() {
     $('.sidebar .nav > li, .sidebar .nav .sub-menu').removeClass('expand').removeAttr('style');
@@ -1088,7 +1164,7 @@ var App = function () {
 	"use strict";
 	
 	return {
-		//main function
+	    //main function
 		init: function () {
 		    this.initSidebar();
 		    this.initTopMenu();
@@ -1096,6 +1172,7 @@ var App = function () {
 		    this.initComponent();
 		    this.initLocalStorage();
 		    this.initThemePanel();
+		    this.initAjaxFunction();
 		},
 		initSidebar: function() {
 			handleSidebarMenu();
@@ -1136,10 +1213,28 @@ var App = function () {
 			handleThemePanelExpand();
 		    handleResetLocalStorage();
 		},
+		initAjaxFunction: function() {
+            handleSidebarAjaxClick();
+            handleCheckPageLoadUrl(window.location.hash);
+			handleHashChange();
+			
+			// ajax cache setup
+			$.ajaxSetup({
+                cache: true
+            });
+		},
+		setPageTitle: function(pageTitle) {
+		    document.title = pageTitle;
+		},
+		restartGlobalFunction: function() {
+		    this.initComponent();
+		    this.initTopMenu();
+		    this.initLocalStorage();
+		},
 		scrollTop: function() {
             $('html, body').animate({
                 scrollTop: $('body').offset().top
             }, 0);
 		}
-  };
+    };
 }();

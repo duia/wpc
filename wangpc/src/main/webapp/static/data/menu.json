@@ -1,0 +1,59 @@
+[{
+	"name":"首页",
+	"icon":"fa fa-laptop",
+	"url":"#main",
+	"children":[]
+},{
+	"name":"系统配置",
+	"icon":"fa fa-gears",
+	"url":"#",
+	"children":[
+		{
+			"name":"菜单管理",
+			"icon":"",
+			"url":"#menu",
+			"children":[]
+		}
+	]
+},{
+	"name":"菜单二",
+	"icon":"fa fa-inbox",
+	"url":"#buttons",
+	"children":[]
+},{
+	"name":"菜单三",
+	"icon":"fa fa-suitcase",
+	"url":"",
+	"children":[
+		{
+			"name":"菜单三1",
+			"icon":"",
+			"url":"#test",
+			"children":[]
+		},
+		{
+			"name":"菜单三2",
+			"icon":"",
+			"url":"#",
+			"children":[]
+		},
+		{
+			"name":"菜单三3",
+			"icon":"",
+			"url":"#",
+			"children":[]
+		},
+		{
+			"name":"菜单三4",
+			"icon":"",
+			"url":"#",
+			"children":[]
+		},
+		{
+			"name":"菜单三5",
+			"icon":"",
+			"url":"#",
+			"children":[]
+		}
+	]
+}]
