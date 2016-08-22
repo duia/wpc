@@ -1,22 +1,26 @@
 package com.wpc.admin.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.wpc.admin.dao.UserDao;
-import com.wpc.admin.model.User;
+import com.wpc.admin.entity.User;
 import com.wpc.admin.service.UserService;
+import com.wpc.common.BaseServiceImpl;
 
-@Service("userService")
-public class UserServiceImpl implements UserService {
+/**
+ * 操作相关
+ */
+@Service(UserService.BEAN_ID)
+public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements UserService {
 
-	@Autowired
+	Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+	@Resource(name=UserDao.BEAN_ID)
 	private UserDao userDao;
-	
-	@Override
-	public User selectUserById(int id) {
-		// TODO Auto-generated method stub
-		return userDao.selectUserById(id);
-	}
+
 
 }

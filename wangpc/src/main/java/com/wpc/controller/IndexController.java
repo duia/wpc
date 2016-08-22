@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wpc.admin.service.UserService;
-import com.wpc.service.MyDemoService;
 
 /**
  * <dl>
@@ -51,8 +50,6 @@ import com.wpc.service.MyDemoService;
 public class IndexController {
 
 	@Autowired
-	private MyDemoService myDemoService;
-	@Autowired
 	private UserService userService;
 
 	// @RequestMapping(method = RequestMethod.GET)
@@ -66,7 +63,7 @@ public class IndexController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model) {
-		// System.out.println(userService.selectUserById(1));
+		System.out.println(userService.findById(1));
 		return "index";
 	}
 
@@ -95,7 +92,7 @@ public class IndexController {
 		cookie.setMaxAge(Integer.MAX_VALUE); // 设置生命周期为MAX_VALUE
 		response.addCookie(cookie); // 输出到客户端
 
-		model.addAttribute("message", "Spring3 MVC 例子 2" + a + "-" + bbb + " 计数：" + myDemoService.selectCount());
+		model.addAttribute("message", "Spring3 MVC 例子 2" + a + "-" + bbb + " 计数：");
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
 		model.addAttribute("date", dateFormat.format(new java.util.Date()));
 		return "hello";

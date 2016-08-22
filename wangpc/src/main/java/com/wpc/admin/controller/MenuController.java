@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wpc.admin.model.Menu;
+import com.wpc.admin.entity.Menu;
 
 /**
  * <dl>

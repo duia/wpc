@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wpc.service.MyDemoService;
 import com.wpc.times.DataWorkContext;
 import com.wpc.times.ScheduleJob;
 import com.wpc.times.SchedulerUtil;
@@ -52,8 +51,6 @@ import com.wpc.times.SchedulerUtil;
 @RequestMapping("/times")
 public class TimesController {
 
-	@Autowired
-	private MyDemoService myDemoService;
 	@Autowired
 	private Scheduler scheduler;
 
