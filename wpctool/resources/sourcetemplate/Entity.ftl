@@ -23,6 +23,7 @@ import ${imp!};
 
 /**
 * ${remark!}
+* autor wpc
 */
 <#if module.persistance=="hibernate" || module.persistance=="jpa">
 @Entity
