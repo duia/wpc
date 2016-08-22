@@ -157,6 +157,12 @@
 		    <artifactId>log4j</artifactId>
 		    <version>1.2.17</version>
 		</dependency>
+		<dependency>    
+		    <groupId>org.slf4j</groupId>    
+		    <artifactId>slf4j-log4j12</artifactId>    
+		    <version>1.6.6</version>    
+		    <scope>runtime</scope>    
+		</dependency>
 
 		<!-- <dependency>
 			<groupId>com.h2database</groupId>
@@ -206,6 +212,9 @@
                     <path>/</path>
                     <uriEncoding>UTF-8</uriEncoding>
                     <useBodyEncodingForURI>true</useBodyEncodingForURI>
+                    <systemProperties>
+			            <java.util.logging.SimpleFormatter.format>[%4$s] %1$tF %1$tT %3$s %5$s %n</java.util.logging.SimpleFormatter.format>
+			        </systemProperties>
                 </configuration>
             </plugin>
 		</plugins>

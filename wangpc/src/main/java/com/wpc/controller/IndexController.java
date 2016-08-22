@@ -18,6 +18,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.wpc.admin.service.UserService;
+import com.wpc.admin.service.impl.UserServiceImpl;
 
 /**
  * <dl>
@@ -49,6 +52,8 @@ import com.wpc.admin.service.UserService;
 @RequestMapping("/")
 public class IndexController {
 
+	Logger logger = LoggerFactory.getLogger(IndexController.class);
+	
 	@Autowired
 	private UserService userService;
 
@@ -63,6 +68,8 @@ public class IndexController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(ModelMap model) {
+		logger.info("1111111111111");
+		logger.debug("2222222222222");
 		System.out.println(userService.findById(1));
 		return "index";
 	}
