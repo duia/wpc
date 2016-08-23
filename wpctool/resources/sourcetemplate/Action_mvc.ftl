@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.ui.ModelMap;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ${basePackage}.base.BaseAction;
-import ${basePackage}.common.Pagination;
 import ${basePackage}.${moduleName}.${entityPackage}.${entityCamelName};
 import ${basePackage}.${moduleName}.${servicePackage}.${entityCamelName}Service;
 
@@ -32,11 +31,23 @@ import ${basePackage}.${moduleName}.${entityPackage}.${sub.entityCamelName};
  *
  */
 @Controller
-@RequestMapping("/${moduleName}")
-public class ${entityCamelName}Action extends BaseAction {
+@RequestMapping("/${entityLowerName}")
+public class ${entityCamelName}Controller {
 	
 	@Resource(name=${entityCamelName}Service.BEAN_ID)
 	private ${entityCamelName}Service ${entityName}Service;
+	
+	<#if module.persistance=="mybatis">
+	
+	@RequestMapping
+	public String ${entityCamelName}(ModelMap model) {
+		return "${module.name}/${entityLowerName}/${tableName}";
+	}
+	
+	</#if>
+	
+	<#if module.persistance!="mybatis">
+	
 	<#if subTables??>
 		<#list subTables as sub>
 	@Resource(name="${sub.entityName}Action")
@@ -120,6 +131,7 @@ public class ${entityCamelName}Action extends BaseAction {
 		${entityName}Service.remove${entityCamelName}(${entityName});
 		return mv;
 	}
-
+	
+	</#if>
 
 }

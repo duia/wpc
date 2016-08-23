@@ -88,6 +88,7 @@ public class MysqlTableService implements ITableService {
         table.setPrimaryCamelProperty(CodeUtil.convertToCamelCase(table.getPrimaryKey()));
         table.setEntityCamelName(CodeUtil.isEmpty(tbConf.getEntityName())?CodeUtil.convertToCamelCase(table.getTableName()):tbConf.getEntityName());
         table.setEntityName(CodeUtil.convertToFirstLetterLowerCaseCamelCase(table.getTableName()));
+        table.setEntityLowerName(table.getEntityName().toLowerCase());
         table.setModule(module);
         //设置子表的entity属性
         if (!tbConf.getSubTables().isEmpty()) {

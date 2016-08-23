@@ -258,7 +258,7 @@ public class DataBase2File {
     	JSONObject obj = (JSONObject)JSON.toJSON(table);
     	setBaseInfo(obj,module);
     	File saveDir=getSaveFilePath(module,module.getActionPackage());
-    	File saveFile = new File(saveDir,table.getEntityCamelName()+"Action.java");
+    	File saveFile = new File(saveDir,table.getEntityCamelName()+"Controller.java");
     	
     	String templateName="Action";
     	if (module.getFramework().equals("mvc")) {
@@ -290,13 +290,24 @@ public class DataBase2File {
      * @param table 
      */  
     private void generateJspFile(Table table,Module module) {
-    	String[] actions = {"add","edit","list"};
+    	System.out.println(table);
+    	String[] actions = {"color_admin"};//{"add","edit","list"};
+    	String jspPath = File.separator+"webapp"+File.separator+"WEB-INF"+File.separator+module.getViewPackage()+File.separator+module.getName()+File.separator+table.getEntityLowerName();
     	JSONObject obj = (JSONObject)JSON.toJSON(table);
     	setBaseInfo(obj,module);
-    	File saveDir=getSaveFilePath(module,module.getViewPackage());
+    	File saveDir=null;
+    	if (CodeUtil.isEmpty(module.getSavePath())) {
+    		saveDir = new File(config.getBaseDir());
+    		saveDir = saveDir.getParentFile();
+    		saveDir = new File(saveDir, jspPath);
+    	}else{
+    		saveDir = new File(module.getSavePath(), module.getViewPackage());
+    	}
+    	if (!saveDir.exists()) {
+    		saveDir.mkdirs();
+    	}
     	for (String action : actions) {
-	    	File saveFile = new File(saveDir,action+table.getEntityCamelName()+".jsp");
-	    	
+	    	File saveFile = new File(saveDir, table.getTableName()+".jsp");
 	    	String savePath =saveFile.getAbsolutePath();
 	    	System.out.println("生成文件："+savePath);
 	    	FreemarkerUtil.createDoc(obj, "jsp/"+action, savePath);
