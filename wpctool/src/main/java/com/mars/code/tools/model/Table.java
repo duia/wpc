@@ -10,6 +10,7 @@ public class Table {
     private String tableName;  // 表名，去掉prefix
     private String entityName; //实体名
     private String entityCamelName; //完整实体类名
+    private String entityLowerName;  // 表名，去掉prefix
     private String remark; //表注释
     private String primaryKey;//主键
     private String primaryProperty;//主键属性名
@@ -32,14 +33,21 @@ public class Table {
 		this.packageName = packageName;
 	}
 
-	public String getTableName() {  
+	public String getEntityLowerName() {  
+        return entityLowerName;  
+    }  
+  
+    public void setEntityLowerName(String entityLowerName) {  
+        this.entityLowerName = entityLowerName;  
+    }  
+  
+    public String getTableName() {  
         return tableName;  
     }  
   
     public void setTableName(String tableName) {  
         this.tableName = tableName;  
-    }  
-  
+    }
 
 	public String getRemark() {
 		return remark;
@@ -167,6 +175,7 @@ public class Table {
 		return "Table [module=" + module + ", packageName=" + packageName
 				+ ", tableFullName=" + tableFullName + ", tableName="
 				+ tableName + ", entityName=" + entityName
+				+ ", entityLowerName=" + entityLowerName
 				+ ", entityCamelName=" + entityCamelName + ", remark=" + remark
 				+ ", primaryKey=" + primaryKey + ", primaryProperty="
 				+ primaryProperty + ", primaryPropertyType="
