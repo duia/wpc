@@ -9,8 +9,6 @@
 *.ear
 
 /wangpc/target
-
-
 /wpctool/target
 
 /wpctool/resources/config.xml
