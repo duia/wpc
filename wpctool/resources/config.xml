@@ -27,5 +27,6 @@
 		<savePath></savePath>
 		<framework>mvc</framework>
 		<table name="user"></table>
+		
 	</module>
 </configure>
