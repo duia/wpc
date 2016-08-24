@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configure>
+	<basedir>E:/git/wpc/wangpc/src/main/java</basedir>
+	<basePackage>com.wpc</basePackage>
+	<db>
+		<dbName>test</dbName>
+		<user>root</user>
+		<pwd>root</pwd>
+		<driver>com.mysql.jdbc.Driver</driver>
+		<url>jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8</url>
+	</db>
+	<packageSetting>
+		<actionPackage>controller</actionPackage>
+		<daoPackage>dao</daoPackage>
+		<daoImplPackage>impl</daoImplPackage>
+		<servicePackage>service</servicePackage>
+		<serviceImplPackage>impl</serviceImplPackage>
+		<entityPackage>entity</entityPackage>
+		<mapperPackage>mapper</mapperPackage>
+		<viewPackage>views</viewPackage>
+		<isDeleteTablePrefix>true</isDeleteTablePrefix>
+	</packageSetting>
+	<module>
+		<persistance>mybatis</persistance>
+		<name>admin</name>
+		<isDeleteTablePrefix>true</isDeleteTablePrefix>
+		<savePath></savePath>
+		<framework>mvc</framework>
+		<table name="user"></table>
+		
+	</module>
+</configure>
