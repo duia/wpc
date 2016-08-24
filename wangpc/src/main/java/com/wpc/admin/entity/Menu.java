@@ -1,68 +1,113 @@
 package com.wpc.admin.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 菜单实体
- * @author 鹏程
- *
- */
-public class Menu {
+*  实体类
+* author wpc
+*/
+public class Menu implements Serializable {
 
-	private int id;
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * 
+	 */
+	private Integer id;
+	/**
+	 * 
+	 */
 	private String name;
+	/**
+	 * 
+	 */
 	private String url;
+	/**
+	 * 
+	 */
 	private String icon;
-	private int pId;
-	private int isActive;
+	/**
+	 * 
+	 */
+	private Integer pid;
+	/**
+	 * 
+	 */
+	private Integer isActive;
+	/**
+	 * 
+	 */
 	private Date updateTime;
-	public int getId() {
-		return id;
+	
+	public void setId(Integer id){
+		this.id=id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public String getIcon() {
-		return icon;
-	}
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-	public int getpId() {
-		return pId;
-	}
-	public void setpId(int pId) {
-		this.pId = pId;
-	}
-	public int getIsActive() {
-		return isActive;
-	}
-	public void setIsActive(int isActive) {
-		this.isActive = isActive;
-	}
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-	@Override
-	public String toString() {
-		return "Menu [id=" + id + ", name=" + name + ", url=" + url + ", icon="
-				+ icon + ", pId=" + pId + ", isActive=" + isActive
-				+ ", updateTime=" + updateTime + "]";
+	public Integer getId(){
+		return this.id;
 	}
 	
+	public void setName(String name){
+		this.name=name;
+	}
+	public String getName(){
+		return this.name;
+	}
+	
+	public void setUrl(String url){
+		this.url=url;
+	}
+	public String getUrl(){
+		return this.url;
+	}
+	
+	public void setIcon(String icon){
+		this.icon=icon;
+	}
+	public String getIcon(){
+		return this.icon;
+	}
+	
+	public void setPid(Integer pid){
+		this.pid=pid;
+	}
+	public Integer getPid(){
+		return this.pid;
+	}
+	
+	public void setIsActive(Integer isActive){
+		this.isActive=isActive;
+	}
+	public Integer getIsActive(){
+		return this.isActive;
+	}
+	
+	public void setUpdateTime(Date updateTime){
+		this.updateTime=updateTime;
+	}
+	public Date getUpdateTime(){
+		return this.updateTime;
+	}
+	
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("Menu[");
+		sb.append("id=");
+		sb.append(id);
+		sb.append(",name=");
+		sb.append(name);
+		sb.append(",url=");
+		sb.append(url);
+		sb.append(",icon=");
+		sb.append(icon);
+		sb.append(",pid=");
+		sb.append(pid);
+		sb.append(",isActive=");
+		sb.append(isActive);
+		sb.append(",updateTime=");
+		sb.append(updateTime);
+		sb.append("]");
+		return sb.toString();
+	}
 }

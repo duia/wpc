@@ -107,6 +107,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		data: {
 			simpleData: {
 				enable: true
+			},
+			key: {
+				url: ''
 			}
 		},
 		view: {
@@ -119,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	};
 
-	var zNodes =[
+	/* var zNodes =[
 		{ id:1, pId:0, name:'<i class="fa fa-home"></i> 父节点1 - 展开', open:true},
 		{ id:11, pId:1, name:"父节点11 - 折叠"},
 		{ id:111, pId:11, name:"叶子节点111"},
@@ -149,23 +152,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		{ id:233, pId:23, name:"叶子节点233"},
 		{ id:234, pId:23, name:"叶子节点234"},
 		{ id:3, pId:0, name:"父节点3 - 没有子节点", isParent:true}
-	];
+	]; */
 
-	$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-	
 	$("#form").validate({
 		submitHandler: function(form) {
-		    console.log();
 		    $.ajax({
 		    	url:'menu/addOrUpdate',
 		    	data:$(form).serialize(),
 		    	type:'post',
 		    	success:function(result){
-		    		
+		    		if(result.code == '200'){
+			    		initMenus();
+		    		}else{
+						alert(result.msg);		    			
+		    		}
 		    	}
 		    });
 	    }
     });
+	
+	var initMenus = function(){
+		$.ajax({
+			url:'menu/getAllMenus',
+	    	data:{},
+	    	type:'post',
+	    	success:function(result){
+	    		$(result).each(function(index, menu){
+	    			menu.name = '<i class="'+menu.icon+'"></i> '+menu.name;
+	    		});
+	    		$.fn.zTree.init($("#treeDemo"), setting, result);
+	    	}
+		});
+	}
+	
+	initMenus();
 	
 })();
 </script>
