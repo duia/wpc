@@ -4,6 +4,7 @@ import ${basePackage}.${moduleName}.${entityPackage}.${entityCamelName};
 import ${basePackage}.common.BaseDao;
 /**
  * ${remark!}操作相关
+ * author wpc
  */
 public interface ${entityCamelName}Dao extends BaseDao<${entityCamelName}, ${primaryPropertyType}> {
 	

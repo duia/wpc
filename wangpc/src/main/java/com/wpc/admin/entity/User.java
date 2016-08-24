@@ -5,6 +5,7 @@ import java.util.Date;
 
 /**
 * 
+* author wpc
 */
 public class User implements Serializable {
 

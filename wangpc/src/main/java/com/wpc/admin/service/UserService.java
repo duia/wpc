@@ -5,6 +5,7 @@ import com.wpc.common.BaseService;
 
 /**
  * 操作相关
+ * author wpc
  */
 public interface UserService extends BaseService<User, Integer> {
 	

@@ -5,6 +5,7 @@ import ${basePackage}.common.BaseService;
 
 /**
  * ${remark!}操作相关
+ * author wpc
  */
 public interface ${entityCamelName}Service extends BaseService<${entityCamelName}, ${primaryPropertyType}> {
 	

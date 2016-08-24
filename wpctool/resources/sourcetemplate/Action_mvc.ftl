@@ -14,11 +14,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ${basePackage}.${moduleName}.${entityPackage}.${entityCamelName};
 import ${basePackage}.${moduleName}.${servicePackage}.${entityCamelName}Service;
+import com.wpc.common.ResponseJsonModel;
 
 <#if subTables??>
 	<#list subTables as sub>
@@ -27,8 +29,8 @@ import ${basePackage}.${moduleName}.${entityPackage}.${sub.entityCamelName};
 </#if>
 
 /**
- * ${remark!}
- *
+ * ${remark!} 控制层
+ * author wpc
  */
 @Controller
 @RequestMapping("/${entityLowerName}")
@@ -38,10 +40,38 @@ public class ${entityCamelName}Controller {
 	private ${entityCamelName}Service ${entityName}Service;
 	
 	<#if module.persistance=="mybatis">
-	
+	/**
+	 * 页面跳转
+	 */
 	@RequestMapping
-	public String ${entityCamelName}(ModelMap model) {
+	public String ${entityName}(ModelMap model) {
 		return "${module.name}/${entityLowerName}/${tableName}";
+	}
+	
+	/**
+	 * 保存或更新
+	 */
+	@RequestMapping(value="/addOrUpdate", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseJsonModel addOrUpdate(ModelMap model, ${entityCamelName} ${entityName}) {
+		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+		if(${entityName}.get${primaryCamelProperty}()!=null && ${entityName}.get${primaryCamelProperty}()!=0){
+			${entityName}Service.update(${entityName});
+		}else{
+			${entityName}Service.save(${entityName});
+		}
+		return responseJsonModel;
+	}
+	
+	/**
+	 * 删除
+	 */
+	@RequestMapping(value="/delete", method=RequestMethod.POST)
+	@ResponseBody
+	public ResponseJsonModel delete(ModelMap model, ${primaryPropertyType} ${primaryKey}) {
+		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+		${entityName}Service.delete(${primaryKey});
+		return responseJsonModel;
 	}
 	
 	</#if>

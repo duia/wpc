@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wpc.admin.entity.Menu;
+import com.wpc.common.ResponseJsonModel;
 
 /**
  * <dl>
@@ -49,9 +50,10 @@ public class MenuController {
 	
 	@RequestMapping(value="/addOrUpdate", method=RequestMethod.POST)
 	@ResponseBody
-	public String addOrUpdate(ModelMap model, Menu menu) {
+	public ResponseJsonModel addOrUpdate(ModelMap model, Menu menu) {
+		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
 		System.out.println(menu);
-		return "";
+		return responseJsonModel;
 	}
 
 }

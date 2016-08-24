@@ -13,6 +13,7 @@ import com.wpc.common.BaseServiceImpl;
 
 /**
  * 操作相关
+ * author wpc
  */
 @Service(UserService.BEAN_ID)
 public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements UserService {

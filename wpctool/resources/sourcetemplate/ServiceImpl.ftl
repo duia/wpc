@@ -13,6 +13,7 @@ import ${basePackage}.common.BaseServiceImpl;
 
 /**
  * ${remark!}操作相关
+ * author wpc
  */
 @Service(${entityCamelName}Service.BEAN_ID)
 public class ${entityCamelName}ServiceImpl extends BaseServiceImpl<${entityCamelName}, ${primaryPropertyType}> implements ${entityCamelName}Service {

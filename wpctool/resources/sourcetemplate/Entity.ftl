@@ -22,8 +22,8 @@ import ${imp!};
 </#if>
 
 /**
-* ${remark!}
-* autor wpc
+* ${remark!} 实体类
+* author wpc
 */
 <#if module.persistance=="hibernate" || module.persistance=="jpa">
 @Entity
