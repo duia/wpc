@@ -1,4 +1,5 @@
 package com.wpc.admin.controller;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -40,6 +41,7 @@ public class MenuController {
 	@ResponseBody
 	public ResponseJsonModel addOrUpdate(ModelMap model, Menu menu) {
 		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+		menu.setUpdateTime(new Date());
 		if(menu.getId()!=null && menu.getId()!=0){
 			menuService.update(menu);
 		}else{
@@ -59,10 +61,28 @@ public class MenuController {
 		return responseJsonModel;
 	}
 	
+	/**
+	 * 获取所有菜单
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/getAllMenus", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Menu> getAllMenus(ModelMap model) {
 		return menuService.queryAll();
+	}
+	
+	/**
+	 * 主页面获取可用菜单
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/getLeftMenus", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Menu> getLeftMenus(ModelMap model) {
+		Menu query = new Menu();
+		query.setIsActive(1);
+		return menuService.search(query);
 	}
 
 }

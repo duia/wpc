@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <i class="fa fa-info-circle fa-fw"></i> 添加菜单后需要在左边的菜单列表进行拖拽来调整结构。
                 </div>
                 <div class="panel-body">
-                	<form method="POST" action="/" id="form">
+                	<form id="form">
                         <fieldset>
                             <legend>菜单信息</legend>
                             <div class="form-group">
@@ -85,9 +85,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="isShow"> 是否启用
+                                    <input type="checkbox" name="isActive" id="isActive" value="1"> 是否启用
                                 </label>
                             </div>
+                            <input type="hidden" name="pId" value="" id="pId">
+                            <input type="hidden" name="id" value="" id="id">
                             <button class="btn btn-sm btn-primary m-r-5" type="submit">保存</button>
                             <button class="btn btn-sm btn-default" type="reset">重置</button>
                         </fieldset>
@@ -114,7 +116,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		},
    		data: {
 			simpleData: {
-				enable: true
+				enable: true,
+				pIdKey: "pid",
 			},
 			key: {
 				url: ''
@@ -123,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		view: {
 			addHoverDom: addHoverDom,
 			removeHoverDom: removeHoverDom,
-			dblClickExpand: false,
+			//dblClickExpand: false,
 			showLine: true,
 			selectedMulti: false,
 			nameIsHTML: true, //为了可以使用fontawesome
@@ -131,19 +134,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			showIcon: false
 		},
 		callback: {
-			beforeRemove: beforeRemove,
+			//beforeRemove: beforeRemove,
 			onRemove: onRemove,
 			onClick: onClick,
 			onDblClick: onDblClick
 		}
 	}, treeObj;
 
-    function beforeRemove(treeId, treeNode) {
+    /* function beforeRemove(treeId, treeNode) {
 		treeObj.selectNode(treeNode);
 		return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
-	}
+	} */
 	function onRemove(e, treeId, treeNode) {
-		console.log("[ "+getTime()+" onRemove ] " + treeNode.name);
+		$.ajax({
+	    	url:'menu/delete',
+	    	data:{id:treeNode.id},
+	    	type:'post',
+	    	success:function(result){
+	    		if(result.code == '200'){
+	    		}else{
+	    		}
+	    	}
+	    });
 	}
 	var TimeFn = null;
 	function onClick(event, treeId, treeNode){
@@ -154,6 +166,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        //do function在此处写单击事件要执行的代码
 			console.log('单击');
 	        console.log(treeNode);
+	        $('#name').val($(treeNode.name).text().trim() || treeNode.name);
+	        $('#url').val(treeNode.url);
+	        $('#icon').val(treeNode.icon);
+	        treeNode.isActive?$('#isActive').attr('checked',true):$('#isActive').attr('checked',false);
+	        $('#pId').val(treeNode.pid);
+	        $('#id').val(treeNode.id);
 	    },200);
 	}
 	function onDblClick(event, treeId, treeNode){
@@ -175,16 +193,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		return (h+":"+m+":"+s+ " " +ms);
 	}
 
-	var newCount = 1;
 	function addHoverDom(treeId, treeNode) {
-		if ((treeNode.id == 0 || treeNode.pId == 0 || treeNode.pId == null) && $("#addBtn_"+treeNode.tId).length==0){
+		if ((treeNode.id == 0 || treeNode.pid == 0 || treeNode.pid == null) && $("#addBtn_"+treeNode.tId).length==0){
 			var sObj = $("#" + treeNode.tId + "_span");
 			var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
 				+ "' title='add node' onfocus='this.blur();'></span>";
 			sObj.after(addStr);
 			var btn = $("#addBtn_"+treeNode.tId);
 			if (btn) btn.bind("click", function(){
-				treeObj.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+				treeObj.addNodes(treeNode, {id:null, pId:treeNode.id, name:"新增菜单"});
 				return false;
 			});
 		}
@@ -212,6 +229,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 	
 	var initMenus = function(){
+		var menus = [];
+		menus.push({ id:0, pId:null, name:"菜单", open:true});
 		$.ajax({
 			url:'menu/getAllMenus',
 	    	data:{},
@@ -219,8 +238,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	success:function(result){
 	    		$(result).each(function(index, menu){
 	    			menu.name = '<i class="'+menu.icon+'"></i> '+menu.name;
+	    			//menu.pId = menu.pid;
+	    			menus.push(menu);
 	    		});
-	    		treeObj = $.fn.zTree.init($("#treeDemo"), setting, result);
+	    		treeObj = $.fn.zTree.init($("#treeDemo"), setting, menus);
+	    		treeObj.expandAll(true);
 	    	}
 		});
 	}

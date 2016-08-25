@@ -30,7 +30,7 @@ public class Menu implements Serializable {
 	/**
 	 * 
 	 */
-	private Integer pid;
+	private Integer pId;
 	/**
 	 * 
 	 */
@@ -68,11 +68,11 @@ public class Menu implements Serializable {
 		return this.icon;
 	}
 	
-	public void setPid(Integer pid){
-		this.pid=pid;
+	public void setPId(Integer pId){
+		this.pId=pId;
 	}
-	public Integer getPid(){
-		return this.pid;
+	public Integer getPId(){
+		return this.pId;
 	}
 	
 	public void setIsActive(Integer isActive){
@@ -101,8 +101,8 @@ public class Menu implements Serializable {
 		sb.append(url);
 		sb.append(",icon=");
 		sb.append(icon);
-		sb.append(",pid=");
-		sb.append(pid);
+		sb.append(",pId=");
+		sb.append(pId);
 		sb.append(",isActive=");
 		sb.append(isActive);
 		sb.append(",updateTime=");
