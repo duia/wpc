@@ -17,6 +17,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta content="" name="author" />
 <link href="static/plugins/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
 <link href="static/plugins/jquery-validation-1.14.0/css/validation.css" rel="stylesheet" />
+<style>
+.ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+</style>
 </head>
 <body>
 <div id="content" class="content">
@@ -104,7 +107,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     App.setPageTitle('菜单管理');
     
     var setting = {
-		data: {
+		edit: {
+			enable: true,
+			showRemoveBtn: showRemoveBtn,
+			showRenameBtn: false
+		},
+   		data: {
 			simpleData: {
 				enable: true
 			},
@@ -113,46 +121,78 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		},
 		view: {
+			addHoverDom: addHoverDom,
+			removeHoverDom: removeHoverDom,
 			dblClickExpand: false,
 			showLine: true,
 			selectedMulti: false,
 			nameIsHTML: true, //为了可以使用fontawesome
 			showTitle:false,
 			showIcon: false
+		},
+		callback: {
+			beforeRemove: beforeRemove,
+			onRemove: onRemove,
+			onClick: onClick,
+			onDblClick: onDblClick
 		}
-	};
+	}, treeObj;
 
-	/* var zNodes =[
-		{ id:1, pId:0, name:'<i class="fa fa-home"></i> 父节点1 - 展开', open:true},
-		{ id:11, pId:1, name:"父节点11 - 折叠"},
-		{ id:111, pId:11, name:"叶子节点111"},
-		{ id:112, pId:11, name:"叶子节点112"},
-		{ id:113, pId:11, name:"叶子节点113"},
-		{ id:114, pId:11, name:"叶子节点114"},
-		{ id:12, pId:1, name:"父节点12 - 折叠"},
-		{ id:121, pId:12, name:"叶子节点121"},
-		{ id:122, pId:12, name:"叶子节点122"},
-		{ id:123, pId:12, name:"叶子节点123"},
-		{ id:124, pId:12, name:"叶子节点124"},
-		{ id:13, pId:1, name:"父节点13 - 没有子节点", isParent:true},
-		{ id:2, pId:0, name:"父节点2 - 折叠"},
-		{ id:21, pId:2, name:"父节点21 - 展开", open:true},
-		{ id:211, pId:21, name:"叶子节点211"},
-		{ id:212, pId:21, name:"叶子节点212"},
-		{ id:213, pId:21, name:"叶子节点213"},
-		{ id:214, pId:21, name:"叶子节点214"},
-		{ id:22, pId:2, name:"父节点22 - 折叠"},
-		{ id:221, pId:22, name:"叶子节点221"},
-		{ id:222, pId:22, name:"叶子节点222"},
-		{ id:223, pId:22, name:"叶子节点223"},
-		{ id:224, pId:22, name:"叶子节点224"},
-		{ id:23, pId:2, name:"父节点23 - 折叠"},
-		{ id:231, pId:23, name:"叶子节点231"},
-		{ id:232, pId:23, name:"叶子节点232"},
-		{ id:233, pId:23, name:"叶子节点233"},
-		{ id:234, pId:23, name:"叶子节点234"},
-		{ id:3, pId:0, name:"父节点3 - 没有子节点", isParent:true}
-	]; */
+    function beforeRemove(treeId, treeNode) {
+		treeObj.selectNode(treeNode);
+		return confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+	}
+	function onRemove(e, treeId, treeNode) {
+		console.log("[ "+getTime()+" onRemove ] " + treeNode.name);
+	}
+	var TimeFn = null;
+	function onClick(event, treeId, treeNode){
+		// 取消上次延时未执行的方法
+	    clearTimeout(TimeFn);
+	    //执行延时
+	    TimeFn = setTimeout(function(){
+	        //do function在此处写单击事件要执行的代码
+			console.log('单击');
+	        console.log(treeNode);
+	    },200);
+	}
+	function onDblClick(event, treeId, treeNode){
+		// 取消上次延时未执行的方法
+	    clearTimeout(TimeFn);
+	    //双击事件的执行代码
+		console.log('双击');
+        console.log(treeNode);
+	}
+	function showRemoveBtn(treeId, treeNode) {
+		return !treeNode.isParent;
+	}
+	function getTime() {
+		var now= new Date(),
+		h=now.getHours(),
+		m=now.getMinutes(),
+		s=now.getSeconds(),
+		ms=now.getMilliseconds();
+		return (h+":"+m+":"+s+ " " +ms);
+	}
+
+	var newCount = 1;
+	function addHoverDom(treeId, treeNode) {
+		if ((treeNode.id == 0 || treeNode.pId == 0 || treeNode.pId == null) && $("#addBtn_"+treeNode.tId).length==0){
+			var sObj = $("#" + treeNode.tId + "_span");
+			var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+				+ "' title='add node' onfocus='this.blur();'></span>";
+			sObj.after(addStr);
+			var btn = $("#addBtn_"+treeNode.tId);
+			if (btn) btn.bind("click", function(){
+				treeObj.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});
+				return false;
+			});
+		}
+		
+	};
+	function removeHoverDom(treeId, treeNode) {
+		$("#addBtn_"+treeNode.tId).unbind().remove();
+	};
 
 	$("#form").validate({
 		submitHandler: function(form) {
@@ -180,7 +220,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		$(result).each(function(index, menu){
 	    			menu.name = '<i class="'+menu.icon+'"></i> '+menu.name;
 	    		});
-	    		$.fn.zTree.init($("#treeDemo"), setting, result);
+	    		treeObj = $.fn.zTree.init($("#treeDemo"), setting, result);
 	    	}
 		});
 	}
