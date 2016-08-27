@@ -1,5 +1,7 @@
 package com.wpc.admin.dao;
 
+import java.util.List;
+
 import com.wpc.admin.entity.Menu;
 import com.wpc.common.BaseDao;
 /**
@@ -9,5 +11,7 @@ import com.wpc.common.BaseDao;
 public interface MenuDao extends BaseDao<Menu, Integer> {
 	
 	public final static String BEAN_ID="menuDao";
+	
+	public List<Menu> getLeftMenu();
 	
 }

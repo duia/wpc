@@ -8,7 +8,29 @@
 	    <result column="icon" property="icon" />
 	    <result column="p_id" property="pId" />
 	    <result column="is_active" property="isActive" />
+	    <result column="sort_num" property="sortNum" />
 	    <result column="update_time" property="updateTime" />
+  	</resultMap>
+  	
+  	<resultMap id="MenuAndChildren" type="com.wpc.admin.entity.Menu" >
+    	<id column="id" property="id" />
+	    <result column="name" property="name" />
+	    <result column="url" property="url" />
+	    <result column="icon" property="icon" />
+	    <result column="p_id" property="pId" />
+	    <result column="is_active" property="isActive" />
+	    <result column="sort_num" property="sortNum" />
+	    <result column="update_time" property="updateTime" />
+	    <collection property="children" ofType="com.wpc.admin.entity.Menu">
+	    	<id column="c_id" property="id" />
+		    <result column="c_name" property="name" />
+		    <result column="c_url" property="url" />
+		    <result column="c_icon" property="icon" />
+		    <result column="c_p_id" property="pId" />
+		    <result column="c_is_active" property="isActive" />
+		    <result column="c_sort_num" property="sortNum" />
+		    <result column="c_update_time" property="updateTime" />
+	    </collection>
   	</resultMap>
   
   	<sql id="table_columns" >
@@ -18,6 +40,7 @@
 	    icon,
 	    p_id,
 	    is_active,
+	    sort_num,
 	    update_time
   	</sql>
   	<sql id="entity_properties">
@@ -27,6 +50,7 @@
 	  	#{icon},
 	  	#{pId},
 	  	#{isActive},
+	  	#{sortNum},
 	  	#{updateTime}
   	</sql>
   
@@ -56,6 +80,7 @@
 		  	icon = #{icon},
 		  	<if test="pId != null and pId != ''">p_id = #{pId},</if>
 		  	is_active = #{isActive},
+		  	<if test="sortNum != null and sortNum != ''">sort_num = #{sortNum},</if>
 		  	<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
 	  	</trim>
 	  	<where>id=#{id}</where>
@@ -70,6 +95,7 @@
   	<select id="queryAll" resultMap="BaseResultMap">
   		SELECT <include refid="table_columns"/> 
   		FROM menu 
+  		ORDER BY sort_num
   	</select>
   	
   	<sql id="page_where">
@@ -79,6 +105,7 @@
 		  	<if test="icon != null and icon != ''">icon = #{icon}</if>
 		  	<if test="pId != null and pId != ''">p_id = #{pId}</if>
 		  	<if test="isActive != null and isActive != ''">is_active = #{isActive}</if>
+		  	<if test="sortNum != null and sortNum != ''">sort_num = #{sortNum}</if>
 		  	<if test="updateTime != null and updateTime != ''">update_time = #{updateTime}</if>
 	  	</trim>
   	</sql>
@@ -87,6 +114,7 @@
   		SELECT <include refid="table_columns"/> 
   		FROM menu
   		<include refid="page_where" />
+  		ORDER BY sort_num
   	</select>
   	
   	<select id="page" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.Menu">
@@ -103,5 +131,33 @@
   	</select>
   	
   	<!-- 其他自定义SQL -->
+  	<select id="getLeftMenu" resultMap="MenuAndChildren">
+  		SELECT
+			m.id,
+		    m.name,
+		    m.url,
+		    m.icon,
+		    m.p_id,
+		    m.is_active,
+		    m.sort_num,
+		    m.update_time,
+		    mc.id c_id,
+		    mc.name c_name,
+		    mc.url c_url,
+		    mc.icon c_icon,
+		    mc.p_id c_p_id,
+		    mc.is_active c_is_active,
+		    mc.sort_num c_sort_num,
+		    mc.update_time c_update_time
+		FROM
+			menu m
+		LEFT JOIN
+			menu mc
+		ON m.id = mc.p_id 
+		AND mc.is_active = 1
+		WHERE m.p_id = 0
+		AND m.is_active = 1
+		ORDER BY m.sort_num,mc.sort_num
+  	</select>
   	
 </mapper>

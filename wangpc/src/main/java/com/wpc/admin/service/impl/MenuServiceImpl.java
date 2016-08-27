@@ -1,5 +1,7 @@
 package com.wpc.admin.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -22,6 +24,12 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu, Integer> implements M
 
 	@Resource(name=MenuDao.BEAN_ID)
 	private MenuDao menuDao;
+
+	@Override
+	public List<Menu> getLeftMenu() {
+		// TODO Auto-generated method stub
+		return menuDao.getLeftMenu();
+	}
 
 
 }

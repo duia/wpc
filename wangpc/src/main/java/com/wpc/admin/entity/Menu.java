@@ -2,6 +2,7 @@ package com.wpc.admin.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
 *  实体类
@@ -35,11 +36,20 @@ public class Menu implements Serializable {
 	 * 
 	 */
 	private Integer isActive;
+	private Integer sortNum;
 	/**
 	 * 
 	 */
 	private Date updateTime;
 	
+	private List<Menu> children;
+	
+	public List<Menu> getChildren() {
+		return children;
+	}
+	public void setChildren(List<Menu> children) {
+		this.children = children;
+	}
 	public void setId(Integer id){
 		this.id=id;
 	}
@@ -89,6 +99,12 @@ public class Menu implements Serializable {
 		return this.updateTime;
 	}
 	
+	public Integer getSortNum() {
+		return sortNum;
+	}
+	public void setSortNum(Integer sortNum) {
+		this.sortNum = sortNum;
+	}
 	@Override
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
@@ -105,6 +121,8 @@ public class Menu implements Serializable {
 		sb.append(pId);
 		sb.append(",isActive=");
 		sb.append(isActive);
+		sb.append(",sortNum=");
+		sb.append(sortNum);
 		sb.append(",updateTime=");
 		sb.append(updateTime);
 		sb.append("]");

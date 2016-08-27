@@ -77,12 +77,10 @@ public class MenuController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/getLeftMenus", method=RequestMethod.POST)
+	@RequestMapping(value="/getLeftMenus")
 	@ResponseBody
 	public List<Menu> getLeftMenus(ModelMap model) {
-		Menu query = new Menu();
-		query.setIsActive(1);
-		return menuService.search(query);
+		return menuService.getLeftMenu();
 	}
 
 }

@@ -83,6 +83,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label for="icon">图标</label>
                                 <input type="text" placeholder="图标代码" id="icon" name="icon" class="form-control">
                             </div>
+                            <div class="form-group">
+                                <label for="sortNum">排序</label>
+                                <input type="text" placeholder="序号" id="sortNum" name="sortNum" class="form-control">
+                            </div>
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" name="isActive" id="isActive" value="1"> 是否启用
@@ -164,12 +168,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    //执行延时
 	    TimeFn = setTimeout(function(){
 	        //do function在此处写单击事件要执行的代码
-			console.log('单击');
-	        console.log(treeNode);
 	        $('#name').val($(treeNode.name).text().trim() || treeNode.name);
 	        $('#url').val(treeNode.url);
 	        $('#icon').val(treeNode.icon);
 	        treeNode.isActive?$('#isActive').attr('checked',true):$('#isActive').attr('checked',false);
+	        treeNode.sortNum?$('#sortNum').val(treeNode.sortNum):$('#sortNum').val(999);
 	        $('#pId').val(treeNode.pid);
 	        $('#id').val(treeNode.id);
 	    },200);
@@ -183,14 +186,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	}
 	function showRemoveBtn(treeId, treeNode) {
 		return !treeNode.isParent;
-	}
-	function getTime() {
-		var now= new Date(),
-		h=now.getHours(),
-		m=now.getMinutes(),
-		s=now.getSeconds(),
-		ms=now.getMilliseconds();
-		return (h+":"+m+":"+s+ " " +ms);
 	}
 
 	function addHoverDom(treeId, treeNode) {
