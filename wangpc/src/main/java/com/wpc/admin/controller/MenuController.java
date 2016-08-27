@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wpc.admin.entity.Menu;
 import com.wpc.admin.service.MenuService;
-import com.wpc.common.ResponseJsonModel;
+import com.wpc.common.AjaxResult;
 
 
 /**
@@ -39,15 +39,14 @@ public class MenuController {
 	 */
 	@RequestMapping(value="/addOrUpdate", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonModel addOrUpdate(ModelMap model, Menu menu) {
-		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+	public AjaxResult addOrUpdate(ModelMap model, Menu menu) {
 		menu.setUpdateTime(new Date());
 		if(menu.getId()!=null && menu.getId()!=0){
 			menuService.update(menu);
 		}else{
 			menuService.save(menu);
 		}
-		return responseJsonModel;
+		return AjaxResult.success();
 	}
 	
 	/**
@@ -55,10 +54,9 @@ public class MenuController {
 	 */
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonModel delete(ModelMap model, Integer id) {
-		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+	public AjaxResult delete(ModelMap model, Integer id) {
 		menuService.delete(id);
-		return responseJsonModel;
+		return AjaxResult.success();
 	}
 	
 	/**

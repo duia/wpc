@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wpc.admin.entity.User;
 import com.wpc.admin.service.UserService;
-import com.wpc.common.ResponseJsonModel;
+import com.wpc.common.AjaxResult;
 
 
 /**
@@ -36,8 +36,8 @@ public class UserController {
 	 */
 	@RequestMapping(value="/addOrUpdate", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonModel addOrUpdate(ModelMap model, User user) {
-		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+	public AjaxResult addOrUpdate(ModelMap model, User user) {
+		AjaxResult responseJsonModel = new AjaxResult();
 		if(user.getId()!=null && user.getId()!=0){
 			userService.update(user);
 		}else{
@@ -51,8 +51,8 @@ public class UserController {
 	 */
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonModel delete(ModelMap model, Integer id) {
-		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+	public AjaxResult delete(ModelMap model, Integer id) {
+		AjaxResult responseJsonModel = new AjaxResult();
 		userService.delete(id);
 		return responseJsonModel;
 	}
