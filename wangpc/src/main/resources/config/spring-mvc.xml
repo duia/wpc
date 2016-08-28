@@ -74,5 +74,28 @@
 	<mvc:resources mapping="/static/plugins/**" location="/static/plugins/" />
 	<mvc:resources mapping="/static/html/**" location="/static/html/" />
 	<mvc:resources mapping="/ueditor/**" location="/ueditor/" />
+	
+    <!-- 无权限 控制后台不报错 -->  
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+        <property name="exceptionMappings">  
+            <props>  
+                <!-- 处理其它异常(包括Controller抛出的) -->  
+                <prop key="java.lang.Throwable">500</prop>
+                
+                <prop key="org.apache.shiro.authz.UnauthorizedException">../405</prop>
+                <prop key="org.apache.shiro.authz.UnauthenticatedException">../405</prop>
+            </props>  
+        </property>  
+    </bean>
+    
+    <!-- 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证 -->  
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"  
+        depends-on="lifecycleBeanPostProcessor">  
+        <property name="proxyTargetClass" value="true" />  
+    </bean>  
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
+        <property name="securityManager" ref="securityManager" />  
+    </bean>
+  
 
 </beans>

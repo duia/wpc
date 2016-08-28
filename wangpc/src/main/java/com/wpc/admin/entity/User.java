@@ -32,6 +32,14 @@ public class User implements Serializable {
 	 */
 	private Date updateTime;
 	
+	public User() {
+		super();
+	}
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
 	public void setId(Integer id){
 		this.id=id;
 	}

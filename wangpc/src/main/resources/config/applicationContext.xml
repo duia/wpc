@@ -15,6 +15,7 @@
      	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 	
    <import resource="spring-mybatis.xml"/>
+   <import resource="spring-shiro.xml"/>
 
 	<!-- 配置定时执行计划  -->
 	<!-- <bean id="app" class="com.wpc.app.App" />
