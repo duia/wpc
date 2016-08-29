@@ -18,17 +18,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta content="" name="author" />
 
 <!-- ================== BEGIN BASE CSS STYLE ================== -->
-<link href="static/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.css" rel="stylesheet" />
-<link href="static/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="static/plugins/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
-<link href="static/plugins/color_admin/css/animate.min.css" rel="stylesheet" />
-<link href="static/plugins/color_admin/css/style.min.css" rel="stylesheet" />
-<link href="static/plugins/color_admin/css/style-responsive.min.css" rel="stylesheet" />
-<link href="static/plugins/color_admin/css/theme/default.css" rel="stylesheet" id="theme" />
+<link href="/static/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.css" rel="stylesheet" />
+<link href="/static/plugins/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/static/plugins/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+<link href="/static/plugins/color_admin/css/animate.min.css" rel="stylesheet" />
+<link href="/static/plugins/color_admin/css/style.min.css" rel="stylesheet" />
+<link href="/static/plugins/color_admin/css/style-responsive.min.css" rel="stylesheet" />
+<link href="/static/plugins/color_admin/css/theme/default.css" rel="stylesheet" id="theme" />
 <!-- ================== END BASE CSS STYLE ================== -->
 
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
-<script src="static/plugins/pace/pace.min.js"></script>
+<script src="/static/plugins/pace/pace.min.js"></script>
 <!-- ================== END PAGE LEVEL STYLE ================== -->
 </head>
 <body>
@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown navbar-user">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-							<img src="static/plugins/color_admin/img/user-11.jpg" alt="" />
+							<img src="/static/plugins/color_admin/img/user-11.jpg" alt="" />
 							<span class="hidden-xs">Adam Schwartz</span> <b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu animated fadeInLeft">
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li class="nav-profile">
 						<div class="image">
 							<a href="javascript:;">
-								<img src="static/plugins/color_admin/img/user-11.jpg" alt="" />
+								<img src="/static/plugins/color_admin/img/user-11.jpg" alt="" />
 							</a>
 						</div>
 						<div class="info">
@@ -179,23 +179,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 
 <!-- ================== BEGIN BASE JS ================== -->
-<script src="static/js/jquery-2.1.3.min.js"></script>
-<script src="static/js/jquery-migrate-1.1.0.min.js"></script>
-<script src="static/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
-<script src="static/plugins/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery-2.1.3.min.js"></script>
+<script src="/static/js/jquery-migrate-1.1.0.min.js"></script>
+<script src="/static/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
+<script src="/static/plugins/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <!--[if lt IE 9]>
-<script src="static/plugins/color_admin/crossbrowserjs/html5shiv.js"></script>
-<script src="static/plugins/color_admin/crossbrowserjs/respond.min.js"></script>
-<script src="static/plugins/color_admin/crossbrowserjs/excanvas.min.js"></script>
+<script src="/static/plugins/color_admin/crossbrowserjs/html5shiv.js"></script>
+<script src="/static/plugins/color_admin/crossbrowserjs/respond.min.js"></script>
+<script src="/static/plugins/color_admin/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
-<script src="static/plugins/jquery-hashchange/jquery.hashchange.min.js"></script>
-<script src="static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="static/plugins/jquery-cookie/jquery.cookie.js"></script>
+<script src="/static/plugins/jquery-hashchange/jquery.hashchange.min.js"></script>
+<script src="/static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/static/plugins/jquery-cookie/jquery.cookie.js"></script>
 <!-- ================== END BASE JS ================== -->
 
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
-<script src="static/plugins/color_admin/js/apps.js"></script>
-<script src="static/js/index.js"></script>
+<script src="/static/plugins/color_admin/js/apps.js"></script>
+<script src="/static/js/index.js"></script>
 <!-- ================== END PAGE LEVEL JS ================== -->
 <script>
 	

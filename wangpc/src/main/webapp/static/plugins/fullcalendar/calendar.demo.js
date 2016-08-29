@@ -133,7 +133,7 @@ var Calendar = function () {
     return {
         //main function
         init: function () {
-            $.getScript('static/plugins/fullcalendar/fullcalendar.js').done(function() {
+            $.getScript('/static/plugins/fullcalendar/fullcalendar.js').done(function() {
                 handleCalendarDemo();
             });
         }

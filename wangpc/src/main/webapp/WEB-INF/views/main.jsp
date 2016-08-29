@@ -16,7 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
-<link href="static/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" />
+<link href="/static/plugins/fullcalendar/fullcalendar.css" rel="stylesheet" />
 </head>
 <body>
 <div id="content" class="content">
@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     App.restartGlobalFunction();
     App.setPageTitle('首页');
 
-    $.getScript('static/plugins/fullcalendar/calendar.demo.js').done(function() {
+    $.getScript('/static/plugins/fullcalendar/calendar.demo.js').done(function() {
         Calendar.init();
     });
 </script>
