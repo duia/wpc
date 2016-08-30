@@ -79,11 +79,8 @@
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
         <property name="exceptionMappings">  
             <props>  
-                <!-- 处理其它异常(包括Controller抛出的) -->  
-                <prop key="java.lang.Throwable">500</prop>
-                
-                <prop key="org.apache.shiro.authz.UnauthorizedException">../405</prop>
-                <prop key="org.apache.shiro.authz.UnauthenticatedException">../405</prop>
+                <!-- 处理其它异常(包括Controller抛出的) -->
+                <prop key="org.apache.shiro.authz.UnauthorizedException">redirect:/shiro/401</prop>
             </props>  
         </property>  
     </bean>

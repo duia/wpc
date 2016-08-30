@@ -31,9 +31,11 @@ public class ShiroRealm extends AuthorizingRealm {
         }  
         String name = (String) getAvailablePrincipal(principals);  
         List<String> roles = new ArrayList<String>();  
-        // 简单默认一个用户与角色，实际项目应User user = userService.getByAccount(name);  
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();  
+        // 从数据库中获取用户 User user = userService.getByAccount(name);  
         // 根据用户名查询出用户 判断用户信息的有效性 然获取用户的角色权限 授权  
         User user = new User("shiro", "123456");  
+        
         if (user.getUsername().equals(name)) {  
             // 模拟三个角色  
             for (int x = 0; x < 3; x++) {  
@@ -42,7 +44,6 @@ public class ShiroRealm extends AuthorizingRealm {
         } else {  
             throw new AuthorizationException();  
         }  
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();  
         // 增加角色  
         // 取出所有角色授权  
         info.addRoles(roles);  
@@ -61,12 +62,12 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(  
             AuthenticationToken authcToken) throws AuthenticationException {  
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;  
-        // 简单默认一个用户,实际项目应User user =  
-        // userService.getByAccount(token.getUsername());  
+        // 从数据库中获用户.......
+        // User user = userService.getByAccount(token.getUsername());  
         User user = new User("shiro", "123456");  
         if (user == null) {  
             throw new AuthorizationException();  
-        }  
+        }
         SimpleAuthenticationInfo info = null;  
         if (user.getUsername().equals(token.getUsername())) {  
             info = new SimpleAuthenticationInfo(user.getUsername(),  

@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 sh
 <form action="/login/submit" method="post">
-	用户名：<input type="text" name="username"/>
+	用户名：<input type="text" name="username"/>${message}
 	密    码：<input type="text" name="password"/>
 	<input type="submit" value="提交"/>
 </form>

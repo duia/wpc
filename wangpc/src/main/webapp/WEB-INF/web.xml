@@ -81,15 +81,11 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<!-- <welcome-file-list>
+	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list> -->
+	</welcome-file-list>
 	
 	<!-- 错误页设置 -->
-    <error-page>  
-        <error-code>405</error-code>  
-        <location>/WEB-INF/405.jsp</location>  
-    </error-page>
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/404.jsp</location>
