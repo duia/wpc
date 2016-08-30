@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li><a href="javascript:;">Calendar</a></li>
 							<li><a href="javascript:;">Setting</a></li>
 							<li class="divider"></li>
-							<li><a href="javascript:;">Log Out</a></li>
+							<li><a href="/logout">注销</a></li>
 						</ul>
 					</li>
 				</ul>

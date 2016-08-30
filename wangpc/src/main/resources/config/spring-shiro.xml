@@ -44,11 +44,13 @@
             <value>  
                 <!-- 静态资源允许访问 -->
                 /static = anon
+                /favicon.ico = anon
                 <!-- anon 允许访问 -->  
                 /login = anon  
-                /login/submit = anon  
-                <!-- authc需要授权 -->  
-                /** = authc  
+                /dologin = anon  
+                <!-- authc需要授权 -->
+                /** = anon
+                /#** = anon
             </value>  
         </property>  
     </bean>  

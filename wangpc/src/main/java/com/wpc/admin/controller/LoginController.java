@@ -23,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.wpc.admin.entity.User;
 
 @Controller  
-@RequestMapping(value = "/login")
+@RequestMapping(value = "/")
 public class LoginController {
 
 	private static final Logger logger = Logger.getLogger(LoginController.class);
 
-	@RequestMapping
+	@RequestMapping(value="/login")
     public String login() {
     	System.out.println("=========");
         return "login";  
@@ -41,7 +41,7 @@ public class LoginController {
         return "redirect:login";
     }
   
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)  
+    @RequestMapping(value = "/dologin", method = RequestMethod.POST)  
     public String doLogin(User user,HttpServletRequest request, Model model) {  
         logger.info("======用户进入了ShiroController的/doLogin.html");
         String msg ;
@@ -55,10 +55,10 @@ public class LoginController {
                 SavedRequest savedRequest = WebUtils.getSavedRequest(request);
                 // 获取保存的URL
                 if (savedRequest == null || savedRequest.getRequestUrl() == null) {
-                    return "index";
+                    return "redirect:/#main";
                 } else {
                     //String url = savedRequest.getRequestUrl().substring(12, savedRequest.getRequestUrl().length());
-                    return "redirect:" + savedRequest.getRequestUrl();
+                	return "redirect:" + savedRequest.getRequestUrl();
                 }
             } else {
                 return "login";
