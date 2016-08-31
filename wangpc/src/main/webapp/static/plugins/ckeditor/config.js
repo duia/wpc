@@ -3,9 +3,11 @@
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
-;CKEDITOR.editorConfig = function( config ) {
+CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
+	config.image_previewText = ''; //清空预览区域显示内容
+	config.filebrowserImageUploadUrl = "/upload/springUpload";//设置提交上传图片按钮处
     config.toolbar = [[ 'Bold', 'Italic', 'Underline','Image', 'Table' ]];
 };
