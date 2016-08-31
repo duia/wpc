@@ -30,7 +30,6 @@ public class LoginController {
 
 	@RequestMapping(value="/login")
     public String login() {
-    	System.out.println("=========");
         return "login";  
     }
     
@@ -38,7 +37,7 @@ public class LoginController {
     public String doLogout(HttpServletRequest request, Model model) {
         logger.info("======用户"+request.getSession().getAttribute("user")+"退出了系统");
         SecurityUtils.getSubject().logout();
-        return "redirect:login";
+        return "login";
     }
   
     @RequestMapping(value = "/dologin", method = RequestMethod.POST)  
@@ -46,7 +45,7 @@ public class LoginController {
         logger.info("======用户进入了ShiroController的/doLogin.html");
         String msg ;
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        token.setRememberMe(true);
+//        token.setRememberMe(true);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
@@ -55,10 +54,10 @@ public class LoginController {
                 SavedRequest savedRequest = WebUtils.getSavedRequest(request);
                 // 获取保存的URL
                 if (savedRequest == null || savedRequest.getRequestUrl() == null) {
-                    return "redirect:/#main";
+                    return "redirect:/";
                 } else {
                     //String url = savedRequest.getRequestUrl().substring(12, savedRequest.getRequestUrl().length());
-                	return "redirect:" + savedRequest.getRequestUrl();
+                	return "redirect:" + savedRequest.getRequestUrl().replace("/", "/#");
                 }
             } else {
                 return "login";

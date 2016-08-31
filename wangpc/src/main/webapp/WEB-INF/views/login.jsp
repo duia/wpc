@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- ================== END PAGE LEVEL JS ================== -->
 <script>
 $(document).ready(function() {
-	App.init(ajax=true);
+	App.init(login=true);
 	LoginV2.init();
 });
 </script>

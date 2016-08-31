@@ -7,10 +7,12 @@
 <title>404</title>
 </head>
 <body>
+<div id="content" class="content">
 	<font color="blue">  
 	    Request method 'GET' not supported  
 	    <br/><br/>  
 	    The specified HTTP method is not allowed for the requested resource.  
 	</font>
+</div>
 </body>
 </html>

@@ -26,7 +26,7 @@ $(document).ready(function() {
 				ms.push('</li>');
 			});
 			$('.nav-header').after(ms.join(''));
-			App.init();
+			App.init(login=false);
 		}
 	}); 
 });

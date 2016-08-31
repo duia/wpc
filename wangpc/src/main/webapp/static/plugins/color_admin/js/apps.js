@@ -727,7 +727,7 @@ var handleLoadPage = function(hash) {
 /* 17. Handle Ajax Page Load Url - added in V1.5
 ------------------------------------------------ */
 var handleCheckPageLoadUrl = function(hash) {
-    //hash = (hash) ? hash : '#main';
+    hash = (hash) ? hash : '#main';
     
     if (hash === '') {
         //$('#ajax-content').html(default_content);
@@ -1215,7 +1215,7 @@ var App = function () {
 		},
 		initAjaxFunction: function() {
             handleSidebarAjaxClick();
-            handleCheckPageLoadUrl(window.location.hash);
+            !login && handleCheckPageLoadUrl(window.location.hash);
 			handleHashChange();
 			
 			// ajax cache setup
