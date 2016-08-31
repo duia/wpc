@@ -9,6 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hello</title>
+<script src="/static/js/jquery-2.1.3.min.js"></script>
+<script src="/static/plugins/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <div class="content" id="content1" contenteditable="true" style="width:60%; border: 1px solid #ccc;">
@@ -18,10 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="content" id="content3" contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容3</div>
 <div class="content" id="content4" contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容4</div>
 <div class="content" id="content5" contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容5</div>
-<script src="/static/plugins/ckeditor/ckeditor.js"></script>
-<script src="/static/plugins/ckeditor/config.js"></script>
-<script src="/static/plugins/ckeditor/lang/zh-cn.js"></script>
-<script src="/static/js/jquery-2.1.3.min.js"></script>
+<br>
+<textarea class="ckeditor" name="editor1"></textarea>
+
 <script type="text/javascript">
 
 </script>
