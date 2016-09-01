@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wpc.admin.dao.UserRoleDao" >
+  	<resultMap id="BaseResultMap" type="com.wpc.admin.entity.UserRole" >
+    	<id column="id" property="id" />
+	    <result column="user_id" property="userId" />
+	    <result column="role_id" property="roleId" />
+  	</resultMap>
+  
+  	<sql id="table_columns" >
+	    id,
+	    user_id,
+	    role_id
+  	</sql>
+  	<sql id="entity_properties">
+	  	#{id},
+	  	#{userId},
+	  	#{roleId}
+  	</sql>
+  
+  	<insert id="save" parameterType="com.wpc.admin.entity.UserRole">
+	  	INSERT INTO user_role ( <include refid="table_columns" /> ) 
+	  	VALUES ( <include refid="entity_properties" /> )
+  	</insert>
+  
+  	<delete id="delete" parameterType="Integer">
+  		DELETE FROM user_role 
+  		WHERE id=#{id}
+  	</delete>
+  
+  	<delete id="deleteByIds">
+		DELETE FROM user_role
+		WHERE id IN
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+  	</delete>
+  
+  	<update id="update" parameterType="com.wpc.admin.entity.UserRole">
+	  	UPDATE user_role 
+	  	<trim prefix="set" suffixOverrides=",">
+		  	<if test="userId != null and userId != ''">user_id = #{userId},</if>
+		  	<if test="roleId != null and roleId != ''">role_id = #{roleId},</if>
+	  	</trim>
+	  	<where>id=#{id}</where>
+  	</update>
+  
+  	<select id="findById" resultMap="BaseResultMap" parameterType="Integer">
+  		SELECT <include refid="table_columns"/> 
+  		FROM user_role 
+  		WHERE id=#{id}
+  	</select>
+  	
+  	<select id="queryAll" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM user_role 
+  	</select>
+  	
+  	<sql id="page_where">
+	  	<trim prefix="where" suffixOverrides="and | or ">
+		  	<if test="userId != null and userId != ''">user_id = #{userId}</if>
+		  	<if test="roleId != null and roleId != ''">role_id = #{roleId}</if>
+	  	</trim>
+  	</sql>
+  	
+  	<select id="search" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.UserRole">
+  		SELECT <include refid="table_columns"/> 
+  		FROM user_role
+  		<include refid="page_where" />
+  	</select>
+  	
+  	<select id="page" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.UserRole">
+  		SELECT <include refid="table_columns"/> 
+  		FROM user_role
+  		<include refid="page_where" />
+  		LIMIT #{firstIndex},#{pageSize}
+  	</select>
+  
+  	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.UserRole">
+	  	SELECT COUNT(id) 
+	  	FROM user_role
+	  	<include refid="page_where" />
+  	</select>
+  	
+  	<!-- 其他自定义SQL -->
+  	
+</mapper>
