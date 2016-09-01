@@ -77,6 +77,9 @@
 	<mvc:resources mapping="/static/html/**" location="/static/html/" />
 	<mvc:resources mapping="/ueditor/**" location="/ueditor/" />
 	
+	<!-- 配置了上传图片的测试路径，与配置的上传路径一致 -->
+	<mvc:resources mapping="/uploadfiles/**" location="file:E:/upload/" />
+	
     <!-- 无权限 控制后台不报错 -->  
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
         <property name="exceptionMappings">  

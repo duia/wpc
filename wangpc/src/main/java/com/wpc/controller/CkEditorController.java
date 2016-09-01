@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wpc.core.ueditor.ActionEnter;
 import com.wpc.model.Title;
+import com.wpc.util.entity.Parameter;
 
 /**
  * <dl>
@@ -48,6 +49,7 @@ public class CkEditorController {
 
 	@RequestMapping
 	public String index() {
+		System.out.println("==========="+Parameter.myParam);
 		return "ckeditor/index";
 	}
 	

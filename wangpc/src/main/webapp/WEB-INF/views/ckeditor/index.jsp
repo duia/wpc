@@ -21,7 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="content" id="content4" contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容4</div>
 <div class="content" id="content5" contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容5</div>
 <br>
-<textarea class="ckeditor" name="editor1"></textarea>
+<form name="serForm" action="/upload/fileUpload" method="post"  enctype="multipart/form-data">
+<h3>采用流的方式上传文件</h3>
+<input type="file" name="file1">
+<input type="file" name="file2">
+<input type="submit" value="upload"/>
+</form>
 
 <script type="text/javascript">
 
