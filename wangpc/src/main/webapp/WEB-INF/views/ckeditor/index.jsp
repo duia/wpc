@@ -19,6 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容3</div>
 	<div contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容4</div>
 	<div contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容5</div>
+	<button id="add">添加一项</button>
 	<br>
 	<form name="serForm" action="/upload/fileUpload" method="post"  enctype="multipart/form-data">
 	<h3>上传文件</h3>
@@ -28,9 +29,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 </div>
 <!-- <script src="/static/js/jquery-2.1.3.min.js"></script> -->
-<script src="/static/plugins/ckeditor/ckeditor.js"></script>
+<!-- <script src="/static/plugins/ckeditor/ckeditor.js"></script> -->
 <script type="text/javascript">
-
+(function(){
+	var index =6;
+	$('#add').on('click', function(){
+		$(this).before('<div id="content'+index+'" contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容'+index+'</div>');
+		CKEDITOR.inline('content'+(index++));
+	});
+	$('.content').sortable({
+    });
+})();
 </script>
 </body>
 </html>	
