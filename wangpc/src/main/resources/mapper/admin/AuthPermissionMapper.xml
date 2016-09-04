@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wpc.admin.dao.AuthPermissionDao" >
+  	<resultMap id="BaseResultMap" type="com.wpc.admin.entity.AuthPermission" >
+    	<id column="id" property="id" />
+	    <result column="permission_name" property="permissionName" />
+	    <result column="permission_code" property="permissionCode" />
+	    <result column="permission_type" property="permissionType" />
+	    <result column="update_time" property="updateTime" />
+  	</resultMap>
+  
+  	<sql id="table_columns" >
+	    id,
+	    permission_name,
+	    permission_code,
+	    permission_type,
+	    update_time
+  	</sql>
+  	<sql id="entity_properties">
+	  	#{id},
+	  	#{permissionName},
+	  	#{permissionCode},
+	  	#{permissionType},
+	  	#{updateTime}
+  	</sql>
+  
+  	<insert id="save" parameterType="com.wpc.admin.entity.AuthPermission">
+	  	INSERT INTO auth_permission ( <include refid="table_columns" /> ) 
+	  	VALUES ( <include refid="entity_properties" /> )
+  	</insert>
+  
+  	<delete id="delete" parameterType="Integer">
+  		DELETE FROM auth_permission 
+  		WHERE id=#{id}
+  	</delete>
+  
+  	<delete id="deleteByIds">
+		DELETE FROM auth_permission
+		WHERE id IN
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+  	</delete>
+  
+  	<update id="update" parameterType="com.wpc.admin.entity.AuthPermission">
+	  	UPDATE auth_permission 
+	  	<trim prefix="set" suffixOverrides=",">
+		  	<if test="permissionName != null and permissionName != ''">permission_name = #{permissionName},</if>
+		  	<if test="permissionCode != null and permissionCode != ''">permission_code = #{permissionCode},</if>
+		  	<if test="permissionType != null and permissionType != ''">permission_type = #{permissionType},</if>
+		  	<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+	  	</trim>
+	  	<where>id=#{id}</where>
+  	</update>
+  
+  	<select id="findById" resultMap="BaseResultMap" parameterType="Integer">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_permission 
+  		WHERE id=#{id}
+  	</select>
+  	
+  	<select id="queryAll" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_permission 
+  	</select>
+  	
+  	<sql id="page_where">
+	  	<trim prefix="where" suffixOverrides="and | or ">
+		  	<if test="permissionName != null and permissionName != ''">permission_name = #{permissionName}</if>
+		  	<if test="permissionCode != null and permissionCode != ''">permission_code = #{permissionCode}</if>
+		  	<if test="permissionType != null and permissionType != ''">permission_type = #{permissionType}</if>
+		  	<if test="updateTime != null and updateTime != ''">update_time = #{updateTime}</if>
+	  	</trim>
+  	</sql>
+  	
+  	<select id="search" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthPermission">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_permission
+  		<include refid="page_where" />
+  	</select>
+  	
+  	<select id="page" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthPermission">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_permission
+  		<include refid="page_where" />
+  		LIMIT #{firstIndex},#{pageSize}
+  	</select>
+  
+  	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.AuthPermission">
+	  	SELECT COUNT(id) 
+	  	FROM auth_permission
+	  	<include refid="page_where" />
+  	</select>
+  	
+  	<!-- 其他自定义SQL -->
+  	<select id="queryPermissionByRoleId" resultMap="BaseResultMap" parameterType="int">
+  		SELECT
+			p.id,
+		    p.permission_name,
+		    p.permission_code,
+		    p.permission_type,
+		    p.update_time
+		FROM
+			auth_role_permission rp,
+			auth_permission p
+		WHERE rp.role_id = #{rid}
+		AND rp.permission_id = p.id
+  	</select>
+  	
+</mapper>

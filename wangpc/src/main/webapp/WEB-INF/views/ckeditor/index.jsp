@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</form>
 </div>
 <!-- <script src="/static/js/jquery-2.1.3.min.js"></script> -->
-<!-- <script src="/static/plugins/ckeditor/ckeditor.js"></script> -->
+<script src="/static/plugins/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 (function(){
 	var index =6;
@@ -37,8 +37,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$(this).before('<div id="content'+index+'" contenteditable="true" style="width:60%; border: 1px solid #ccc;">内容'+index+'</div>');
 		CKEDITOR.inline('content'+(index++));
 	});
-	$('.content').sortable({
-    });
+	/* $('.content').sortable({
+    }); */
 })();
 </script>
 </body>

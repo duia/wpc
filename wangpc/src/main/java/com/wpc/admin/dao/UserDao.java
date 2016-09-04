@@ -10,4 +10,6 @@ public interface UserDao extends BaseDao<User, Integer> {
 	
 	public final static String BEAN_ID="userDao";
 	
+	public User getUserByAccount(String account);
+	
 }

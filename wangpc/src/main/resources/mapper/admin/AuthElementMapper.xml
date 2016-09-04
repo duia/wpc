@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wpc.admin.dao.AuthElementDao" >
+  	<resultMap id="BaseResultMap" type="com.wpc.admin.entity.AuthElement" >
+    	<id column="id" property="id" />
+	    <result column="element_name" property="elementName" />
+	    <result column="element_code" property="elementCode" />
+  	</resultMap>
+  
+  	<sql id="table_columns" >
+	    id,
+	    element_name,
+	    element_code
+  	</sql>
+  	<sql id="entity_properties">
+	  	#{id},
+	  	#{elementName},
+	  	#{elementCode}
+  	</sql>
+  
+  	<insert id="save" parameterType="com.wpc.admin.entity.AuthElement">
+	  	INSERT INTO auth_element ( <include refid="table_columns" /> ) 
+	  	VALUES ( <include refid="entity_properties" /> )
+  	</insert>
+  
+  	<delete id="delete" parameterType="Integer">
+  		DELETE FROM auth_element 
+  		WHERE id=#{id}
+  	</delete>
+  
+  	<delete id="deleteByIds">
+		DELETE FROM auth_element
+		WHERE id IN
+		<foreach item="item" collection="array" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+  	</delete>
+  
+  	<update id="update" parameterType="com.wpc.admin.entity.AuthElement">
+	  	UPDATE auth_element 
+	  	<trim prefix="set" suffixOverrides=",">
+		  	<if test="elementName != null and elementName != ''">element_name = #{elementName},</if>
+		  	<if test="elementCode != null and elementCode != ''">element_code = #{elementCode},</if>
+	  	</trim>
+	  	<where>id=#{id}</where>
+  	</update>
+  
+  	<select id="findById" resultMap="BaseResultMap" parameterType="Integer">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_element 
+  		WHERE id=#{id}
+  	</select>
+  	
+  	<select id="queryAll" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_element 
+  	</select>
+  	
+  	<sql id="page_where">
+	  	<trim prefix="where" suffixOverrides="and | or ">
+		  	<if test="elementName != null and elementName != ''">element_name = #{elementName}</if>
+		  	<if test="elementCode != null and elementCode != ''">element_code = #{elementCode}</if>
+	  	</trim>
+  	</sql>
+  	
+  	<select id="search" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthElement">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_element
+  		<include refid="page_where" />
+  	</select>
+  	
+  	<select id="page" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthElement">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_element
+  		<include refid="page_where" />
+  		LIMIT #{firstIndex},#{pageSize}
+  	</select>
+  
+  	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.AuthElement">
+	  	SELECT COUNT(id) 
+	  	FROM auth_element
+	  	<include refid="page_where" />
+  	</select>
+  	
+  	<!-- 其他自定义SQL -->
+  	
+</mapper>

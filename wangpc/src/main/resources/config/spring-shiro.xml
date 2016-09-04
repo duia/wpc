@@ -23,7 +23,7 @@
     </bean>  
   
     <!-- 項目自定义的Realm认证登录 授权 -->  
-    <bean id="shiroDbRealm" class="com.wpc.shiro.ShiroRealm">  
+    <bean id="shiroDbRealm" class="com.wpc.shiro.ShiroRealm">
         <property name="cacheManager" ref="cacheManager" />  
     </bean>  
   
@@ -58,7 +58,8 @@
     </bean> -->  
     <!-- 用户授权信息Cache -->  
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />  
-  
+  	<!-- 数据库保存的密码是使用MD5算法加密的，所以这里需要配置一个密码匹配对象 -->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.Md5CredentialsMatcher" />
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->  
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />  
   

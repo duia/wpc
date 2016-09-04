@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ${basePackage}.${moduleName}.${entityPackage}.${entityCamelName};
 import ${basePackage}.${moduleName}.${servicePackage}.${entityCamelName}Service;
-import com.wpc.common.ResponseJsonModel;
+import com.wpc.common.AjaxResult;
 
 <#if subTables??>
 	<#list subTables as sub>
@@ -53,14 +53,14 @@ public class ${entityCamelName}Controller {
 	 */
 	@RequestMapping(value="/addOrUpdate", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonModel addOrUpdate(ModelMap model, ${entityCamelName} ${entityName}) {
-		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+	public AjaxResult addOrUpdate(ModelMap model, ${entityCamelName} ${entityName}) {
+		AjaxResult ajaxResult = new AjaxResult();
 		if(${entityName}.get${primaryCamelProperty}()!=null && ${entityName}.get${primaryCamelProperty}()!=0){
 			${entityName}Service.update(${entityName});
 		}else{
 			${entityName}Service.save(${entityName});
 		}
-		return responseJsonModel;
+		return ajaxResult;
 	}
 	
 	/**
@@ -68,10 +68,10 @@ public class ${entityCamelName}Controller {
 	 */
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	@ResponseBody
-	public ResponseJsonModel delete(ModelMap model, ${primaryPropertyType} ${primaryKey}) {
-		ResponseJsonModel responseJsonModel = new ResponseJsonModel();
+	public AjaxResult delete(ModelMap model, ${primaryPropertyType} ${primaryKey}) {
+		AjaxResult ajaxResult = new AjaxResult();
 		${entityName}Service.delete(${primaryKey});
-		return responseJsonModel;
+		return ajaxResult;
 	}
 	
 	</#if>

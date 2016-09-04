@@ -39,12 +39,12 @@ public abstract class BaseServiceImpl<T extends Serializable,PK extends Serializ
     }
 
     @Override
-    public <T> List<T> queryAll() {
+    public List<T> queryAll() {
         return this.baseDao.search(null);
     }
     
     @Override
-    public <T> List<T> search(T query) {
+    public List<T> search(T query) {
         return this.baseDao.search(query);
     }
 

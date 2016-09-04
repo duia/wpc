@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
-* 
+*  实体类
 * author wpc
 */
 public class User implements Serializable {
@@ -22,6 +22,10 @@ public class User implements Serializable {
 	/**
 	 * 
 	 */
+	private String account;
+	/**
+	 * 
+	 */
 	private String password;
 	/**
 	 * 
@@ -32,14 +36,6 @@ public class User implements Serializable {
 	 */
 	private Date updateTime;
 	
-	public User() {
-		super();
-	}
-	public User(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-	}
 	public void setId(Integer id){
 		this.id=id;
 	}
@@ -52,6 +48,13 @@ public class User implements Serializable {
 	}
 	public String getUsername(){
 		return this.username;
+	}
+	
+	public void setAccount(String account){
+		this.account=account;
+	}
+	public String getAccount(){
+		return this.account;
 	}
 	
 	public void setPassword(String password){
@@ -83,6 +86,8 @@ public class User implements Serializable {
 		sb.append(id);
 		sb.append(",username=");
 		sb.append(username);
+		sb.append(",account=");
+		sb.append(account);
 		sb.append(",password=");
 		sb.append(password);
 		sb.append(",age=");

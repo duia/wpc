@@ -18,11 +18,11 @@ public interface BaseDao<T extends Serializable,PK extends Serializable> {
 
     T findById(PK id);
 
-    <T> List<T> queryAll();
+    List<T> queryAll();
     
-    <T> List<T> search(T query);
+    List<T> search(T query);
     
-    <T> List<T> page(T query);
+    List<T> page(T query);
 
     PK count();
 

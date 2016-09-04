@@ -1,5 +1,7 @@
 package com.wpc.admin.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -22,6 +24,16 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements U
 
 	@Resource(name=UserDao.BEAN_ID)
 	private UserDao userDao;
+
+	@Override
+	public User getUserByAccount(String username) {
+		// TODO Auto-generated method stub
+		User query = new User();
+		query.setUsername(username);
+		List<User> list = userDao.search(query);
+		if(list.size()>0) return list.get(0);
+		return null;
+	}
 
 
 }

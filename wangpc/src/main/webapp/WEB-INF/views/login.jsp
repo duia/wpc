@@ -59,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <div class="form-group m-b-20">
                         <input type="text" class="form-control input-lg" placeholder="用户名" name="username"/>
                     </div>
+                    ${message}
                     <div class="form-group m-b-20">
                         <input type="text" class="form-control input-lg" placeholder="密码" name="password"/>
                     </div>
