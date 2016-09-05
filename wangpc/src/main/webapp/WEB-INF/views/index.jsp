@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link href="/static/plugins/color_admin/css/style-responsive.min.css" rel="stylesheet" />
 <link href="/static/plugins/color_admin/css/theme/default.css" rel="stylesheet" id="theme" />
 <!-- ================== END BASE CSS STYLE ================== -->
+<link href="/static/plugins/DataTables-1.10.12/media/css/dataTables.bootstrap.css" rel="stylesheet" id="theme" />
 
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 <script src="/static/plugins/pace/pace.min.js"></script>
@@ -192,6 +193,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/static/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/static/plugins/jquery-cookie/jquery.cookie.js"></script>
 <!-- ================== END BASE JS ================== -->
+<script src="/static/plugins/DataTables-1.10.12/media/js/jquery.dataTables.js"></script>
+<script src="/static/plugins/DataTables-1.10.12/media/js/dataTables.bootstrap.js"></script>
 
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
 <script src="/static/plugins/color_admin/js/apps.js"></script>

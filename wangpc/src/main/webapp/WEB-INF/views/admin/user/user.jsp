@@ -17,13 +17,117 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div id="content" class="content">
-
+	<div class="panel panel-inverse">
+	    <div class="panel-heading">
+	        <div class="panel-title">
+	        	基本的datatables
+	        </div>
+	    </div>
+	    <div class="panel-body">
+			<table id="table_id_example" class="table table-bordered table-striped table-hover">
+				 <thead>
+				    <tr>
+			            <th>姓名</th>
+			            <th>地点</th>
+			            <th>薪水</th>
+			            <th>入职时间</th>
+			            <th>办公地点</th>
+			            <th>编号</th>
+			            <th>操作</th>
+			        </tr>
+		        </thead>
+		        <tbody></tbody>
+		        <!-- tbody是必须的 -->
+			</table>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="姓名">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="position" placeholder="位置">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="salary" placeholder="薪资">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="start_date" placeholder="时间"
+                           data-date-format="yyyy/mm/dd">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="office" placeholder="工作地点">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="extn" placeholder="编号">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="initData">添加模拟数据</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="save">保存</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
 (function(){
 	App.restartGlobalFunction();
-    App.setPageTitle('admin|User');
+    App.setPageTitle('人员管理');
     
+    $('#table_id_example').DataTable({
+        ajax: "/static/data/objects.txt",
+        columns: [
+            {"data": "name"},
+            {"data": "position"},
+            {"data": "salary"},
+            {"data": "start_date"},
+            {"data": "office"},
+            {"data": "extn"},
+            {"data": null}
+        ],
+        columnDefs: [
+	        {
+	            targets: 6,
+	            render: function (a, b, c, d) {
+	                var html = [];
+	                html.push('<button type="button" class="btn btn-primary btn-sm" onclick="">修改</button>');
+	                html.push('<button type="button" class="btn btn-danger btn-sm" onclick="">删除</button>');
+	                return html.join('');
+	            }
+	        }
+	
+	    ],
+	    "language": {
+            "lengthMenu": "每页 _MENU_ 条记录",
+            "zeroRecords": "没有找到记录",
+            "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+            "infoEmpty": "无记录",
+            "infoFiltered": "(从 _MAX_ 条记录过滤)",
+            "paginate": {
+                "previous": "上一页",
+                "next": "下一页"
+            }
+        },
+        "dom": "<'row'<'col-xs-2'l><'#mytool.col-xs-4'><'col-xs-6'f>r>" +
+        "t" +
+        "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+		initComplete: function () {
+		    $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
+		    $("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
+		    $("#datainit").on("click", initData);
+		}
+    });
 })();
 </script>
 </body>
