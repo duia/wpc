@@ -36,23 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary" id="btn-add"><i class="fa fa-plus"></i> 添加</button>
+                <button type="button" class="btn btn-primary" id="btn-add" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> 添加</button>
                 <button type="button" class="btn btn-danger" id="btn-del"><i class="fa fa-remove"></i> 批量删除</button>
             </div>
 			<table id="table_id_example" class="table table-bordered table-striped table-hover">
-				 <thead>
-				    <tr>
-			            <th>姓名</th>
-			            <th>地点</th>
-			            <th>薪水</th>
-			            <th>入职时间</th>
-			            <th>办公地点</th>
-			            <th>编号</th>
-			            <th>操作</th>
-			        </tr>
-		        </thead>
-		        <tbody></tbody>
-		        <!-- tbody是必须的 -->
 			</table>
 		</div>
 	</div>
@@ -101,22 +88,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     App.setPageTitle('人员管理');
     
     $('#table_id_example').DataTable({
-        ajax: "/static/data/objects.txt",
+        //ajax: "/static/data/objects.txt",
+        ajax:{
+        	url:'/user/search',
+        	type:'post'
+        },
         processing: true,
         serverSide: true,
-        columns: [
-            {"data": "name"},
-            {"data": "position"},
-            {"data": "salary"},
-            {"data": "start_date"},
-            {"data": "office"},
-            {"data": "extn"},
-            {"data": null}
-        ],
+        columns: [{
+        	"title":"<input type='checkbox' name='checklist' id='checkall' />",
+       		"data": null
+       	},{
+       		"title":"ID",
+       		"data": "id"
+  		},{
+  			"title":"用户名",
+  			"data": "username"
+   		},{
+   			"title":"登陆账号",
+   			"data": "account"
+		},{
+			"title":"密码",
+			"data": "password"
+		},{
+			"title":"年龄",
+			"data": "age"
+		},{
+			"title":"更新时间",
+			"data": "updateTime"
+		},{
+			"title":"操作",
+			"data": null
+ 		}],
         columnDefs: [
+			{
+			    //   指定第一列，从0开始，0表示第一列，1表示第二列……
+			    targets: 0,
+			    render: function(data, type, row, meta) {
+			        return '<input type="checkbox" name="checklist" value="' + row.id + '" />'
+			    }
+			},
 	        {
-	            targets: 6,
-	            render: function (a, b, c, d) {
+	            targets: 7,
+	            render: function (data, type, row, metad) {
 	                var html = [];
 	                html.push('<button type="button" class="btn btn-primary btn-sm" onclick="">修改</button>');
 	                html.push('<button type="button" class="btn btn-danger btn-sm" onclick="">删除</button>');
@@ -126,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	    ],
 	    language: {
-            "lengthMenu": "每页 _MENU_ 条记录",
+            /* "lengthMenu": "每页 _MENU_ 条记录",
             "zeroRecords": "没有找到记录",
             "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
             "infoEmpty": "无记录",
@@ -135,9 +149,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	"first":"第一页",
                 "previous": "上一页",
                 "next": "下一页"
-            }
+            } */
+		    url:'/static/plugins/DataTables-1.10.12/media/Chinese.json'
         },
-        dom: "<'row'<'#mytool.col-xs-3'><'col-xs-9'f>>t<'row'<'col-xs-1'i><'col-xs-1'l><'col-xs-10'p>>",
+        dom: "<'row'<'#mytool.col-xs-3'><'col-xs-9'>>t<'row'<'col-xs-3'i><'col-xs-2'l><'col-xs-7'p>>",
 		initComplete: function () {
 		    //$("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
 		    //$("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
