@@ -24,6 +24,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        </div>
 	    </div>
 	    <div class="panel-body">
+            <div class="btn-toolbar">
+                <div class="pull-right">
+                    <div class="input-append">
+                        <input type="text" placeholder="模糊查询" id="fuzzy-search">
+                        <div class="btn-group">
+                            <button type="button" class="btn" id="btn-simple-search"><i class="fa fa-search"></i></button>
+                            <button type="button" class="btn" title="高级查询" id="toggle-advanced-search">
+                                <i class="fa fa-angle-double-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" id="btn-add"><i class="fa fa-plus"></i> 添加</button>
+                <button type="button" class="btn btn-danger" id="btn-del"><i class="fa fa-remove"></i> 批量删除</button>
+            </div>
 			<table id="table_id_example" class="table table-bordered table-striped table-hover">
 				 <thead>
 				    <tr>
@@ -87,6 +102,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     $('#table_id_example').DataTable({
         ajax: "/static/data/objects.txt",
+        processing: true,
+        serverSide: true,
         columns: [
             {"data": "name"},
             {"data": "position"},
@@ -103,28 +120,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                var html = [];
 	                html.push('<button type="button" class="btn btn-primary btn-sm" onclick="">修改</button>');
 	                html.push('<button type="button" class="btn btn-danger btn-sm" onclick="">删除</button>');
-	                return html.join('');
+	                return html.join(' ');
 	            }
 	        }
 	
 	    ],
-	    "language": {
+	    language: {
             "lengthMenu": "每页 _MENU_ 条记录",
             "zeroRecords": "没有找到记录",
             "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
             "infoEmpty": "无记录",
             "infoFiltered": "(从 _MAX_ 条记录过滤)",
             "paginate": {
+            	"first":"第一页",
                 "previous": "上一页",
                 "next": "下一页"
             }
         },
-        "dom": "<'row'<'col-xs-2'l><'#mytool.col-xs-4'><'col-xs-6'f>r>" +
-        "t" +
-        "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+        dom: "<'row'<'#mytool.col-xs-3'><'col-xs-9'f>>t<'row'<'col-xs-1'i><'col-xs-1'l><'col-xs-10'p>>",
 		initComplete: function () {
-		    $("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
-		    $("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
+		    //$("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
+		    //$("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
 		    $("#datainit").on("click", initData);
 		}
     });
