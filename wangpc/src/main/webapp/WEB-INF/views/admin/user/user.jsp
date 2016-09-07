@@ -20,25 +20,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="panel panel-inverse">
 	    <div class="panel-heading">
 	        <div class="panel-title">
-	        	基本的datatables
+	        	人员列表
 	        </div>
 	    </div>
 	    <div class="panel-body">
             <div class="btn-toolbar">
                 <div class="pull-right">
-                    <div class="input-append">
-                        <input type="text" placeholder="模糊查询" id="fuzzy-search">
-                        <div class="btn-group">
-                            <button type="button" class="btn" id="btn-simple-search"><i class="fa fa-search"></i></button>
-                            <button type="button" class="btn" title="高级查询" id="toggle-advanced-search">
+                    <div class="input-group">
+	                    <!-- <input type="text" placeholder="Enter message" class="form-control bg-silver"> -->
+	                    <span class="btn-group">
+	                        <!-- <button type="button" class="btn" id="btn-simple-search"><i class="fa fa-search"></i></button> -->
+	                        <button type="button" class="btn" title="高级查询" id="toggle-advanced-search">
                                 <i class="fa fa-angle-double-down"></i>
                             </button>
-                        </div>
-                    </div>
+	                    </span>
+	                </div>
                 </div>
                 <button type="button" class="btn btn-primary" id="btn-add" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> 添加</button>
                 <button type="button" class="btn btn-danger" id="btn-del"><i class="fa fa-remove"></i> 批量删除</button>
             </div>
+            <div class="row-fluid" style="display: none; margin-top: 15px;" id="div-advanced-search">
+				<form class="form-inline well">
+					<span>姓名:</span>
+					<input type="text" class="form-control" placeholder="姓名" id="name-search">
+					<span>职位:</span>
+					<input type="text" class="form-control" placeholder="职位" id="position-search">
+					<span>工作地点:</span>
+					<input type="text" class="form-control" placeholder="工作地点" id="office-search">
+					<span>编号:</span>
+					<input type="text" class="form-control" placeholder="编号" id="extn-search">
+					<span>在线状态:</span>
+					<select class="form-control" id="status-search">
+						<option value="">全部</option>
+						<option value="1">在线</option>
+						<option value="0">离线</option>
+					</select>
+					<select class="form-control" id="role-search">
+						<option value="">全部</option>
+						<option value="1">管理员</option>
+						<option value="0">操作员</option>
+					</select>
+					<button type="button" class="btn" id="btn-advanced-search"><i class="fa fa-search"></i> 查询</button>
+					<button class="btn btn-default" type="submit">重置</button>
+				</form>
+			</div>
 			<table id="table_id_example" class="table table-bordered table-striped table-hover">
 			</table>
 		</div>
@@ -87,11 +112,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	App.restartGlobalFunction();
     App.setPageTitle('人员管理');
     
+    $("#toggle-advanced-search").click(function(){
+		$("i",this).toggleClass("fa-angle-double-down fa-angle-double-up");
+		$("#div-advanced-search").slideToggle("fast");
+	});
+    
     $('#table_id_example').DataTable({
         //ajax: "/static/data/objects.txt",
         ajax:{
         	url:'/user/search',
-        	type:'post'
+        	type:'post',
+        	data:{
+        		param:123
+        	}
         },
         processing: true,
         serverSide: true,
