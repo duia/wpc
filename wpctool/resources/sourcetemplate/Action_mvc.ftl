@@ -1,26 +1,19 @@
 package ${basePackage}.${moduleName}.${actionPackage};
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.ui.ModelMap;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import ${basePackage}.${moduleName}.${entityPackage}.${entityCamelName};
 import ${basePackage}.${moduleName}.${servicePackage}.${entityCamelName}Service;
 import com.wpc.common.AjaxResult;
+import com.wpc.common.datatables.DataTablesRequest;
+import com.wpc.common.datatables.DataTablesResponse;
 
 <#if subTables??>
 	<#list subTables as sub>
@@ -46,6 +39,16 @@ public class ${entityCamelName}Controller {
 	@RequestMapping
 	public String ${entityName}(ModelMap model) {
 		return "${module.name}/${entityLowerName}/${tableName}";
+	}
+	
+	/**
+	 *
+	 * 分页查询列表
+	 */
+	@RequestMapping(value="/searchPage", method=RequestMethod.POST)
+	@ResponseBody
+	public DataTablesResponse<${entityCamelName}> searchPage(ModelMap model, HttpServletRequest request, @RequestBody DataTablesRequest query) {
+		return ${entityName}Service.searchPage(query);
 	}
 	
 	/**

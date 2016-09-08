@@ -62,11 +62,11 @@
   		FROM ${tableFullName} 
   	</select>
   	
-  	<sql id="page_where">
-	  	<trim prefix="where" suffixOverrides="and | or ">
+  	<sql id="sel_where">
+	  	<trim prefix="where" prefixOverrides="and |or ">
 		  	<#list columns as col>
 		  	<#if col_index gt 0 && !col.primaryKey>
-		  	<if test="${col.propertyName} != null and ${col.propertyName} != ''">${col.columnName} = ${'#'}{${col.propertyName}}</if>
+		  	<if test="${col.propertyName} != null and ${col.propertyName} != ''">and ${col.columnName} = ${'#'}{${col.propertyName}}</if>
 		  	</#if>
 		  	</#list>
 	  	</trim>
@@ -75,21 +75,53 @@
   	<select id="search" resultMap="BaseResultMap" parameterType="${basePackage}.${moduleName}.${entityPackage}.${entityCamelName}">
   		SELECT <include refid="table_columns"/> 
   		FROM ${tableFullName}
-  		<include refid="page_where" />
+  		<include refid="sel_where" />
   	</select>
   	
-  	<select id="page" resultMap="BaseResultMap" parameterType="${basePackage}.${moduleName}.${entityPackage}.${entityCamelName}">
-  		SELECT <include refid="table_columns"/> 
-  		FROM ${tableFullName}
-  		<include refid="page_where" />
-  		LIMIT ${'#'}{firstIndex},${'#'}{pageSize}
-  	</select>
-  
   	<select id="count" resultType="int" parameterType="${basePackage}.${moduleName}.${entityPackage}.${entityCamelName}">
 	  	SELECT COUNT(id) 
 	  	FROM ${tableFullName}
+	  	<include refid="sel_where" />
+  	</select>
+  	
+  	<!-- 分页查询条件，供datatables插件查询使用 -->
+  	<sql id="page_where">
+  		<if test="condition != null">
+		  	<trim prefix="where" prefixOverrides="and |or ">
+			  	<#list columns as col>
+			  	<#if col_index gt 0 && !col.primaryKey>
+			  	<if test="condition.${col.propertyName} != null and condition.${col.propertyName} != ''">and ${col.columnName} = ${'#'}{condition.${col.propertyName}}</if>
+			  	</#if>
+			  	</#list>
+		  	</trim>
+	  	</if>
+  	</sql>
+  	
+  	<!-- 查询条数，供datatables插件查询使用 -->
+  	<select id="countPage" resultType="int">
+	  	SELECT COUNT(id) 
+	  	FROM user
 	  	<include refid="page_where" />
   	</select>
+  
+  	<!-- 分页查询，供datatables插件查询使用 -->
+  	<select id="searchPage" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM user
+  		<include refid="page_where" />
+  		<include refid="order"/>
+  		<include refid="limit"/>
+  	</select>
+  	
+  	<!-- 排序，供datatables插件查询使用 -->
+  	<sql id="order">
+  		<if test="condition.orderColumn != null and condition.orderColumn != ''">ORDER BY ${'$'}{condition.orderColumn} ${'$'}{condition.orderDir}</if>
+  	</sql>
+  	
+  	<!-- 分页，供datatables插件查询使用  -->
+  	<sql id="limit">
+  		LIMIT ${'#'}{start}, ${'#'}{length}
+  	</sql>
   	
   	<!-- 其他自定义SQL -->
   	
