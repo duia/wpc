@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     $('#table_id_example').DataTable({
         //ajax: "/static/data/objects.txt",
         ajax:{
-        	url:'/user/search',
+        	url:'/user/searchPage',
         	type:'post',
         	data:function (data) {
         		data.condition = {
