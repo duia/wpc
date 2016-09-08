@@ -3,6 +3,9 @@ package com.wpc.common;
 import java.io.Serializable;
 import java.util.List;
 
+import com.wpc.common.datatables.DataTablesRequest;
+import com.wpc.common.datatables.DataTablesResponse;
+
 /**
  * Created by 
  */
@@ -23,10 +26,10 @@ public interface BaseService<T extends Serializable,PK extends Serializable> {
     
     List<T> search(T query);
     
-    //<T> List<T> page(T query);
+    DataTablesResponse<T> searchPage(DataTablesRequest query);
 
-    PK count();
+    Integer count();
 
-    PK count(T t);
+    Integer count(T t);
 
 }

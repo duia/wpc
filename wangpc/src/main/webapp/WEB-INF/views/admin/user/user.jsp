@@ -122,12 +122,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         ajax:{
         	url:'/user/search',
         	type:'post',
-        	data:{
-        		param:123
-        	}
+        	data:function (data) {
+        		data.condition = {
+        			/* username:'123',//添加额外参数
+        			password:'123456' */
+        		}
+                return JSON.stringify(data);
+            },
+            dataType: "json",
+            processData: false,
+            contentType: 'application/json;charset=UTF-8'
         },
         processing: true,
         serverSide: true,
+        language: {
+            /* "lengthMenu": "每页 _MENU_ 条记录",
+            "zeroRecords": "没有找到记录",
+            "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
+            "infoEmpty": "无记录",
+            "infoFiltered": "(从 _MAX_ 条记录过滤)",
+            "paginate": {
+            	"first":"第一页",
+                "previous": "上一页",
+                "next": "下一页"
+            } */
+		    url:'/static/plugins/DataTables-1.10.12/media/Chinese.json'
+        },
+        pagingType: "full_numbers",
         columns: [{
         	"title":"<input type='checkbox' name='checklist' id='checkall' />",
        		"data": null
@@ -172,19 +193,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        }
 	
 	    ],
-	    language: {
-            /* "lengthMenu": "每页 _MENU_ 条记录",
-            "zeroRecords": "没有找到记录",
-            "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-            "infoEmpty": "无记录",
-            "infoFiltered": "(从 _MAX_ 条记录过滤)",
-            "paginate": {
-            	"first":"第一页",
-                "previous": "上一页",
-                "next": "下一页"
-            } */
-		    url:'/static/plugins/DataTables-1.10.12/media/Chinese.json'
-        },
         dom: "<'row'<'#mytool.col-xs-3'><'col-xs-9'>>t<'row'<'col-xs-3'i><'col-xs-2'l><'col-xs-7'p>>",
 		initComplete: function () {
 		    //$("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');

@@ -6,6 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.wpc.common.datatables.DataTablesRequest;
+import com.wpc.common.datatables.DataTablesResponse;
+
 public abstract class BaseServiceImpl<T extends Serializable,PK extends Serializable> implements BaseService<T,PK>{
     
 	Logger logger = LoggerFactory.getLogger(BaseServiceImpl.class);
@@ -47,25 +50,28 @@ public abstract class BaseServiceImpl<T extends Serializable,PK extends Serializ
     public List<T> search(T query) {
         return this.baseDao.search(query);
     }
+    
+    @Override
+	public DataTablesResponse<T> searchPage(DataTablesRequest query) {
+		// TODO Auto-generated method stub
+		query.setOrder();
+		DataTablesResponse<T> dtr = new DataTablesResponse<T>();
+		dtr.setDraw(query.getDraw());
+		dtr.setData(this.baseDao.searchPage(query));
+		dtr.setRecordsFiltered(this.baseDao.countPage(query));
+		query.setCondition(null);
+		dtr.setRecordsTotal(this.baseDao.countPage(query));
+		return dtr;
+	}
 
     @Override
-    public PK count() {
+    public Integer count() {
         return this.baseDao.count();
     }
 
     @Override
-    public PK count(T t) {
+    public Integer count(T t) {
         return this.baseDao.count(t);
     }
 
-//    @Override
-//    public MyPageModel pageModel(MyPageModel page){
-//        PageModel<T> pageModel = new PageModel<T>();
-//        pageModel.setParams(page.getParams());
-//        List result = this.page(pageModel);
-//        PK count = this.count(pageModel);
-//        page.setTotalCount((Long)count);
-//        page.setData(result);
-//        return page;
-//    }
 }

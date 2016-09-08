@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	//App.init();
 	$.ajax({
-//		url:'/static/data/menu.json',
-//		type:'get',
-		url:'/menu/getLeftMenus',
-		type:'post',
+		url:'/static/data/menu.json',
+		type:'get',
+//		url:'/menu/getLeftMenus',
+//		type:'post',
 		data:{},
 		dataType:'json',
 		success:function(menus){

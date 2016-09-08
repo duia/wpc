@@ -12,5 +12,5 @@ public interface UserService extends BaseService<User, Integer> {
 	public final static String BEAN_ID="userService";
 	
 	public User getUserByAccount(String username);
-		
+	
 }

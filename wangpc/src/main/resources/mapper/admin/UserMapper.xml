@@ -68,34 +68,66 @@
   		FROM user 
   	</select>
   	
-  	<sql id="page_where">
-	  	<trim prefix="where" suffixOverrides="and | or ">
-		  	<if test="username != null and username != ''">username = #{username}</if>
-		  	<if test="account != null and account != ''">account = #{account}</if>
-		  	<if test="password != null and password != ''">password = #{password}</if>
-		  	<if test="age != null and age != ''">age = #{age}</if>
-		  	<if test="updateTime != null and updateTime != ''">update_time = #{updateTime}</if>
+  	<sql id="sel_where">
+	  	<trim prefix="where" prefixOverrides="and | or ">
+		  	<if test="username != null and username != ''">and username = #{username}</if>
+		  	<if test="account != null and account != ''">and account = #{account}</if>
+		  	<if test="password != null and password != ''">and password = #{password}</if>
+		  	<if test="age != null and age != ''">and age = #{age}</if>
+		  	<if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
 	  	</trim>
   	</sql>
   	
   	<select id="search" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.User">
   		SELECT <include refid="table_columns"/> 
   		FROM user
-  		<include refid="page_where" />
+  		<include refid="sel_where" />
   	</select>
   	
-  	<select id="page" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.User">
-  		SELECT <include refid="table_columns"/> 
-  		FROM user
-  		<include refid="page_where" />
-  		LIMIT #{firstIndex},#{pageSize}
-  	</select>
-  
   	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.User">
+	  	SELECT COUNT(id) 
+	  	FROM user
+	  	<include refid="sel_where" />
+  	</select>
+  	
+  	<!-- 分页查询条件，供datatables插件查询使用 -->
+  	<sql id="page_where">
+  		<if test="condition != null">
+		  	<trim prefix="where" prefixOverrides="and |or ">
+			  	<if test="condition.username != null and condition.username != ''">and username = #{condition.username}</if>
+			  	<if test="condition.account != null and condition.account != ''">and account = #{condition.account}</if>
+			  	<if test="condition.password != null and condition.password != ''">and password = #{condition.password}</if>
+			  	<if test="condition.age != null and condition.age != ''">and age = #{condition.age}</if>
+			  	<if test="condition.updateTime != null and condition.updateTime != ''">and update_time = #{condition.updateTime}</if>
+		  	</trim>
+	  	</if>
+  	</sql>
+  	
+  	<!-- 查询条数，供datatables插件查询使用 -->
+  	<select id="countPage" resultType="int">
 	  	SELECT COUNT(id) 
 	  	FROM user
 	  	<include refid="page_where" />
   	</select>
+  
+  	<!-- 分页查询，供datatables插件查询使用 -->
+  	<select id="searchPage" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM user
+  		<include refid="page_where" />
+  		<include refid="order"/>
+  		<include refid="limit"/>
+  	</select>
+  	
+  	<!-- 排序，供datatables插件查询使用 -->
+  	<sql id="order">
+  		<if test="condition.orderColumn != null and condition.orderColumn != ''">ORDER BY ${condition.orderColumn} ${condition.orderDir}</if>
+  	</sql>
+  	
+  	<!-- 分页，供datatables插件查询使用  -->
+  	<sql id="limit">
+  		LIMIT #{start}, #{length}
+  	</sql>
   	
   	<!-- 其他自定义SQL -->
   	<select id="getUserByAccount" resultMap="BaseResultMap" parameterType="String">

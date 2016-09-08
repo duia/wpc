@@ -3,6 +3,8 @@ package com.wpc.common;
 import java.io.Serializable;
 import java.util.List;
 
+import com.wpc.common.datatables.DataTablesRequest;
+
 /**
  * Created by 
  */
@@ -22,10 +24,12 @@ public interface BaseDao<T extends Serializable,PK extends Serializable> {
     
     List<T> search(T query);
     
-    List<T> page(T query);
+    List<T> searchPage(DataTablesRequest query);
+	
+	Integer countPage(DataTablesRequest query);
 
-    PK count();
+	Integer count();
 
-    PK count(T t);
+	Integer count(T t);
 
 }

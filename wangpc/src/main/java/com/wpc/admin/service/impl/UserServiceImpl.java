@@ -34,6 +34,5 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements U
 		if(list.size()>0) return list.get(0);
 		return null;
 	}
-
-
+	
 }
