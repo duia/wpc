@@ -51,13 +51,12 @@ public class UserController {
 	@RequestMapping(value="/addOrUpdate", method=RequestMethod.POST)
 	@ResponseBody
 	public AjaxResult addOrUpdate(ModelMap model, User user) {
-		AjaxResult responseJsonModel = new AjaxResult();
 		if(user.getId()!=null && user.getId()!=0){
 			userService.update(user);
 		}else{
 			userService.save(user);
 		}
-		return responseJsonModel;
+		return AjaxResult.success();
 	}
 	
 	/**
