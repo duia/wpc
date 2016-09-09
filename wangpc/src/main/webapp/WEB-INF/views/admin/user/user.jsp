@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
+<link href="static/plugins/jquery-validation-1.14.0/css/validation.css" rel="stylesheet" />
 </head>
 <body>
 <div id="content" class="content">
@@ -76,37 +77,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">新增</h4>
+                <h4 class="modal-title" id="myModalLabel">新增人员</h4>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="姓名">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="position" placeholder="位置">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="salary" placeholder="薪资">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="start_date" placeholder="时间"
-                           data-date-format="yyyy/mm/dd">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="office" placeholder="工作地点">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="extn" placeholder="编号">
-                </div>
+				<form method="POST" action="/" class="form-horizontal" id="userform">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">用户名</label>
+                        <div class="col-md-9">
+                            <input type="text" name="username" placeholder="用户名" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">登陆账号</label>
+                        <div class="col-md-9">
+                            <input type="text" name="account" placeholder="登陆账号" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">密码</label>
+                        <div class="col-md-9">
+                            <input type="text" name="password" placeholder="登陆密码" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">年龄</label>
+                        <div class="col-md-9">
+                            <input type="number" name="age" placeholder="年龄" class="form-control required">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">添加时间</label>
+                        <div class="col-md-9">
+                            <input type="datetime" name="" placeholder="添加时间" class="form-control">
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info" id="initData">添加模拟数据</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="save">保存</button>
+                <button type="button" class="btn btn-primary" id="saveUser">保存</button>
             </div>
         </div>
     </div>
 </div>
+<script src="static/plugins/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script src="static/plugins/jquery-validation-1.14.0/dist/localization/messages_zh.min.js"></script>
 <script>
 (function(){
 	App.restartGlobalFunction();
@@ -117,7 +132,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#div-advanced-search").slideToggle("fast");
 	});
     
-    $('#table_id_example').DataTable({
+    $('#saveUser').on('click', function(){
+    	$('#userform').submit();
+    });
+    
+    $('#userform').validate({
+		submitHandler: function(form) {
+			console.log('a');
+		    $.ajax({
+		    	url:'/user/addOrUpdate',
+		    	data:$('#userform').serialize(),
+		    	type:'post',
+		    	success:function(result){
+		    		if(result.code == '200'){
+			    		console.log('ok');
+			    		//table.draw();
+			    		$('#myModal').modal('hide')
+			    		table.ajax.reload();
+		    		}else{
+						alert(result.msg);		    			
+		    		}
+		    	}
+		    });
+	    }
+    });
+    
+    var table = $('#table_id_example').DataTable({
         //ajax: "/static/data/objects.txt",
         ajax:{
         	url:'/user/searchPage',
@@ -136,16 +176,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         processing: true,
         serverSide: true,
         language: {
-            /* "lengthMenu": "每页 _MENU_ 条记录",
-            "zeroRecords": "没有找到记录",
-            "info": "第 _PAGE_ 页 ( 总共 _PAGES_ 页 )",
-            "infoEmpty": "无记录",
-            "infoFiltered": "(从 _MAX_ 条记录过滤)",
-            "paginate": {
-            	"first":"第一页",
-                "previous": "上一页",
-                "next": "下一页"
-            } */
 		    url:'/static/plugins/DataTables-1.10.12/media/Chinese.json'
         },
         pagingType: "full_numbers",
@@ -197,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		initComplete: function () {
 		    //$("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
 		    //$("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
-		    $("#datainit").on("click", initData);
+		    //$("#datainit").on("click", initData);
 		}
     });
 })();
