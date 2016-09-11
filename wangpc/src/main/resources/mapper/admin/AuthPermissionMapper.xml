@@ -64,47 +64,65 @@
   		FROM auth_permission 
   	</select>
   	
-  	<sql id="page_where">
-	  	<trim prefix="where" suffixOverrides="and | or ">
-		  	<if test="permissionName != null and permissionName != ''">permission_name = #{permissionName}</if>
-		  	<if test="permissionCode != null and permissionCode != ''">permission_code = #{permissionCode}</if>
-		  	<if test="permissionType != null and permissionType != ''">permission_type = #{permissionType}</if>
-		  	<if test="updateTime != null and updateTime != ''">update_time = #{updateTime}</if>
+  	<sql id="sel_where">
+	  	<trim prefix="where" prefixOverrides="and |or ">
+		  	<if test="permissionName != null and permissionName != ''">and permission_name = #{permissionName}</if>
+		  	<if test="permissionCode != null and permissionCode != ''">and permission_code = #{permissionCode}</if>
+		  	<if test="permissionType != null and permissionType != ''">and permission_type = #{permissionType}</if>
+		  	<if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
 	  	</trim>
   	</sql>
   	
   	<select id="search" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthPermission">
   		SELECT <include refid="table_columns"/> 
   		FROM auth_permission
-  		<include refid="page_where" />
+  		<include refid="sel_where" />
   	</select>
   	
-  	<select id="page" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthPermission">
-  		SELECT <include refid="table_columns"/> 
-  		FROM auth_permission
-  		<include refid="page_where" />
-  		LIMIT #{firstIndex},#{pageSize}
-  	</select>
-  
   	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.AuthPermission">
+	  	SELECT COUNT(id) 
+	  	FROM auth_permission
+	  	<include refid="sel_where" />
+  	</select>
+  	
+  	<!-- 分页查询条件，供datatables插件查询使用 -->
+  	<sql id="page_where">
+  		<if test="condition != null">
+		  	<trim prefix="where" prefixOverrides="and |or ">
+			  	<if test="condition.permissionName != null and condition.permissionName != ''">and permission_name = #{condition.permissionName}</if>
+			  	<if test="condition.permissionCode != null and condition.permissionCode != ''">and permission_code = #{condition.permissionCode}</if>
+			  	<if test="condition.permissionType != null and condition.permissionType != ''">and permission_type = #{condition.permissionType}</if>
+			  	<if test="condition.updateTime != null and condition.updateTime != ''">and update_time = #{condition.updateTime}</if>
+		  	</trim>
+	  	</if>
+  	</sql>
+  	
+  	<!-- 查询条数，供datatables插件查询使用 -->
+  	<select id="countPage" resultType="int">
 	  	SELECT COUNT(id) 
 	  	FROM auth_permission
 	  	<include refid="page_where" />
   	</select>
+  
+  	<!-- 分页查询，供datatables插件查询使用 -->
+  	<select id="searchPage" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_permission
+  		<include refid="page_where" />
+  		<include refid="order"/>
+  		<include refid="limit"/>
+  	</select>
+  	
+  	<!-- 排序，供datatables插件查询使用 -->
+  	<sql id="order">
+  		<if test="condition.orderColumn != null and condition.orderColumn != ''">ORDER BY ${condition.orderColumn} ${condition.orderDir}</if>
+  	</sql>
+  	
+  	<!-- 分页，供datatables插件查询使用  -->
+  	<sql id="limit">
+  		LIMIT #{start}, #{length}
+  	</sql>
   	
   	<!-- 其他自定义SQL -->
-  	<select id="queryPermissionByRoleId" resultMap="BaseResultMap" parameterType="int">
-  		SELECT
-			p.id,
-		    p.permission_name,
-		    p.permission_code,
-		    p.permission_type,
-		    p.update_time
-		FROM
-			auth_role_permission rp,
-			auth_permission p
-		WHERE rp.role_id = #{rid}
-		AND rp.permission_id = p.id
-  	</select>
   	
 </mapper>

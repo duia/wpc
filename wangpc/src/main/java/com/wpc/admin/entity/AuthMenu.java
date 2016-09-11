@@ -44,11 +44,19 @@ public class AuthMenu implements Serializable {
 	
 	private List<AuthMenu> children;
 	
+	private List<AuthElement> elements;
+	
 	public List<AuthMenu> getChildren() {
 		return children;
 	}
 	public void setChildren(List<AuthMenu> children) {
 		this.children = children;
+	}
+	public List<AuthElement> getElements() {
+		return elements;
+	}
+	public void setElements(List<AuthElement> elements) {
+		this.elements = elements;
 	}
 	public void setId(Integer id){
 		this.id=id;

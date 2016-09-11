@@ -14,7 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
-<link href="static/plugins/jquery-validation-1.14.0/css/validation.css" rel="stylesheet" />
 </head>
 <body>
 <div id="content" class="content">
@@ -120,8 +119,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
-<script src="static/plugins/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
-<script src="static/plugins/jquery-validation-1.14.0/dist/localization/messages_zh.min.js"></script>
 <script>
 (function(){
 	App.restartGlobalFunction();

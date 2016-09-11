@@ -29,9 +29,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </ol>
     <h1 class="page-header">菜单管理  <small></small></h1>
     <div class="row">
-        <!-- begin col-6 -->
-        <div class="col-md-5 ui-sortable">
-            <div data-sortable-id="tree-view-3" class="panel panel-inverse">
+        <div class="col-md-4 ui-sortable">
+            <div data-sortable-id="tree-view-0" class="panel panel-inverse">
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
                         <a data-click="panel-expand" class="btn btn-xs btn-icon btn-circle btn-default" href="javascript:;" data-original-title="" title=""><i class="fa fa-expand"></i></a>
@@ -42,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h4 class="panel-title">菜单列表</h4>
                 </div>
                 <div class="alert alert-info">
-                    <i class="fa fa-info-circle fa-fw"></i> 拖拽菜单可以改变菜单排序或调整菜单结构。
+                    <i class="fa fa-info-circle fa-fw"></i> 菜单树说明。
                 </div>
                 <div class="panel-body">
               		<div class="zTreeDemoBackground left">
@@ -51,10 +50,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
         </div>
-        <!-- end col-6 -->
-        <!-- begin col-6 -->
-        <div class="col-md-6 ui-sortable">
-            <div data-sortable-id="tree-view-4" class="panel panel-inverse">
+        <div class="col-md-4 ui-sortable">
+            <div data-sortable-id="tree-view-1" class="panel panel-inverse">
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
                         <a data-click="panel-expand" class="btn btn-xs btn-icon btn-circle btn-default" href="javascript:;"><i class="fa fa-expand"></i></a>
@@ -65,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <h4 class="panel-title">添加菜单</h4>
                 </div>
                 <div class="alert alert-info">
-                    <i class="fa fa-info-circle fa-fw"></i> 添加菜单后需要在左边的菜单列表进行拖拽来调整结构。
+                    <i class="fa fa-info-circle fa-fw"></i> 添加菜单说明。
                 </div>
                 <div class="panel-body">
                 	<form id="form">
@@ -101,7 +98,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </div>
             </div>
         </div>
-        <!-- end col-6 -->
+        <div class="col-md-4 ui-sortable">
+            <div data-sortable-id="tree-view-2" class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a data-click="panel-expand" class="btn btn-xs btn-icon btn-circle btn-default" href="javascript:;"><i class="fa fa-expand"></i></a>
+                        <a data-click="panel-reload" class="btn btn-xs btn-icon btn-circle btn-success" href="javascript:;"><i class="fa fa-repeat"></i></a>
+                        <a data-click="panel-collapse" class="btn btn-xs btn-icon btn-circle btn-warning" href="javascript:;"><i class="fa fa-minus"></i></a>
+                        <a data-click="panel-remove" class="btn btn-xs btn-icon btn-circle btn-danger" href="javascript:;"><i class="fa fa-times"></i></a>
+                    </div>
+                    <h4 class="panel-title">菜单操作</h4>
+                </div>
+                <div class="alert alert-info">
+                    <i class="fa fa-info-circle fa-fw"></i> 菜单说明。
+                </div>
+                <div class="panel-body">
+                <ul class="success tagit ui-widget ui-widget-content ui-corner-all" id="jquery-tagIt-success">
+                	<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
+                		<span class="tagit-label">Tag1</span>
+                		<a class="tagit-close">
+                			<span class="text-icon">×</span>
+                			<span class="ui-icon ui-icon-close"></span>
+                		</a>
+                		<input type="hidden" class="tagit-hidden-field" name="tags" value="Tag1">
+                	</li>
+                	<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label">Tag2</span><a class="tagit-close"><span class="text-icon">×</span><span class="ui-icon ui-icon-close"></span></a><input type="hidden" class="tagit-hidden-field" name="tags" value="Tag2"></li>
+                	<li class="tagit-new"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="ui-widget-content ui-autocomplete-input" autocomplete="off"></li></ul>
+                	<a class="btn btn-sm btn-primary m-r-5 m-t-5" href="">保存<button type="button" class="close pull-right"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></a>
+                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">取消</button>
+                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">删除</button>
+                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">查询</button>
+                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈</button>
+                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈</button>
+                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈</button>
+                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈哈哈哈哈</button>
+                	<form id="form" class="m-t-20">
+                        <fieldset>
+                            <legend>操作信息</legend>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">操作名称</label>
+                                <input type="text" placeholder="名称" id="elementName" name="elementName" class="form-control required">
+                            </div>
+                            <div class="form-group">
+                                <label for="url">操作代码</label>
+                                <input type="text" placeholder="代码" id="elementCode" name="elementCode" class="form-control required">
+                            </div>
+                            <div class="form-group">
+                                <label for="sortNum">描述</label>
+                                <textarea class="form-control" id="elementDesc" name="elementDesc"></textarea>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="isActive" id="isActive" value="1"> 是否启用
+                                </label>
+                            </div>
+                            <input type="hidden" name="pId" value="" id="pId">
+                            <input type="hidden" name="id" value="" id="id">
+                            <button class="btn btn-sm btn-primary m-r-5" type="submit">保存</button>
+                            <button class="btn btn-sm btn-default" type="reset">重置</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script src="static/plugins/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>

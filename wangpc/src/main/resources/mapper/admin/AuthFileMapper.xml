@@ -56,31 +56,60 @@
   		FROM auth_file 
   	</select>
   	
-  	<sql id="page_where">
-	  	<trim prefix="where" suffixOverrides="and | or ">
-		  	<if test="fileName != null and fileName != ''">file_name = #{fileName}</if>
-		  	<if test="filePath != null and filePath != ''">file_path = #{filePath}</if>
+  	<sql id="sel_where">
+	  	<trim prefix="where" prefixOverrides="and |or ">
+		  	<if test="fileName != null and fileName != ''">and file_name = #{fileName}</if>
+		  	<if test="filePath != null and filePath != ''">and file_path = #{filePath}</if>
 	  	</trim>
   	</sql>
   	
   	<select id="search" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthFile">
   		SELECT <include refid="table_columns"/> 
   		FROM auth_file
-  		<include refid="page_where" />
+  		<include refid="sel_where" />
   	</select>
   	
-  	<select id="page" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.AuthFile">
-  		SELECT <include refid="table_columns"/> 
-  		FROM auth_file
-  		<include refid="page_where" />
-  		LIMIT #{firstIndex},#{pageSize}
-  	</select>
-  
   	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.AuthFile">
+	  	SELECT COUNT(id) 
+	  	FROM auth_file
+	  	<include refid="sel_where" />
+  	</select>
+  	
+  	<!-- 分页查询条件，供datatables插件查询使用 -->
+  	<sql id="page_where">
+  		<if test="condition != null">
+		  	<trim prefix="where" prefixOverrides="and |or ">
+			  	<if test="condition.fileName != null and condition.fileName != ''">and file_name = #{condition.fileName}</if>
+			  	<if test="condition.filePath != null and condition.filePath != ''">and file_path = #{condition.filePath}</if>
+		  	</trim>
+	  	</if>
+  	</sql>
+  	
+  	<!-- 查询条数，供datatables插件查询使用 -->
+  	<select id="countPage" resultType="int">
 	  	SELECT COUNT(id) 
 	  	FROM auth_file
 	  	<include refid="page_where" />
   	</select>
+  
+  	<!-- 分页查询，供datatables插件查询使用 -->
+  	<select id="searchPage" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_file
+  		<include refid="page_where" />
+  		<include refid="order"/>
+  		<include refid="limit"/>
+  	</select>
+  	
+  	<!-- 排序，供datatables插件查询使用 -->
+  	<sql id="order">
+  		<if test="condition.orderColumn != null and condition.orderColumn != ''">ORDER BY ${condition.orderColumn} ${condition.orderDir}</if>
+  	</sql>
+  	
+  	<!-- 分页，供datatables插件查询使用  -->
+  	<sql id="limit">
+  		LIMIT #{start}, #{length}
+  	</sql>
   	
   	<!-- 其他自定义SQL -->
   	
