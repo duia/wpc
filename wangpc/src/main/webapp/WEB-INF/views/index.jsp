@@ -98,6 +98,84 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<!-- begin sidebar nav -->
 				<ul class="nav">
 					<li class="nav-header">菜单</li>
+					<!-- 这里加载动态加在来的菜单 -->
+					<!-- 静态帮助菜单 -->
+					<li class="has-sub">
+						<a href="javascript:;">
+						    <b class="caret pull-right"></b>
+						    <i class="fa fa-align-left"></i> 
+						    <span>帮助</span>
+						</a>
+						<ul class="sub-menu">
+							<li class="has-sub">
+								<a href="javascript:;">
+						            <b class="caret pull-right"></b>
+						            Menu 1.1
+						        </a>
+								<ul class="sub-menu">
+									<li class="has-sub">
+										<a href="javascript:;">
+										    <b class="caret pull-right"></b>
+										    Menu 2.1
+										</a>
+										<ul class="sub-menu">
+											<li><a href="javascript:;">Menu 3.1</a></li>
+											<li><a href="javascript:;">Menu 3.2</a></li>
+										</ul>
+									</li>
+									<li><a href="javascript:;">Menu 2.2</a></li>
+									<li><a href="javascript:;">Menu 2.3</a></li>
+								</ul>
+							</li>
+							<li class="has-sub">
+								<a href="javascript:;">
+						            <b class="caret pull-right"></b>
+						            UI
+						        </a>
+								<ul class="sub-menu">
+									<li><a href="#static/plugins/color_admin/html/ui_general.html" data-toggle="ajax">General</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_typography.html" data-toggle="ajax">Typography</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_tabs_accordions.html" data-toggle="ajax">Tabs & Accordions</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_unlimited_tabs.html" data-toggle="ajax">Unlimited Nav Tabs</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_modal_notification.html" data-toggle="ajax">Modal & Notification</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_widget_boxes.html" data-toggle="ajax">Widget Boxes</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_media_object.html" data-toggle="ajax">Media Object</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_buttons.html" data-toggle="ajax">Buttons</a></li>
+									<li><a href="#static/plugins/color_admin/html/ui_icons.html" data-toggle="ajax">Icons</a></li>
+								</ul>
+							</li>
+							<li class="has-sub">
+								<a href="javascript:;">
+						            <b class="caret pull-right"></b>
+				            		表单
+						        </a>
+								<ul class="sub-menu">
+									<li><a href="#static/plugins/color_admin/html/form_elements.html" data-toggle="ajax">Form Elements</a></li>
+									<li><a href="#static/plugins/color_admin/html/form_plugins.html" data-toggle="ajax">Form Plugins</a></li>
+									<li><a href="#static/plugins/color_admin/html/form_slider_switcher.html" data-toggle="ajax">Form Slider + Switcher</a></li><!--  -->
+									<li><a href="#static/plugins/color_admin/html/form_validation.html" data-toggle="ajax">Form Validation</a></li><!--  -->
+									<li><a href="#static/plugins/color_admin/html/form_wizards.html" data-toggle="ajax">Wizards</a></li><!--  -->
+									<li><a href="#static/plugins/color_admin/html/form_wizards_validation.html" data-toggle="ajax">Wizards + Validation</a></li><!--  -->
+									<li><a href="#static/plugins/color_admin/html/form_wysiwyg.html" data-toggle="ajax">WYSIWYG</a></li>
+									<li><a href="#static/plugins/color_admin/html/form_multiple_upload.html" data-toggle="ajax">Multiple File Upload</a></li>
+								</ul>
+							</li>
+							<li class="has-sub">
+								<a href="javascript:;">
+						            <b class="caret pull-right"></b>
+				            		其他
+						        </a>
+								<ul class="sub-menu">
+									<li><a href="#static/plugins/color_admin/html/index.html" data-toggle="ajax">首页一</a></li>
+									<li><a href="#static/plugins/color_admin/html/index_v2.html" data-toggle="ajax">首页二</a></li>
+									<li><a href="#static/plugins/color_admin/html/extra_timeline.html" data-toggle="ajax">时间轴</a></li>
+									<li><a href="#static/plugins/color_admin/html/extra_search_results.html" data-toggle="ajax">搜索列表</a></li>
+								</ul>
+							</li>
+							<li><a href="#static/plugins/color_admin/html/helper_css.html" data-toggle="ajax">辅助CSS Class</a></li>
+						</ul>
+					</li>
+					<!-- 菜单栏缩放按钮 -->
 					<li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
 				</ul>
 				<!-- end sidebar nav -->

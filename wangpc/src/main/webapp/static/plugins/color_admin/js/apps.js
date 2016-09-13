@@ -706,9 +706,10 @@ var default_content = '<div class="p-t-40 p-b-40 text-center f-s-20 content"><i 
 var handleLoadPage = function(hash) {
     Pace.restart();
     var targetUrl = hash.replace('#','');
+    var subType = targetUrl.indexOf('.html')>0?'GET':'POST';
     $('.jvectormap-label, .jvector-label, .AutoFill_border ,#gritter-notice-wrapper, .ui-autocomplete, .colorpicker, .FixedHeader_Header, .FixedHeader_Cloned .lightboxOverlay, .lightbox').remove();
     $.ajax({
-        type: 'POST',
+        type: subType,
         url: targetUrl,	//with the page number as a parameter
         dataType: 'html',	//expect html to be returned
         success: function(data) {
