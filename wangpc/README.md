@@ -10,8 +10,13 @@
 添加color_admin帮助静态页面。
 
 添加gritter：弹出提示信息插件
+添加ionRangeSlider:滑动范围控件
+添加password-indicator:密码安全性验证
+添加masked-input:设置input掩码
 添加jquery-file-upload：文件上传插件
+添加jquery-tag-it：标签控件
 添加bootstrap-datepicker:时间控件
+添加bootstrap-colorpicker:颜色选择控件
 
 **************************************************************************************************
 
