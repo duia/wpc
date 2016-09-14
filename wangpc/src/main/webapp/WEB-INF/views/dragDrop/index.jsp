@@ -146,6 +146,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 </div>
+<div class="container" id="target">
+123
+</div>
+<script id="test" type="text/html">
+<< if (isAdmin) { >>
+
+<h1><<=title>></h1>
+<ul>
+    << for (var i = 0; i < list.length; i ++) { >>
+        <li>索引 <<= i + 1 >> ：<<= list[i] >></li>
+    << } >>
+</ul>
+<<=#formatDate(time, 'yyyy<b>年</b> MM<b>月</b> dd<b>日</b> HH:mm:ss.S')>>
+<< } >>
+</script>
 <script type="text/javascript" src="/static/js/jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="/static/plugins/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
 <!-- <script src="/static/js/DragDrop/modernizr.custom.js"></script>
@@ -153,8 +168,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/static/js/DragDrop/dragdrop.js"></script> -->
 <!-- <script src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.js"></script> -->
 <script src="/static/plugins/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+<script src="/static/plugins/artTemplate/dist/template-native.js"></script>
+
 <script type="text/javascript">
+$.extend({formatDate: function(date,format){if(!format)format="yyyy-MM-dd HH:mm:ss";date=new Date(parseInt(date));var dict={"yyyy":date.getFullYear(),"M":date.getMonth()+1,"d":date.getDate(),"H":date.getHours(),"m":date.getMinutes(),"s":date.getSeconds(),"S":(""+(date.getMilliseconds()+1000)).substr(1),"MM":(""+(date.getMonth()+101)).substr(1),"dd":(""+(date.getDate()+100)).substr(1),"HH":(""+(date.getHours()+100)).substr(1),"mm":(""+(date.getMinutes()+100)).substr(1),"ss":(""+(date.getSeconds()+100)).substr(1)};return format.replace(/(y+|M+|d+|H+|s+|m+|S)/g,function(a){return dict[a]})}});
 (function() {
+	console.log($.formatDate(new Date().getTime()));
+	template.helper('formatDate', $.formatDate);
+	var data = {
+		title: '基本例子',
+		isAdmin: true,
+		list: ['文艺', '博客', '摄影', '电影', '民谣', '旅行', '吉他'],
+		time: new Date().getTime()
+	};
+	var html = template('test', data);
+	$('#target').html(html);
 	
 	$('.two .list-group-item').draggable({
         containment: '.con',
