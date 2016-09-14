@@ -282,7 +282,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/static/js/index.js"></script>
 <!-- ================== END PAGE LEVEL JS ================== -->
 <script>
-	
+	MyIndex.init();
 </script>
 </body>
 </html>
