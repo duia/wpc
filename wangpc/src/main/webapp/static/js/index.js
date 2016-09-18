@@ -1,4 +1,4 @@
-$(document).ready(function() {
+var initIndex = function() {
 	//App.init();
 	$.ajax({
 //		url:'/static/data/menu.json',
@@ -31,4 +31,13 @@ $(document).ready(function() {
 			App.init(login=false);
 		}
 	}); 
-});
+};
+
+var MyIndex = function(){
+	"use strict";
+	return {
+		init: function(){
+			initIndex();
+		}
+	};
+}();
