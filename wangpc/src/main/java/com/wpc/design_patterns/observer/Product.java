@@ -10,7 +10,7 @@
  * Copyright(C) WEAVER Corporation 2016 
  *
  */
-package com.wpc.observer;
+package com.wpc.design_patterns.observer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
