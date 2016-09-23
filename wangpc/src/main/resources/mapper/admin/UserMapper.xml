@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wpc.admin.dao.UserDao" >
   	
-  	<cache type="com.wpc.redis.RedisCache"/>
+  	<cache eviction="LRU" type="com.wpc.redis.RedisCache"/>
   	
   	<resultMap id="BaseResultMap" type="com.wpc.admin.entity.User" >
     	<id column="id" property="id" />
@@ -114,7 +114,7 @@
   	</select>
   
   	<!-- 分页查询，供datatables插件查询使用 -->
-  	<select id="searchPage" resultMap="BaseResultMap">
+  	<select id="searchPage" resultMap="BaseResultMap" useCache="true">
   		SELECT <include refid="table_columns"/> 
   		FROM user
   		<include refid="page_where" />
