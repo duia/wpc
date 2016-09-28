@@ -31,6 +31,23 @@ interface Component {
     
 }
 
+class ConcreteComponent implements Component {
+
+    @Override
+    public void sampleOperation() {
+        // 写相关的业务代码
+    	System.out.println("我的方法...");
+    }
+    
+    /**
+     * 新增方法
+     */
+    public void addOperation(){
+    	System.out.println("这是新增的拓展方法...");
+    }
+
+}
+
 class Decorator implements Component{
     
 	private Component component;
@@ -76,20 +93,4 @@ class ConcreteDecoratorB extends Decorator {
     }
 }
 
-class ConcreteComponent implements Component {
-
-    @Override
-    public void sampleOperation() {
-        // 写相关的业务代码
-    	System.out.println("我的方法...");
-    }
-    
-    /**
-     * 新增方法
-     */
-    public void addOperation(){
-    	System.out.println("这是新增的拓展方法...");
-    }
-
-}
 

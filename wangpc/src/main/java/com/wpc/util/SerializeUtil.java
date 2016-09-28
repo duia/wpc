@@ -7,6 +7,11 @@ import java.io.ObjectOutputStream;
 
 import org.apache.ibatis.cache.CacheException;
 
+/**
+ * 序列化和反序列化工具类
+ * @author W鹏程
+ *
+ */
 public final class SerializeUtil {
 
 	public static byte[] serialize(Object object) {

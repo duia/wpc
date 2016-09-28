@@ -14,6 +14,11 @@ import com.wpc.util.SerializeUtil;
 
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
+/**
+ * 实现redis第三方缓冲
+ * @author W鹏程
+ *
+ */
 public class RedisCache implements Cache {
 
 	private static final Logger logger = LoggerFactory.getLogger(RedisCache.class);
