@@ -166,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- <script src="/static/js/DragDrop/modernizr.custom.js"></script>
 <script src="/static/js/DragDrop/draggabilly.pkgd.min.js"></script>
 <script src="/static/js/DragDrop/dragdrop.js"></script> -->
-<!-- <script src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.js"></script> -->
+<!-- <script src="https://unpkg.com/draggabilly@2.1/dist/draggabilly.pkgd.js"></script> -->
 <script src="/static/plugins/jquery-ui-1.11.4.custom/jquery-ui.js"></script>
 <script src="/static/plugins/artTemplate/dist/template-native.js"></script>
 
