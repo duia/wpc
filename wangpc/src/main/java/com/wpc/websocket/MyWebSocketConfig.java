@@ -41,10 +41,8 @@ public class MyWebSocketConfig implements WebSocketConfigurer {
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(new MyWebSocketHander(), "/echo").addInterceptors(new MyHandshakeInterceptor()); // 支持websocket
-																												// 的访问链接
-		registry.addHandler(new MyWebSocketHander(), "/sockjs/echo").addInterceptors(new MyHandshakeInterceptor())
-						.withSockJS(); // 不支持websocket的访问链接
+		registry.addHandler(new MyWebSocketHander(), "/echo").addInterceptors(new MyHandshakeInterceptor()); // 支持websocket的访问链接 //.setAllowedOrigins("*") 用来设置来自那些域名的请求可访问
+		registry.addHandler(new MyWebSocketHander(), "/sockjs/echo").addInterceptors(new MyHandshakeInterceptor()).withSockJS(); // 不支持websocket的访问链接 允许客户端使用SockJS
 	}
 
 }

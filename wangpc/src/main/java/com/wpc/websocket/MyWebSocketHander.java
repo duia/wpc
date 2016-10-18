@@ -50,7 +50,6 @@ public class MyWebSocketHander implements WebSocketHandler {
 	// 初次链接成功执行
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("链接成功......");
 		logger.info("链接成功......");
 		users.add(session);
 		String userName = (String) session.getAttributes().get("WEBSOCKET_USERNAME");
@@ -65,14 +64,13 @@ public class MyWebSocketHander implements WebSocketHandler {
 	@Override
 	public void handleMessage(WebSocketSession webSocketSession, WebSocketMessage<?> webSocketMessage)
 					throws Exception {
-		System.out.println("分发消息......" + webSocketMessage);
-		logger.info("分发消息......");
+		logger.info("分发消息......{}", webSocketMessage);
 		sendMessageToUsers(new TextMessage(webSocketMessage.getPayload() + ""));
 	}
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession webSocketSession, CloseStatus closeStatus) throws Exception {
-		logger.info("链接关闭......" + closeStatus.toString());
+		logger.info("链接关闭......{}", closeStatus.toString());
 		users.remove(webSocketSession);
 	}
 

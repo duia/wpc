@@ -16,6 +16,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -41,10 +43,13 @@ import org.springframework.web.socket.WebSocketHandler;
  */
 public class MyHandshakeInterceptor implements org.springframework.web.socket.server.HandshakeInterceptor {
 
+	private static final Logger logger = LoggerFactory.getLogger(MyHandshakeInterceptor.class);
+					
 	@Override
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
 					WebSocketHandler webSocketHandler, Exception exception) {
 		// TODO Auto-generated method stub
+		logger.info("afterHandshake");
 
 	}
 
@@ -52,6 +57,7 @@ public class MyHandshakeInterceptor implements org.springframework.web.socket.se
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
 					WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
+		logger.info("beforeHandshake");
 		if (request instanceof ServletServerHttpRequest) {
 			ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 			HttpSession session = servletRequest.getServletRequest().getSession(false);
