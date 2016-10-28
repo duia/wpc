@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- ================== END BASE CSS STYLE ================== -->
 <link href="static/plugins/jquery-validation-1.14.0/css/validation.css" rel="stylesheet" />
 <link href="/static/plugins/DataTables-1.10.12/media/css/dataTables.bootstrap.css" rel="stylesheet" id="theme" />
+<link href="/static/plugins/bootstrap3-dialog-master/dist/css/bootstrap-dialog.css" rel="stylesheet">
 
 <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
 <script src="/static/plugins/pace/pace.min.js"></script>
@@ -276,6 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="static/plugins/jquery-validation-1.14.0/dist/localization/messages_zh.min.js"></script>
 <script src="/static/plugins/DataTables-1.10.12/media/js/jquery.dataTables.js"></script>
 <script src="/static/plugins/DataTables-1.10.12/media/js/dataTables.bootstrap.js"></script>
+<script src="/static/plugins/bootstrap3-dialog-master/dist/js/bootstrap-dialog.js"></script>
 
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
 <script src="/static/plugins/color_admin/js/apps.js"></script>
