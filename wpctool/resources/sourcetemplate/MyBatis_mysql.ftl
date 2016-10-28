@@ -100,14 +100,14 @@
   	<!-- 查询条数，供datatables插件查询使用 -->
   	<select id="countPage" resultType="int">
 	  	SELECT COUNT(id) 
-	  	FROM user
+	  	FROM ${tableFullName}
 	  	<include refid="page_where" />
   	</select>
   
   	<!-- 分页查询，供datatables插件查询使用 -->
   	<select id="searchPage" resultMap="BaseResultMap">
   		SELECT <include refid="table_columns"/> 
-  		FROM user
+  		FROM ${tableFullName}
   		<include refid="page_where" />
   		<include refid="order"/>
   		<include refid="limit"/>
