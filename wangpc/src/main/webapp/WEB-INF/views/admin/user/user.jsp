@@ -143,9 +143,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	success:function(result){
 		    		if(result.code == '200'){
 			    		console.log('ok');
-			    		//table.draw();
 			    		$('#myModal').modal('hide')
-			    		table.ajax.reload();
+			    		//table.draw(false);
+			    		table.ajax.reload(null, false);
 		    		}else{
 						alert(result.msg);		    			
 		    		}
