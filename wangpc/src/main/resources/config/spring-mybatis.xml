@@ -14,6 +14,11 @@
      	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
      	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
 	
+	<!-- 加入事务，Controller在springmvc中扫描 -->
+	<context:component-scan base-package="com.wpc">  
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />   
+	</context:component-scan>
+	
 	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
 			<list>
@@ -72,6 +77,20 @@
     <!-- 5. 使用声明式事务  
          transaction-manager：引用上面定义的事务管理器  
      -->  
-    <tx:annotation-driven transaction-manager="txManager" />
+    <!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+    
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">  
+	    <tx:attributes>  
+			<tx:method name="find*" read-only="true"/>
+			<tx:method name="load*" read-only="true"/>
+			<tx:method name="select*" read-only="true"/>
+			<tx:method name="query*" read-only="true"/>
+			<tx:method name="*" rollback-for="CustomException"/>  
+	    </tx:attributes>  
+	</tx:advice> 
+	<aop:config>  
+		<aop:pointcut id="wpcServiceMethods" expression="execution(* com.wpc.*.service.impl.*.*(..))"/>   
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="wpcServiceMethods"/>   
+	</aop:config>  
 
 </beans>

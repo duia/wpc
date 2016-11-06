@@ -18,12 +18,19 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
      	http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 		
-	<context:annotation-config/>
+	<!-- 注册4个 BeanPostProcessor，相关注解的后处理器。有了context:component-scan就不需要这个了 -->
+	<!-- <context:annotation-config/> -->
 
+	<!-- 注入两个拦截器bean：DefaultAnnotationHandlerMapping AnnotationMethodHandlerAdapter -->
 	<mvc:annotation-driven/>
 
 	<!-- 开启自动扫描包 -->
-	<context:component-scan base-package="com.wpc" />
+	<!-- <context:component-scan base-package="com.wpc" /> -->
+	<!-- 添加事务后，springmvc的扫描包要排除Service -->
+	<context:component-scan base-package="com.wpc"> 
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+    </context:component-scan>
 
 	<!-- 拦截器 -->
 	<!-- <mvc:interceptors> 
