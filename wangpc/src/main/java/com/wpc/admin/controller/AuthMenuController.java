@@ -31,7 +31,7 @@ public class AuthMenuController {
 	 */
 	@RequestMapping
 	public String menu(ModelMap model) {
-		return "admin/menu/menu";
+		return "admin/auth/auth_menu";
 	}
 	
 	/**

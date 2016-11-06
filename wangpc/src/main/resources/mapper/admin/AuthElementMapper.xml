@@ -24,7 +24,7 @@
 	  	#{elementDesc}
   	</sql>
   
-  	<insert id="save" parameterType="com.wpc.admin.entity.AuthElement">
+  	<insert id="save" parameterType="com.wpc.admin.entity.AuthElement" keyProperty="id" useGeneratedKeys="true">
 	  	INSERT INTO auth_element ( <include refid="table_columns" /> ) 
 	  	VALUES ( <include refid="entity_properties" /> )
   	</insert>

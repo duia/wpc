@@ -32,7 +32,7 @@ public class UserController {
 	 */
 	@RequestMapping
 	public String user(ModelMap model) {
-		return "admin/user/user";
+		return "admin/auth/auth_user";
 	}
 	
 	/**

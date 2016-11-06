@@ -3,58 +3,66 @@
 <mapper namespace="com.wpc.admin.dao.AuthMenuDao" >
   	<resultMap id="BaseResultMap" type="com.wpc.admin.entity.AuthMenu" >
     	<id column="id" property="id" />
-	    <result column="name" property="name" />
+	    <result column="menu_name" property="menuName" />
 	    <result column="url" property="url" />
 	    <result column="icon" property="icon" />
+	    <result column="menu_code" property="menuCode" />
 	    <result column="p_id" property="pId" />
 	    <result column="is_active" property="isActive" />
 	    <result column="sort_num" property="sortNum" />
 	    <result column="update_time" property="updateTime" />
+	    <result column="menu_desc" property="menuDesc" />
   	</resultMap>
   	
   	<resultMap id="MenuAndChildren" type="com.wpc.admin.entity.AuthMenu" >
     	<id column="id" property="id" />
-	    <result column="name" property="name" />
+	    <result column="menu_name" property="menuName" />
 	    <result column="url" property="url" />
 	    <result column="icon" property="icon" />
+	    <result column="menu_code" property="menuCode" />
 	    <result column="p_id" property="pId" />
 	    <result column="is_active" property="isActive" />
 	    <result column="sort_num" property="sortNum" />
-	    <result column="update_time" property="updateTime" />
+	    <result column="menu_desc" property="menuDesc" />
 	    <collection property="children" ofType="com.wpc.admin.entity.AuthMenu">
 	    	<id column="c_id" property="id" />
-		    <result column="c_name" property="name" />
+		    <result column="c_menu_name" property="menuName" />
 		    <result column="c_url" property="url" />
 		    <result column="c_icon" property="icon" />
+		    <result column="c_menu_code" property="menuCode" />
 		    <result column="c_p_id" property="pId" />
 		    <result column="c_is_active" property="isActive" />
 		    <result column="c_sort_num" property="sortNum" />
-		    <result column="c_update_time" property="updateTime" />
+		    <result column="c_menu_desc" property="menuDesc" />
 	    </collection>
   	</resultMap>
   
   	<sql id="table_columns" >
 	    id,
-	    name,
+	    menu_name,
 	    url,
 	    icon,
+	    menu_code,
 	    p_id,
 	    is_active,
 	    sort_num,
-	    update_time
+	    update_time,
+	    menu_desc
   	</sql>
   	<sql id="entity_properties">
 	  	#{id},
-	  	#{name},
+	  	#{menuName},
 	  	#{url},
 	  	#{icon},
+	  	#{menuCode},
 	  	#{pId},
 	  	#{isActive},
 	  	#{sortNum},
-	  	#{updateTime}
+	  	#{updateTime},
+	  	#{menuDesc}
   	</sql>
   
-  	<insert id="save" parameterType="com.wpc.admin.entity.AuthMenu">
+  	<insert id="save" parameterType="com.wpc.admin.entity.AuthMenu" keyProperty="id" useGeneratedKeys="true">
 	  	INSERT INTO auth_menu ( <include refid="table_columns" /> ) 
 	  	VALUES ( <include refid="entity_properties" /> )
   	</insert>
@@ -75,13 +83,15 @@
   	<update id="update" parameterType="com.wpc.admin.entity.AuthMenu">
 	  	UPDATE auth_menu 
 	  	<trim prefix="set" suffixOverrides=",">
-		  	<if test="name != null and name != ''">name = #{name},</if>
+		  	<if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>
 		  	<if test="url != null and url != ''">url = #{url},</if>
 		  	<if test="icon != null and icon != ''">icon = #{icon},</if>
+		  	<if test="menuCode != null and menuCode != ''">menu_code = #{menuCode},</if>
 		  	<if test="pId != null and pId != ''">p_id = #{pId},</if>
 		  	<if test="isActive != null and isActive != ''">is_active = #{isActive},</if>
 		  	<if test="sortNum != null and sortNum != ''">sort_num = #{sortNum},</if>
 		  	<if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+		  	<if test="menuDesc != null and menuDesc != ''">menu_desc = #{menuDesc},</if>
 	  	</trim>
 	  	<where>id=#{id}</where>
   	</update>
@@ -99,13 +109,15 @@
   	
   	<sql id="sel_where">
 	  	<trim prefix="where" prefixOverrides="and |or ">
-		  	<if test="name != null and name != ''">and name = #{name}</if>
+		  	<if test="menuName != null and menuName != ''">and menu_name = #{menuName}</if>
 		  	<if test="url != null and url != ''">and url = #{url}</if>
 		  	<if test="icon != null and icon != ''">and icon = #{icon}</if>
+		  	<if test="menuCode != null and menuCode != ''">and menu_code = #{menuCode}</if>
 		  	<if test="pId != null and pId != ''">and p_id = #{pId}</if>
 		  	<if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
 		  	<if test="sortNum != null and sortNum != ''">and sort_num = #{sortNum}</if>
 		  	<if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
+		  	<if test="menuDesc != null and menuDesc != ''">and menu_desc = #{menuDesc}</if>
 	  	</trim>
   	</sql>
   	
@@ -113,7 +125,6 @@
   		SELECT <include refid="table_columns"/> 
   		FROM auth_menu
   		<include refid="sel_where" />
-  		ORDER BY sort_num
   	</select>
   	
   	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.AuthMenu">
@@ -126,13 +137,15 @@
   	<sql id="page_where">
   		<if test="condition != null">
 		  	<trim prefix="where" prefixOverrides="and |or ">
-			  	<if test="condition.name != null and condition.name != ''">and name = #{condition.name}</if>
+			  	<if test="condition.menuName != null and condition.menuName != ''">and menu_name = #{condition.menuName}</if>
 			  	<if test="condition.url != null and condition.url != ''">and url = #{condition.url}</if>
 			  	<if test="condition.icon != null and condition.icon != ''">and icon = #{condition.icon}</if>
+			  	<if test="condition.menuCode != null and condition.menuCode != ''">and menu_code = #{condition.menuCode}</if>
 			  	<if test="condition.pId != null and condition.pId != ''">and p_id = #{condition.pId}</if>
 			  	<if test="condition.isActive != null and condition.isActive != ''">and is_active = #{condition.isActive}</if>
 			  	<if test="condition.sortNum != null and condition.sortNum != ''">and sort_num = #{condition.sortNum}</if>
 			  	<if test="condition.updateTime != null and condition.updateTime != ''">and update_time = #{condition.updateTime}</if>
+			  	<if test="condition.menuDesc != null and condition.menuDesc != ''">and menu_desc = #{condition.menuDesc}</if>
 		  	</trim>
 	  	</if>
   	</sql>
@@ -167,21 +180,23 @@
   	<select id="getLeftMenu" resultMap="MenuAndChildren">
   		SELECT
 			m.id,
-		    m.name,
+		    m.menu_name,
 		    m.url,
 		    m.icon,
+		    m.menu_code,
 		    m.p_id,
 		    m.is_active,
 		    m.sort_num,
-		    m.update_time,
+		    m.menu_desc,
 		    mc.id c_id,
-		    mc.name c_name,
+		    mc.menu_name c_menu_name,
 		    mc.url c_url,
 		    mc.icon c_icon,
+		    mc.menu_code c_menu_code,
 		    mc.p_id c_p_id,
 		    mc.is_active c_is_active,
 		    mc.sort_num c_sort_num,
-		    mc.update_time c_update_time
+		    mc.menu_desc c_menu_desc
 		FROM
 			auth_menu m
 		LEFT JOIN
@@ -192,5 +207,6 @@
 		AND m.is_active = 1
 		ORDER BY m.sort_num,mc.sort_num
   	</select>
+  	
   	
 </mapper>

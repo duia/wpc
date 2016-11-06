@@ -19,7 +19,7 @@ public class AuthMenu implements Serializable {
 	/**
 	 * 
 	 */
-	private String name;
+	private String menuName;
 	/**
 	 * 
 	 */
@@ -31,16 +31,27 @@ public class AuthMenu implements Serializable {
 	/**
 	 * 
 	 */
+	private String menuCode;
+	/**
+	 * 
+	 */
 	private Integer pId;
 	/**
 	 * 
 	 */
 	private Integer isActive;
+	/**
+	 * 
+	 */
 	private Integer sortNum;
 	/**
 	 * 
 	 */
 	private Date updateTime;
+	/**
+	 * 
+	 */
+	private String menuDesc;
 	
 	private List<AuthMenu> children;
 	
@@ -58,6 +69,7 @@ public class AuthMenu implements Serializable {
 	public void setElements(List<AuthElement> elements) {
 		this.elements = elements;
 	}
+
 	public void setId(Integer id){
 		this.id=id;
 	}
@@ -65,11 +77,11 @@ public class AuthMenu implements Serializable {
 		return this.id;
 	}
 	
-	public void setName(String name){
-		this.name=name;
+	public void setMenuName(String menuName){
+		this.menuName=menuName;
 	}
-	public String getName(){
-		return this.name;
+	public String getMenuName(){
+		return this.menuName;
 	}
 	
 	public void setUrl(String url){
@@ -86,6 +98,13 @@ public class AuthMenu implements Serializable {
 		return this.icon;
 	}
 	
+	public void setMenuCode(String menuCode){
+		this.menuCode=menuCode;
+	}
+	public String getMenuCode(){
+		return this.menuCode;
+	}
+	
 	public void setPId(Integer pId){
 		this.pId=pId;
 	}
@@ -100,6 +119,13 @@ public class AuthMenu implements Serializable {
 		return this.isActive;
 	}
 	
+	public void setSortNum(Integer sortNum){
+		this.sortNum=sortNum;
+	}
+	public Integer getSortNum(){
+		return this.sortNum;
+	}
+	
 	public void setUpdateTime(Date updateTime){
 		this.updateTime=updateTime;
 	}
@@ -107,24 +133,27 @@ public class AuthMenu implements Serializable {
 		return this.updateTime;
 	}
 	
-	public Integer getSortNum() {
-		return sortNum;
+	public void setMenuDesc(String menuDesc){
+		this.menuDesc=menuDesc;
 	}
-	public void setSortNum(Integer sortNum) {
-		this.sortNum = sortNum;
+	public String getMenuDesc(){
+		return this.menuDesc;
 	}
+	
 	@Override
 	public String toString(){
 		StringBuilder sb = new StringBuilder();
-		sb.append("Menu[");
+		sb.append("AuthMenu[");
 		sb.append("id=");
 		sb.append(id);
-		sb.append(",name=");
-		sb.append(name);
+		sb.append(",menuName=");
+		sb.append(menuName);
 		sb.append(",url=");
 		sb.append(url);
 		sb.append(",icon=");
 		sb.append(icon);
+		sb.append(",menuCode=");
+		sb.append(menuCode);
 		sb.append(",pId=");
 		sb.append(pId);
 		sb.append(",isActive=");
@@ -133,6 +162,8 @@ public class AuthMenu implements Serializable {
 		sb.append(sortNum);
 		sb.append(",updateTime=");
 		sb.append(updateTime);
+		sb.append(",menuDesc=");
+		sb.append(menuDesc);
 		sb.append("]");
 		return sb.toString();
 	}

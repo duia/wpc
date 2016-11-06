@@ -28,7 +28,7 @@ import com.wpc.common.AjaxResult;
  * author wpc
  */
 @Controller
-@RequestMapping("/authrolepermission")
+@RequestMapping("/role_permission")
 public class AuthRolePermissionController {
 	
 	@Resource(name=AuthRolePermissionService.BEAN_ID)
@@ -39,7 +39,7 @@ public class AuthRolePermissionController {
 	 */
 	@RequestMapping
 	public String authRolePermission(ModelMap model) {
-		return "admin/authrolepermission/auth_role_permission";
+		return "admin/auth/auth_role_permission";
 	}
 	
 	/**

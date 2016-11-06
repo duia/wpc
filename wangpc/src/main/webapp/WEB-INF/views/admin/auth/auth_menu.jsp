@@ -11,14 +11,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--<![endif]-->
 <head>
 <meta charset="utf-8" />
-<title>测试</title>
+<title>菜单管理</title>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
-<link href="static/plugins/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
-<link href="static/plugins/jquery-validation-1.14.0/css/validation.css" rel="stylesheet" />
 <style>
 .ztree li span.button.add {margin-left:2px; margin-right: -1px; background-position:-144px 0; vertical-align:top; *vertical-align:middle}
+.btn-span {
+	position: relative;
+	margin: 0 5px 5px 0;
+	display: inline-block;
+}
+.btn-tr {
+	border-bottom-left-radius: 100%;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 16px;
+    padding-left: 5px;
+}
 </style>
 </head>
 <body>
@@ -70,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <legend>菜单信息</legend>
                             <div class="form-group">
                                 <label for="exampleInputEmail1">菜单名称</label>
-                                <input type="text" placeholder="名称" id="name" name="name" class="form-control required">
+                                <input type="text" placeholder="名称" id="menuName" name="menuName" class="form-control required">
                             </div>
                             <div class="form-group">
                                 <label for="url">菜单链接</label>
@@ -113,25 +124,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <i class="fa fa-info-circle fa-fw"></i> 菜单说明。
                 </div>
                 <div class="panel-body">
-                <ul class="success tagit ui-widget ui-widget-content ui-corner-all" id="jquery-tagIt-success">
-                	<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable">
-                		<span class="tagit-label">Tag1</span>
-                		<a class="tagit-close">
-                			<span class="text-icon">×</span>
-                			<span class="ui-icon ui-icon-close"></span>
-                		</a>
-                		<input type="hidden" class="tagit-hidden-field" name="tags" value="Tag1">
-                	</li>
-                	<li class="tagit-choice ui-widget-content ui-state-default ui-corner-all tagit-choice-editable"><span class="tagit-label">Tag2</span><a class="tagit-close"><span class="text-icon">×</span><span class="ui-icon ui-icon-close"></span></a><input type="hidden" class="tagit-hidden-field" name="tags" value="Tag2"></li>
-                	<li class="tagit-new"><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span><input type="text" class="ui-widget-content ui-autocomplete-input" autocomplete="off"></li></ul>
-                	<a class="btn btn-sm btn-primary m-r-5 m-t-5" href="">保存<button type="button" class="close pull-right"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button></a>
-                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">取消</button>
-                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">删除</button>
-                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">查询</button>
-                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈</button>
-                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈</button>
-                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈</button>
-                	<button class="btn btn-sm btn-primary m-r-5 m-t-5" type="submit">哈哈哈哈哈哈哈哈</button>
+	                <div class="well">
+	                	<span class="btn-span m-r-5 m-t-5"><button class="btn btn-sm btn-primary" type="submit">取消&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">删除&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">查询&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+		            </div>
                 	<form id="form" class="m-t-20">
                         <fieldset>
                             <legend>操作信息</legend>
@@ -163,9 +164,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
-<script src="static/plugins/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
-<script src="static/plugins/jquery-validation-1.14.0/dist/localization/messages_zh.min.js"></script>
-<script src="static/plugins/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
 <script>
 (function(){
 	App.restartGlobalFunction();
@@ -183,7 +181,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				pIdKey: "pid",
 			},
 			key: {
-				url: ''
+				url: '',
+				name: 'menuName'
 			}
 		},
 		view: {
@@ -227,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    //执行延时
 	    TimeFn = setTimeout(function(){
 	        //do function在此处写单击事件要执行的代码
-	        $('#name').val($(treeNode.name).text().trim() || treeNode.name);
+	        $('#menuName').val($(treeNode.menuName).text().trim() || treeNode.menuName);
 	        $('#url').val(treeNode.url);
 	        $('#icon').val(treeNode.icon);
 	        treeNode.isActive?$('#isActive').attr('checked',true):$('#isActive').attr('checked',false);
@@ -255,7 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			sObj.after(addStr);
 			var btn = $("#addBtn_"+treeNode.tId);
 			if (btn) btn.bind("click", function(){
-				treeObj.addNodes(treeNode, {id:null, pId:treeNode.id, name:"新增菜单"});
+				treeObj.addNodes(treeNode, {id:null, pId:treeNode.id, menuName:"新增菜单"});
 				return false;
 			});
 		}
@@ -284,14 +283,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	var initMenus = function(){
 		var menus = [];
-		menus.push({ id:0, pId:null, name:"菜单", open:true});
+		menus.push({ id:0, pId:null, menuName:"菜单", open:true});
 		$.ajax({
 			url:'menu/getAllMenus',
 	    	data:{},
 	    	type:'post',
 	    	success:function(result){
 	    		$(result).each(function(index, menu){
-	    			menu.name = '<i class="'+menu.icon+'"></i> '+menu.name;
+	    			menu.menuName = '<i class="'+menu.icon+'"></i> '+menu.menuName;
 	    			//menu.pId = menu.pid;
 	    			menus.push(menu);
 	    		});

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.wpc.admin.dao.AuthMenuDao;
 import com.wpc.admin.entity.AuthMenu;
+import com.wpc.admin.service.AuthElementService;
 import com.wpc.admin.service.AuthMenuService;
+import com.wpc.admin.service.AuthPermissionService;
 import com.wpc.common.BaseServiceImpl;
 
 /**
@@ -25,11 +27,27 @@ public class AuthMenuServiceImpl extends BaseServiceImpl<AuthMenu, Integer> impl
 	@Resource(name=AuthMenuDao.BEAN_ID)
 	private AuthMenuDao authMenuDao;
 
+	@Resource(name=AuthPermissionService.BEAN_ID)
+	private AuthPermissionService authPermissionService;
+	
+	@Resource(name=AuthElementService.BEAN_ID)
+	private AuthElementService authElementService;
+	
 	@Override
 	public List<AuthMenu> getLeftMenu() {
 		// TODO Auto-generated method stub
 		return authMenuDao.getLeftMenu();
 	}
 
+	@Override
+	public void save(AuthMenu menu) {
+		// TODO Auto-generated method stub
+		authMenuDao.save(menu);
+		authElementService.addDefaultElements(menu);
+		authPermissionService.addDefaultPermission(AuthPermissionService.PER_TYPE_MENU, menu.getId(), menu.getPId());
+	}
+	
+	
+	
 
 }

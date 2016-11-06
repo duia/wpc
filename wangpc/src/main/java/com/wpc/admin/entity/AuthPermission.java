@@ -16,6 +16,14 @@ public class AuthPermission implements Serializable {
 	 */
 	private Integer id;
 	/**
+	 * 对应资源id
+	 */
+	private Integer resourceId;
+	/**
+	 * 所属关系id
+	 */
+	private Integer parentId;
+	/**
 	 * 
 	 */
 	private String permissionName;
@@ -37,6 +45,20 @@ public class AuthPermission implements Serializable {
 	}
 	public Integer getId(){
 		return this.id;
+	}
+	
+	public void setResourceId(Integer resourceId){
+		this.resourceId=resourceId;
+	}
+	public Integer getResourceId(){
+		return this.resourceId;
+	}
+	
+	public void setParentId(Integer parentId){
+		this.parentId=parentId;
+	}
+	public Integer getParentId(){
+		return this.parentId;
 	}
 	
 	public void setPermissionName(String permissionName){
@@ -73,6 +95,10 @@ public class AuthPermission implements Serializable {
 		sb.append("AuthPermission[");
 		sb.append("id=");
 		sb.append(id);
+		sb.append(",resourceId=");
+		sb.append(resourceId);
+		sb.append(",parentId=");
+		sb.append(parentId);
 		sb.append(",permissionName=");
 		sb.append(permissionName);
 		sb.append(",permissionCode=");

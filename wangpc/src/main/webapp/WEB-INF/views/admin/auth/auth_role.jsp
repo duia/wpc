@@ -17,6 +17,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div id="content" class="content">
+	<ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">系统配置</a></li>
+        <li class="active">角色管理</li>
+    </ol>
+    <h1 class="page-header">角色管理  <small></small></h1>
 	<div class="panel panel-inverse">
 	    <div class="panel-heading">
 	        <div class="panel-title">

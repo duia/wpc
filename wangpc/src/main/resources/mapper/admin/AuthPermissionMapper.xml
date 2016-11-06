@@ -3,6 +3,8 @@
 <mapper namespace="com.wpc.admin.dao.AuthPermissionDao" >
   	<resultMap id="BaseResultMap" type="com.wpc.admin.entity.AuthPermission" >
     	<id column="id" property="id" />
+	    <result column="resource_id" property="resourceId" />
+	    <result column="parent_id" property="parentId" />
 	    <result column="permission_name" property="permissionName" />
 	    <result column="permission_code" property="permissionCode" />
 	    <result column="permission_type" property="permissionType" />
@@ -11,6 +13,8 @@
   
   	<sql id="table_columns" >
 	    id,
+	    resource_id,
+	    parent_id,
 	    permission_name,
 	    permission_code,
 	    permission_type,
@@ -18,13 +22,15 @@
   	</sql>
   	<sql id="entity_properties">
 	  	#{id},
+	  	#{resourceId},
+	  	#{parentId},
 	  	#{permissionName},
 	  	#{permissionCode},
 	  	#{permissionType},
 	  	#{updateTime}
   	</sql>
   
-  	<insert id="save" parameterType="com.wpc.admin.entity.AuthPermission">
+  	<insert id="save" parameterType="com.wpc.admin.entity.AuthPermission" keyProperty="id" useGeneratedKeys="true">
 	  	INSERT INTO auth_permission ( <include refid="table_columns" /> ) 
 	  	VALUES ( <include refid="entity_properties" /> )
   	</insert>
@@ -45,6 +51,8 @@
   	<update id="update" parameterType="com.wpc.admin.entity.AuthPermission">
 	  	UPDATE auth_permission 
 	  	<trim prefix="set" suffixOverrides=",">
+		  	<if test="resourceId != null and resourceId != ''">resource_id = #{resourceId},</if>
+		  	<if test="parentId != null and parentId != ''">parent_id = #{parentId},</if>
 		  	<if test="permissionName != null and permissionName != ''">permission_name = #{permissionName},</if>
 		  	<if test="permissionCode != null and permissionCode != ''">permission_code = #{permissionCode},</if>
 		  	<if test="permissionType != null and permissionType != ''">permission_type = #{permissionType},</if>
@@ -66,6 +74,8 @@
   	
   	<sql id="sel_where">
 	  	<trim prefix="where" prefixOverrides="and |or ">
+		  	<if test="resourceId != null and resourceId != ''">and resource_id = #{resourceId}</if>
+		  	<if test="parentId != null and parentId != ''">and parent_id = #{parentId}</if>
 		  	<if test="permissionName != null and permissionName != ''">and permission_name = #{permissionName}</if>
 		  	<if test="permissionCode != null and permissionCode != ''">and permission_code = #{permissionCode}</if>
 		  	<if test="permissionType != null and permissionType != ''">and permission_type = #{permissionType}</if>
@@ -89,6 +99,8 @@
   	<sql id="page_where">
   		<if test="condition != null">
 		  	<trim prefix="where" prefixOverrides="and |or ">
+			  	<if test="condition.resourceId != null and condition.resourceId != ''">and resource_id = #{condition.resourceId}</if>
+			  	<if test="condition.parentId != null and condition.parentId != ''">and parent_id = #{condition.parentId}</if>
 			  	<if test="condition.permissionName != null and condition.permissionName != ''">and permission_name = #{condition.permissionName}</if>
 			  	<if test="condition.permissionCode != null and condition.permissionCode != ''">and permission_code = #{condition.permissionCode}</if>
 			  	<if test="condition.permissionType != null and condition.permissionType != ''">and permission_type = #{condition.permissionType}</if>

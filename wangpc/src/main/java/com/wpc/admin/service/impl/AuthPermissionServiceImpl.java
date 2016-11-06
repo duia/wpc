@@ -1,6 +1,6 @@
 package com.wpc.admin.service.impl;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.annotation.Resource;
 
@@ -24,5 +24,20 @@ public class AuthPermissionServiceImpl extends BaseServiceImpl<AuthPermission, I
 
 	@Resource(name=AuthPermissionDao.BEAN_ID)
 	private AuthPermissionDao authPermissionDao;
+	
+	@Override
+	public void addDefaultPermission(String perType, int resourceId, int parentId) {
+		AuthPermission per = null;
+		for (int i = 0; i < AuthPermissionServiceImpl.OPERATION_COUNT; i++) {
+			per = new AuthPermission();
+			per.setPermissionName(OPERATION_NAMES[i]);
+			per.setPermissionCode(OPERATION_CODES[i]);
+			per.setPermissionType(perType);
+			per.setResourceId(resourceId);
+			per.setParentId(parentId);
+			per.setUpdateTime(new Date());
+			authPermissionDao.save(per);
+		}
+	}
 
 }

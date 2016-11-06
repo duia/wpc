@@ -28,7 +28,7 @@ import com.wpc.common.AjaxResult;
  * author wpc
  */
 @Controller
-@RequestMapping("/authelement")
+@RequestMapping("/element")
 public class AuthElementController {
 	
 	@Resource(name=AuthElementService.BEAN_ID)
@@ -39,7 +39,7 @@ public class AuthElementController {
 	 */
 	@RequestMapping
 	public String authElement(ModelMap model) {
-		return "admin/authelement/auth_element";
+		return "admin/auth/auth_element";
 	}
 	
 	/**

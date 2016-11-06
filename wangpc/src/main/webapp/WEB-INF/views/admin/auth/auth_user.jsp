@@ -17,6 +17,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <div id="content" class="content">
+	<ol class="breadcrumb pull-right">
+        <li><a href="javascript:;">系统配置</a></li>
+        <li class="active">人员管理</li>
+    </ol>
+    <h1 class="page-header">人员管理  <small></small></h1>
 	<div class="panel panel-inverse">
 	    <div class="panel-heading">
 	        <div class="panel-title">
@@ -64,7 +69,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<button class="btn btn-default" type="submit">重置</button>
 				</form>
 			</div>
-			<table id="table_id_example" class="table table-bordered table-striped table-hover">
+			<table id="user_table" class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th><input type='checkbox' name='checklist' id='checkall' /></th>
+						<th>ID</th>
+						<th>用户名</th>
+						<th>登陆账号</th>
+						<th>密码</th>
+						<th>年龄</th>
+						<th>更新时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
 			</table>
 		</div>
 	</div>
@@ -129,6 +146,72 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#div-advanced-search").slideToggle("fast");
 	});
     
+    var table = $('#user_table').DataTable({
+        //ajax: "/static/data/objects.txt",
+        ajax:{
+        	url:'/user/searchPage',
+        	type:'post',
+        	data:function (data) {
+        		data.condition = {
+        			/* username:'123',//添加额外参数
+        			password:'123456' */
+        		}
+                return JSON.stringify(data);
+            },
+            dataType: "json",
+            processData: false,
+            contentType: 'application/json;charset=UTF-8'
+        },
+        processing: true,
+        serverSide: true,
+        language: {
+		    url:'/static/plugins/DataTables-1.10.12/media/Chinese.json'
+        },
+        pagingType: "full_numbers",
+        columns: [{
+       		data: null
+       	},{
+       		data: "id"
+  		},{
+  			data: "username"
+   		},{
+   			data: "account"
+		},{
+			data: "password"
+		},{
+			data: "age"
+		},{
+			data: "updateTime"
+		},{
+			data: null
+ 		}],
+        columnDefs: [
+			{
+			    //   指定第一列，从0开始，0表示第一列，1表示第二列……
+			    targets: 0,
+			    render: function(data, type, row, meta) {
+			        return '<input type="checkbox" name="checklist" value="' + row.id + '" />'
+			    }
+			},
+	        {
+	            targets: 7,
+	            render: function (data, type, row, metad) {
+	                var html = [];
+	                html.push('<button type="button" class="btn btn-primary btn-sm updateUserBtn">修改</button>');
+	                html.push('<button type="button" class="btn btn-danger btn-sm deleteUserBtn">删除</button>');
+	                return html.join(' ');
+	            }
+	        }
+	
+	    ],
+        dom: "<'row'<'#mytool.col-xs-3'><'col-xs-9'>>t<'row'<'col-xs-3'i><'col-xs-2'l><'col-xs-7'p>>",
+		initComplete: function () {
+		    //$("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
+		    //$("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
+		    //$("#datainit").on("click", initData);
+		}
+    });
+    
     $('#saveUser').on('click', function(){
     	$('#userform').submit();
     });
@@ -154,79 +237,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    }
     });
     
-    var table = $('#table_id_example').DataTable({
-        //ajax: "/static/data/objects.txt",
-        ajax:{
-        	url:'/user/searchPage',
-        	type:'post',
-        	data:function (data) {
-        		data.condition = {
-        			/* username:'123',//添加额外参数
-        			password:'123456' */
-        		}
-                return JSON.stringify(data);
-            },
-            dataType: "json",
-            processData: false,
-            contentType: 'application/json;charset=UTF-8'
-        },
-        processing: true,
-        serverSide: true,
-        language: {
-		    url:'/static/plugins/DataTables-1.10.12/media/Chinese.json'
-        },
-        pagingType: "full_numbers",
-        columns: [{
-        	"title":"<input type='checkbox' name='checklist' id='checkall' />",
-       		"data": null
-       	},{
-       		"title":"ID",
-       		"data": "id"
-  		},{
-  			"title":"用户名",
-  			"data": "username"
-   		},{
-   			"title":"登陆账号",
-   			"data": "account"
-		},{
-			"title":"密码",
-			"data": "password"
-		},{
-			"title":"年龄",
-			"data": "age"
-		},{
-			"title":"更新时间",
-			"data": "updateTime"
-		},{
-			"title":"操作",
-			"data": null
- 		}],
-        columnDefs: [
-			{
-			    //   指定第一列，从0开始，0表示第一列，1表示第二列……
-			    targets: 0,
-			    render: function(data, type, row, meta) {
-			        return '<input type="checkbox" name="checklist" value="' + row.id + '" />'
-			    }
-			},
-	        {
-	            targets: 7,
-	            render: function (data, type, row, metad) {
-	                var html = [];
-	                html.push('<button type="button" class="btn btn-primary btn-sm" onclick="">修改</button>');
-	                html.push('<button type="button" class="btn btn-danger btn-sm" onclick="">删除</button>');
-	                return html.join(' ');
-	            }
-	        }
-	
-	    ],
-        dom: "<'row'<'#mytool.col-xs-3'><'col-xs-9'>>t<'row'<'col-xs-3'i><'col-xs-2'l><'col-xs-7'p>>",
-		initComplete: function () {
-		    //$("#mytool").append('<button id="datainit" type="button" class="btn btn-primary btn-sm">增加基础数据</button>&nbsp');
-		    //$("#mytool").append('<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal">添加</button>');
-		    //$("#datainit").on("click", initData);
-		}
+    $('#user_table').delegate('.updateUserBtn', 'click', function(e){
+    	BootstrapDialog.alert('修改用户');
     });
+    
+    $('#user_table').delegate('.deleteUserBtn', 'click', function(e){
+    	BootstrapDialog.alert('删除用户');
+    });
+    
 })();
 </script>
 </body>
