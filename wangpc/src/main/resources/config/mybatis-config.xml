@@ -3,7 +3,7 @@
 <configuration>
 	<settings>
 		<!-- 全局映射器启用缓存 -->
-        <setting name="cacheEnabled" value="true"/>
+        <setting name="cacheEnabled" value="false"/>
         <!-- 查询时，关闭关联对象即时加载以提高性能 -->
         <setting name="lazyLoadingEnabled" value="false"/>
         <!-- 数据库列的名称a_column按驼峰式命名规则和java属性名称列自动映射。 -->
