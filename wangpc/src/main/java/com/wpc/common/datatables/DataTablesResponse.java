@@ -24,7 +24,7 @@ public class DataTablesResponse<T extends Serializable> {
 	 */
 	private Integer recordsFiltered;
 	private String error;
-	private List<T> data = new ArrayList<T>();;
+	private List<T> data = new ArrayList<T>();
 	public Integer getDraw() {
 		return draw;
 	}
