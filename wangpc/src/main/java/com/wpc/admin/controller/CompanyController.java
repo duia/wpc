@@ -1,8 +1,10 @@
 package com.wpc.admin.controller;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +17,14 @@ public class CompanyController {
     @RequestMapping(value = "/admin/home")
     @ResponseBody
     public String adminHomePage(){
+    	Subject currentUser = SecurityUtils.getSubject();
+    	System.out.println("是否有“user:view:dep:123:321”的权限："+currentUser.isPermitted("user:view:dep:123:321"));
+    	System.out.println("是否有“user:view:dep:123”的权限："+currentUser.isPermitted("user:view:dep:123"));
+    	System.out.println("是否有“user:view:dep”的权限："+currentUser.isPermitted("user:view:dep"));
+    	System.out.println("是否有“user:create”的权限："+currentUser.isPermitted("user:create"));
+    	System.out.println("是否有“user:create:1”的权限："+currentUser.isPermitted("user:create:1"));
+    	System.out.println("是否有“user:update:*”的权限："+currentUser.isPermitted("user:update:*"));
+    	System.out.println("是否有“user:update:1”的权限："+currentUser.isPermitted("user:update:1"));
         return "admin/home";
     }
 

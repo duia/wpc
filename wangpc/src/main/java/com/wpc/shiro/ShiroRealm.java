@@ -72,7 +72,6 @@ public class ShiroRealm extends AuthorizingRealm {
     /* 
      * 认证回调函数,登录时调用. 获取认证信息
      */  
-    @SuppressWarnings("unused")  
     @Override  
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {  
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;  
