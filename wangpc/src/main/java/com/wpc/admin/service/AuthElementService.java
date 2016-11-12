@@ -1,5 +1,7 @@
 package com.wpc.admin.service;
 
+import java.util.List;
+
 import com.wpc.admin.entity.AuthElement;
 import com.wpc.admin.entity.AuthMenu;
 import com.wpc.common.BaseService;
@@ -18,5 +20,18 @@ public interface AuthElementService extends BaseService<AuthElement, Integer> {
 	 * @param menuName
 	 */
 	public void addDefaultElements(AuthMenu menu);
+	
+	/**
+	 * 通过菜单id获取按钮
+	 * @param menuId
+	 * @return
+	 */
+	public List<AuthElement> queryElementByMenuId(int menuId);
+	
+	/**
+	 * 新增或修改
+	 * @param element
+	 */
+	public void saveOrUpdate(AuthElement element);
 	
 }

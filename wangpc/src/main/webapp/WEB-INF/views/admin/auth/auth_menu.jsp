@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <i class="fa fa-info-circle fa-fw"></i> 添加菜单说明。
                 </div>
                 <div class="panel-body">
-                	<form id="form">
+                	<form id="menuform">
                         <fieldset>
                             <legend>菜单信息</legend>
                             <div class="form-group">
@@ -86,6 +86,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <div class="form-group">
                                 <label for="url">菜单链接</label>
                                 <input type="text" placeholder="链接" id="url" name="url" class="form-control required">
+                            </div>
+                            <div class="form-group">
+                                <label for="url">菜单码</label>
+                                <input type="text" placeholder="菜单码" id="menuCode" name="menuCode" class="form-control required">
                             </div>
                             <div class="form-group">
                                 <label for="icon">图标</label>
@@ -101,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </label>
                             </div>
                             <input type="hidden" name="pId" value="" id="pId">
-                            <input type="hidden" name="id" value="" id="id">
+                            <input type="hidden" name="id" value="" id="menuFromId">
                             <button class="btn btn-sm btn-primary m-r-5" type="submit">保存</button>
                             <button class="btn btn-sm btn-default" type="reset">重置</button>
                         </fieldset>
@@ -124,16 +128,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <i class="fa fa-info-circle fa-fw"></i> 菜单说明。
                 </div>
                 <div class="panel-body">
-	                <div class="well">
-	                	<span class="btn-span m-r-5 m-t-5"><button class="btn btn-sm btn-primary" type="submit">取消&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
-	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">删除&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
-	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">查询&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
-	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
-	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
-	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
-	                	<span class="btn-span"><button class="btn btn-sm btn-primary" type="submit">哈哈哈哈哈哈哈哈&nbsp;&nbsp;</button><a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a></span>
+	                <div class="well" id="btns">
 		            </div>
-                	<form id="form" class="m-t-20">
+                	<form id="elementform" class="m-t-20">
                         <fieldset>
                             <legend>操作信息</legend>
                             <div class="form-group">
@@ -148,13 +145,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 <label for="sortNum">描述</label>
                                 <textarea class="form-control" id="elementDesc" name="elementDesc"></textarea>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="isActive" id="isActive" value="1"> 是否启用
-                                </label>
-                            </div>
-                            <input type="hidden" name="pId" value="" id="pId">
-                            <input type="hidden" name="id" value="" id="id">
+                            <input type="hidden" name="menuId" value="" id="menuId">
+                            <input type="hidden" name="id" value="" id="elementFromId">
                             <button class="btn btn-sm btn-primary m-r-5" type="submit">保存</button>
                             <button class="btn btn-sm btn-default" type="reset">重置</button>
                         </fieldset>
@@ -164,6 +156,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </div>
+<script id="btnstemp" type="text/html">
+<<for(var i=0; i<btns.length; i++){>>
+<span class="btn-span" data-id="<<=btns[i].id>>">
+	<button class="btn btn-sm btn-primary" type="submit"><<=btns[i].elementName>>&nbsp;&nbsp;</button>
+	<a class="btn-tr btn-danger" href="javascript:;"><i class="fa fa-times"></i></a>
+</span>
+<<}>>
+</script>
 <script>
 (function(){
 	App.restartGlobalFunction();
@@ -228,11 +228,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        //do function在此处写单击事件要执行的代码
 	        $('#menuName').val($(treeNode.menuName).text().trim() || treeNode.menuName);
 	        $('#url').val(treeNode.url);
+	        $('#menuCode').val(treeNode.menuCode);//.attr("disabled", 'true');
 	        $('#icon').val(treeNode.icon);
 	        treeNode.isActive?$('#isActive').attr('checked',true):$('#isActive').attr('checked',false);
 	        treeNode.sortNum?$('#sortNum').val(treeNode.sortNum):$('#sortNum').val(999);
 	        $('#pId').val(treeNode.pid);
-	        $('#id').val(treeNode.id);
+	        $('#menuFromId').val(treeNode.id);
+	        getMenuBtns(treeNode.id);
 	    },200);
 	}
 	function onDblClick(event, treeId, treeNode){
@@ -264,15 +266,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#addBtn_"+treeNode.tId).unbind().remove();
 	};
 
-	$("#form").validate({
+	$("#menuform").validate({
 		submitHandler: function(form) {
 		    $.ajax({
-		    	url:'menu/addOrUpdate',
+		    	url:'/menu/addOrUpdate',
 		    	data:$(form).serialize(),
 		    	type:'post',
 		    	success:function(result){
 		    		if(result.code == '200'){
+		    			alert('OK');
 			    		initMenus();
+		    		}else{
+						alert(result.msg);		    			
+		    		}
+		    	}
+		    });
+	    }
+    });
+	
+	$("#elementform").validate({
+		submitHandler: function(form) {
+			var menu = $(form).find('#menuId').val();
+			if(!menu){
+				alert('请选选择菜单');
+				return;
+			}
+		    $.ajax({
+		    	url:'/element/addOrUpdate',
+		    	data:$(form).serialize(),
+		    	type:'post',
+		    	success:function(result){
+		    		if(result.code == '200'){
+			    		alert("操作成功");
 		    		}else{
 						alert(result.msg);		    			
 		    		}
@@ -299,6 +324,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    	}
 		});
 	}
+	
+	/* var getMenuInfo = function(nemuId){
+		$.post();
+	} */
+	var getMenuBtns = function(menuId){
+		if(!menuId){
+			$('#btns').html('');
+			return;
+		}
+		$.post('/element/queryElementByMenu', {
+			menuId: menuId
+		}, function(btns){
+			var html = template('btnstemp', {'btns':btns});
+			$('#btns').html(html);
+			$('#menuId').val(menuId);
+		});
+	}
+	
+	$('#btns').delegate('button', 'click', function(event){
+		$.post('/element/findById', {
+			id: $(event.target).parent().attr('data-id')
+		}, function(btn){
+			$('#elementName').val(btn.elementName);
+			$('#elementCode').val(btn.elementCode);//.attr("disabled", 'true');
+			$('#elementDesc').val(btn.elementDesc);
+			$('#elementFromId').val(btn.id);
+		});
+	});
+	
+	$('#btns').delegate('a', 'click', function(event){
+		$.post('/element/delete', {
+			id: $(event.currentTarget).parent().attr('data-id')
+		}, function(result){
+			alert(result.code);
+		});
+	});
 	
 	initMenus();
 	

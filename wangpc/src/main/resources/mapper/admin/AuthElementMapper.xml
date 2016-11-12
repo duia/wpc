@@ -124,5 +124,10 @@
   	</sql>
   	
   	<!-- 其他自定义SQL -->
+  	<!-- 通过菜单id删除按钮 -->
+  	<delete id="deleteByMenuId" parameterType="Integer">
+  		DELETE FROM auth_element 
+  		WHERE menu_id = #{menuId}
+  	</delete>
   	
 </mapper>
