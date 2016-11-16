@@ -10,4 +10,6 @@ public interface AuthElementDao extends BaseDao<AuthElement, Integer> {
 	
 	public final static String BEAN_ID="authElementDao";
 	
+	void deleteByMenuId(int menuId);
+	
 }

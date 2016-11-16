@@ -136,5 +136,21 @@
   	</sql>
   	
   	<!-- 其他自定义SQL -->
+  	<!-- 通过资源id和资源类型获取权限 -->
+  	<select id="findByResourceId" resultMap="BaseResultMap">
+  		SELECT <include refid="table_columns"/> 
+  		FROM auth_permission 
+  		WHERE resource_id = #{resourceId} AND permission_type = #{permissionType}
+  	</select>
+  	<!-- 通过资源id和类型删除权限 -->
+  	<delete id="deleteByResourceId">
+  		DELETE FROM auth_permission 
+  		WHERE resource_id = #{resourceId} AND permission_type = #{permissionType}
+  	</delete>
+  	<!-- 通过资源父id和类型删除权限 -->
+  	<delete id="deleteByParentId">
+  		DELETE FROM auth_permission 
+  		WHERE parent_id = #{parentId} AND permission_type = #{permissionType}
+  	</delete>
   	
 </mapper>

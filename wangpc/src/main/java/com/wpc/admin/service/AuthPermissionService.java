@@ -1,5 +1,8 @@
 package com.wpc.admin.service;
 
+import com.wpc.admin.entity.AuthElement;
+import com.wpc.admin.entity.AuthFile;
+import com.wpc.admin.entity.AuthMenu;
 import com.wpc.admin.entity.AuthPermission;
 import com.wpc.common.BaseService;
 
@@ -22,11 +25,11 @@ public interface AuthPermissionService extends BaseService<AuthPermission, Integ
 	
 	
 	/**
-	 * 根据传来的资源为该资源添加默认的四种权限
-	 * @param perType （菜单，按钮，文件）
-	 * @param resourceId
-	 * @param parentId
+	 * 根据传来的资源为该资源添加对应的权限
+	 * @param element （菜单，按钮，文件）
 	 */
-	public void addDefaultPermission(String perType, int resourceId, int parentId);
+	void addMenuPermission(AuthMenu menu);
+	void addElementPermission(AuthElement element);
+	void addFilePermission(AuthFile file);
 	
 }
