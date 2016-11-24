@@ -1,12 +1,7 @@
 package com.wpc.test;
 
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
 
 import com.wpc.admin.entity.User;
 import com.wpc.test.spring.MyEvent;
