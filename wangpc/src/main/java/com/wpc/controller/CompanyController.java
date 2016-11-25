@@ -1,4 +1,4 @@
-package com.wpc.admin.controller;
+package com.wpc.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller  
-@RequestMapping(value = "/cp")
+@RequestMapping(value = "/test")
 public class CompanyController {
 
 	// 登录成功的页面
     @RequestMapping(value = "/admin/home")
-    @ResponseBody
+//    @ResponseBody
     public String adminHomePage(){
+    	int i = 5/0;
     	Subject currentUser = SecurityUtils.getSubject();
     	System.out.println("是否有“user:view:dep:123:321”的权限："+currentUser.isPermitted("user:view:dep:123:321"));
     	System.out.println("是否有“user:view:dep:123”的权限："+currentUser.isPermitted("user:view:dep:123"));
@@ -42,6 +43,14 @@ public class CompanyController {
     @ResponseBody
     public String adminWithAuth(){
         return "admin/withauth";
+    }
+    
+    @RequiresPermissions(value="data_dep$1_user$2", logical= Logical.AND)
+    @RequestMapping(value = "/admin/dep_user")
+    @ResponseBody
+    public String adminWithParam(int depId, int userId){
+    	System.out.println();
+        return "test";
     }
     
 }

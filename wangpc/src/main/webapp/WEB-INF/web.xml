@@ -85,6 +85,11 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/static/*</url-pattern>
+	</servlet-mapping>
+
 	<!-- 错误页设置 -->
     <error-page>
         <error-code>404</error-code>

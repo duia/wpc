@@ -8,5 +8,6 @@
 </head>
 <body>
 <h2>500:系统正在维护！</h2>
+<p>${errorMsg}</p>
 </body>
 </html>

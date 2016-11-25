@@ -32,11 +32,6 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
     </context:component-scan>
 
-	<!-- 拦截器 -->
-	<!-- <mvc:interceptors> 
-		<bean class="com.wpc.inteceptor.MyInteceptor" /> 
-	</mvc:interceptors> -->
-
 	<!-- rest json related... start -->
 	<bean id="mappingJacksonHttpMessageConverter"
 		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -77,17 +72,25 @@
 	<!-- <mvc:view-controller path="/404" view-name="404"/> <mvc:view-controller 
 		path="/500" view-name="500"/> -->
 
-	<mvc:resources mapping="/static/images/**" location="/static/images/" cache-period="10"/>
+	<!-- <mvc:resources mapping="/static/images/**" location="/static/images/" cache-period="10"/>
 	<mvc:resources mapping="/static/css/**" location="/static/css/" />
 	<mvc:resources mapping="/static/js/**" location="/static/js/" />
 	<mvc:resources mapping="/static/data/**" location="/static/data/" />
 	<mvc:resources mapping="/static/other/**" location="/static/other/" />
 	<mvc:resources mapping="/static/plugins/**" location="/static/plugins/" />
 	<mvc:resources mapping="/static/html/**" location="/static/html/" />
-	<mvc:resources mapping="/ueditor/**" location="/ueditor/" />
+	<mvc:resources mapping="/ueditor/**" location="/ueditor/" /> -->
 	
 	<!-- 配置了上传图片的测试路径，与配置的上传路径一致 -->
-	<mvc:resources mapping="/uploadfiles/**" location="file:E:/upload/" />
+	<!-- <mvc:resources mapping="/uploadfiles/**" location="file:E:/upload/" /> -->
+	
+	<!-- 拦截器: 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/test/**"/>
+			<bean class="com.wpc.inteceptor.MyInteceptor" /> 
+		</mvc:interceptor>
+	</mvc:interceptors> -->
 	
     <!-- 无权限 控制后台不报错 -->  
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  

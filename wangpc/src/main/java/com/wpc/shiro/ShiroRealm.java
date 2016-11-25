@@ -57,12 +57,13 @@ public class ShiroRealm extends AuthorizingRealm {
         	// 从数据库中获取用户
             User user = userDao.getUserByAccount(username);
             // 根据用户名查询出用户 判断用户信息的有效性 然获取用户的角色权限 授权 
-            for (AuthRole authRole : authRoleDao.queryRoleByUserId(user.getId())) {
-        		roles.add(authRole.getRoleCode());
-        		for (AuthPermission authPermission : authPermissionDao.queryPermissionByRoleId(authRole.getId())) {
-        			permissions.add(authPermission.getPermissionCode());
-				}
-			}
+//            for (AuthRole authRole : authRoleDao.queryRoleByUserId(user.getId())) {
+//        		roles.add(authRole.getRoleCode());
+//        		for (AuthPermission authPermission : authPermissionDao.queryPermissionByRoleId(authRole.getId())) {
+//        			permissions.add(authPermission.getPermissionCode());
+//				}
+//			}
+            permissions.add("data_dep1_user2");
         }
         info.addRoles(roles);
         info.addStringPermissions(permissions);
