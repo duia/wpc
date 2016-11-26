@@ -281,6 +281,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/static/plugins/jquery-validation-1.14.0/dist/localization/messages_zh.min.js"></script>
 <script src="/static/plugins/zTree_v3-master/js/jquery.ztree.all.min.js"></script>
 <script src="/static/plugins/artTemplate/dist/template-native.js"></script>
+<script src="/static/js/common/infoVerify.js"></script>
 
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
 <script src="/static/plugins/color_admin/js/apps.js"></script>
