@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--<![endif]-->
 <head>
 <meta charset="utf-8" />
-<title>admin|AuthRole</title>
+<title>角色管理</title>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 <meta content="" name="description" />
 <meta content="" name="author" />
@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
 (function(){
 	App.restartGlobalFunction();
-    App.setPageTitle('admin|AuthRole');
+    App.setPageTitle('角色管理');
     
     var table = $('#table_id_example').DataTable({
         //ajax: "/static/data/objects.txt",

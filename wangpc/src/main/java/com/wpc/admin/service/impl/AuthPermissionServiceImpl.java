@@ -1,6 +1,7 @@
 package com.wpc.admin.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.wpc.admin.dao.AuthMenuDao;
 import com.wpc.admin.dao.AuthPermissionDao;
+import com.wpc.admin.dto.PermissionDto;
 import com.wpc.admin.entity.AuthElement;
 import com.wpc.admin.entity.AuthFile;
 import com.wpc.admin.entity.AuthMenu;
@@ -78,6 +80,11 @@ public class AuthPermissionServiceImpl extends BaseServiceImpl<AuthPermission, I
 	public void addFilePermission(AuthFile file) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<PermissionDto> getAllPermissionsByRole(int roleId) {
+		return authPermissionDao.getAllPermissionsByRole(roleId);
 	}
 	
 }

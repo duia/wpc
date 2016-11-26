@@ -242,7 +242,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
     
     $('#user_table').delegate('.deleteUserBtn', 'click', function(e){
-    	BootstrapDialog.alert('删除用户');
+    	BootstrapDialog.show({
+            message: '删除用户',
+            buttons: [{
+                label: '删除',
+                cssClass: 'btn-primary',
+                action: function(dialogItself){
+                    $.post('/user/delete', {
+                    	id: 0
+                    }, function(data){
+                    	if(verIfy(data)){
+	                    	console.log(data);
+	                    	dialogItself.close();
+                    	}
+                    });
+                }
+            }, {
+                icon: 'glyphicon glyphicon-ban-circle',
+                label: '取消',
+                cssClass: 'btn-warning',
+                action: function(dialogItself){
+                    dialogItself.close();
+                }
+            }]
+        });
     });
     
 })();

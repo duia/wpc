@@ -1,4 +1,6 @@
 package com.wpc.admin.controller;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -70,6 +72,15 @@ public class UserController {
 		return responseJsonModel;
 	}
 	
-	
+	/**
+	 * 通过人员名称匹配人员
+	 */
+	@RequestMapping(value="/likeName", method=RequestMethod.POST)
+	@ResponseBody
+	public List<User> likeName(ModelMap model, String name) {
+		User query = new User();
+		query.setUsername(name+"%");
+		return userService.query(query);
+	}
 
 }

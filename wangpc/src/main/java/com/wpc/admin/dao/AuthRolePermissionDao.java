@@ -10,4 +10,10 @@ public interface AuthRolePermissionDao extends BaseDao<AuthRolePermission, Integ
 	
 	public final static String BEAN_ID="authRolePermissionDao";
 	
+	/**
+	 * 通过角色ID删除数据
+	 * @param roleId
+	 */
+	void deleteByRoleId(int roleId);
+	
 }

@@ -112,5 +112,10 @@
   	</sql>
   	
   	<!-- 其他自定义SQL -->
+  	<!-- 通过角色id删除数据 -->
+  	<delete id="deleteByRoleId" parameterType="Integer">
+  		DELETE FROM auth_role_permission 
+  		WHERE role_id=#{roleId}
+  	</delete>
   	
 </mapper>

@@ -1,4 +1,6 @@
 package com.wpc.admin.controller;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wpc.admin.entity.AuthRole;
+import com.wpc.admin.entity.AuthUserRole;
+import com.wpc.admin.entity.User;
 import com.wpc.admin.service.AuthRoleService;
+import com.wpc.admin.service.AuthUserRoleService;
+import com.wpc.admin.service.UserService;
 import com.wpc.common.AjaxResult;
 import com.wpc.common.datatables.DataTablesRequest;
 import com.wpc.common.datatables.DataTablesResponse;
@@ -24,8 +30,12 @@ import com.wpc.common.datatables.DataTablesResponse;
 @RequestMapping("/role")
 public class AuthRoleController {
 	
+	@Resource(name=UserService.BEAN_ID)
+	private UserService userService;
 	@Resource(name=AuthRoleService.BEAN_ID)
 	private AuthRoleService authRoleService;
+	@Resource(name=AuthUserRoleService.BEAN_ID)
+	private AuthUserRoleService authUserRoleService;
 	
 	/**
 	 * 页面跳转
@@ -71,6 +81,33 @@ public class AuthRoleController {
 		return ajaxResult;
 	}
 	
+	/**
+	 * 获取所有角色
+	 */
+	@RequestMapping(value="/allRoles", method=RequestMethod.POST)
+	@ResponseBody
+	public List<AuthRole> getAllRoles(ModelMap model) {
+		return authRoleService.queryAll();
+	}
+	
+	/**
+	 * 通过角色id获取所有该角色下的人员
+	 */
+	@RequestMapping(value="/addUserRole", method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult addUserRole(ModelMap model, AuthUserRole aur) {
+		authUserRoleService.save(aur);
+		return AjaxResult.success();
+	}
+	
+	/**
+	 * 通过角色id获取所有该角色下的人员
+	 */
+	@RequestMapping(value="/userByRole", method=RequestMethod.POST)
+	@ResponseBody
+	public List<User> userByRole(ModelMap model, int roleId) {
+		return userService.queryUserByRole(roleId);
+	}
 	
 
 }

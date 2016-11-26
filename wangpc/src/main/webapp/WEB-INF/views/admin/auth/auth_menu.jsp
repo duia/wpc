@@ -209,7 +209,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	} */
 	function onRemove(e, treeId, treeNode) {
 		$.ajax({
-	    	url:'menu/delete',
+	    	url:'/menu/delete',
 	    	data:{id:treeNode.id},
 	    	type:'post',
 	    	success:function(result){
@@ -310,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var menus = [];
 		menus.push({ id:0, pId:null, menuName:"菜单", open:true});
 		$.ajax({
-			url:'menu/getAllMenus',
+			url:'/menu/getAllMenus',
 	    	data:{},
 	    	type:'post',
 	    	success:function(result){

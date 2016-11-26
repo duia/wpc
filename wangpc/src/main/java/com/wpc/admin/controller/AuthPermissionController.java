@@ -1,25 +1,19 @@
 package com.wpc.admin.controller;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.ui.ModelMap;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.wpc.admin.dto.PermissionDto;
 import com.wpc.admin.entity.AuthPermission;
 import com.wpc.admin.service.AuthPermissionService;
+import com.wpc.admin.service.AuthRolePermissionService;
 import com.wpc.common.AjaxResult;
 
 
@@ -28,11 +22,13 @@ import com.wpc.common.AjaxResult;
  * author wpc
  */
 @Controller
-@RequestMapping("/authpermission")
+@RequestMapping("/permission")
 public class AuthPermissionController {
 	
 	@Resource(name=AuthPermissionService.BEAN_ID)
 	private AuthPermissionService authPermissionService;
+	@Resource(name=AuthRolePermissionService.BEAN_ID)
+	private AuthRolePermissionService rolePermissionService;
 	
 	/**
 	 * 页面跳转
@@ -68,6 +64,23 @@ public class AuthPermissionController {
 		return ajaxResult;
 	}
 	
+	/**
+	 * 根据角色获取权限情况
+	 */
+	@RequestMapping(value="/getPermissions", method=RequestMethod.POST)
+	@ResponseBody
+	public List<PermissionDto> getPermissions(Integer rid){
+		return authPermissionService.getAllPermissionsByRole(rid);
+	}
 	
+	/**
+	 * 根据角色获取权限情况
+	 */
+	@RequestMapping(value="/saveRolePermissions", method=RequestMethod.POST)
+	@ResponseBody
+	public AjaxResult saveRolePermissions(int roleId, @RequestParam("pers[]")int[] perIds){
+		rolePermissionService.saveRolePermissions(roleId, perIds);
+		return AjaxResult.success();
+	}	
 
 }

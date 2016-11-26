@@ -1,5 +1,8 @@
 package com.wpc.admin.service;
 
+import java.util.List;
+
+import com.wpc.admin.dto.PermissionDto;
 import com.wpc.admin.entity.AuthElement;
 import com.wpc.admin.entity.AuthFile;
 import com.wpc.admin.entity.AuthMenu;
@@ -31,5 +34,11 @@ public interface AuthPermissionService extends BaseService<AuthPermission, Integ
 	void addMenuPermission(AuthMenu menu);
 	void addElementPermission(AuthElement element);
 	void addFilePermission(AuthFile file);
+	
+	/**
+	 * 获取所有权限，区分角色是否具有该角色
+	 * @param roleId
+	 */
+	List<PermissionDto> getAllPermissionsByRole(int roleId);
 	
 }

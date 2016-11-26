@@ -24,6 +24,8 @@ public interface BaseDao<T extends Serializable,PK extends Serializable> {
     
     List<T> search(T query);
     
+    List<T> query(T query);
+    
     List<T> searchPage(DataTablesRequest query);
 	
 	Integer countPage(DataTablesRequest query);

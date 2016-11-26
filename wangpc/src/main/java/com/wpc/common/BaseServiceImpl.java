@@ -52,6 +52,11 @@ public abstract class BaseServiceImpl<T extends Serializable,PK extends Serializ
     }
     
     @Override
+    public List<T> query(T query) {
+        return this.baseDao.query(query);
+    }
+    
+    @Override
 	public DataTablesResponse<T> searchPage(DataTablesRequest query) {
 		// TODO Auto-generated method stub
 		query.setOrder();

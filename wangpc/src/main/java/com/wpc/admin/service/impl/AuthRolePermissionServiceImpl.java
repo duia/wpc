@@ -23,5 +23,17 @@ public class AuthRolePermissionServiceImpl extends BaseServiceImpl<AuthRolePermi
 	@Resource(name=AuthRolePermissionDao.BEAN_ID)
 	private AuthRolePermissionDao authRolePermissionDao;
 
+	@Override
+	public void saveRolePermissions(int roleId, int[] perIds) {
+		AuthRolePermission rp = null;
+		authRolePermissionDao.deleteByRoleId(roleId);
+		for (int id : perIds) {
+			rp = new AuthRolePermission();
+			rp.setRoleId(roleId);
+			rp.setPermissionId(id);
+			authRolePermissionDao.save(rp);
+		}
+	}
+
 
 }

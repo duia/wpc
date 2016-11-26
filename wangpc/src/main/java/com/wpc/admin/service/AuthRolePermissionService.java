@@ -11,5 +11,11 @@ public interface AuthRolePermissionService extends BaseService<AuthRolePermissio
 	
 	public final static String BEAN_ID="authRolePermissionService";
 	
-
+	/**
+	 * 保存角色权限关系
+	 * @param roleId
+	 * @param perIds
+	 */
+	void saveRolePermissions(int roleId, int[] perIds);
+	
 }

@@ -87,6 +87,22 @@
   		<include refid="sel_where" />
   	</select>
   	
+  	<sql id="query_where">
+	  	<trim prefix="where" prefixOverrides="and | or ">
+		  	<if test="username != null and username != ''">and username like #{username}</if>
+		  	<if test="account != null and account != ''">and account like #{account}</if>
+		  	<if test="password != null and password != ''">and password like #{password}</if>
+		  	<if test="age != null and age != ''">and age like #{age}</if>
+		  	<if test="updateTime != null and updateTime != ''">and update_time like #{updateTime}</if>
+	  	</trim>
+  	</sql>
+  	
+  	<select id="query" resultMap="BaseResultMap" parameterType="com.wpc.admin.entity.User">
+  		SELECT <include refid="table_columns"/> 
+  		FROM user
+  		<include refid="query_where" />
+  	</select>
+  	
   	<select id="count" resultType="int" parameterType="com.wpc.admin.entity.User">
 	  	SELECT COUNT(id) 
 	  	FROM user
@@ -137,6 +153,18 @@
   		SELECT <include refid="table_columns"/> 
   		FROM user
   		WHERE account = #{account}
+  	</select>
+  	
+  	<select id="queryUserByRole" resultMap="BaseResultMap" parameterType="int">
+  		SELECT
+  			u.id,
+		    u.username
+		FROM
+			auth_user_role ur,
+			USER u
+		WHERE
+			ur.user_id = u.id
+		AND ur.role_id = #{roleId}
   	</select>
   	
 </mapper>

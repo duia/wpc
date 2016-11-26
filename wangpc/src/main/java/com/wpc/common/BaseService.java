@@ -26,6 +26,8 @@ public interface BaseService<T extends Serializable,PK extends Serializable> {
     
     List<T> search(T query);
     
+    List<T> query(T query);
+    
     DataTablesResponse<T> searchPage(DataTablesRequest query);
 
     Integer count();
