@@ -45,23 +45,10 @@ public class LoginController {
         logger.info("======用户进入了ShiroController的/doLogin.html");
         String msg ;
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-//        token.setRememberMe(true);
+        token.setRememberMe(true);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
-            if (subject.isAuthenticated()) {
-                request.getSession().setAttribute("user",user);
-                SavedRequest savedRequest = WebUtils.getSavedRequest(request);
-                // 获取保存的URL
-                if (savedRequest == null || savedRequest.getRequestUrl() == null) {
-                    return "redirect:/";
-                } else {
-                    //String url = savedRequest.getRequestUrl().substring(12, savedRequest.getRequestUrl().length());
-                	return "redirect:" + savedRequest.getRequestUrl().replace("/", "/#");
-                }
-            } else {
-                return "login";
-            }
         } catch (IncorrectCredentialsException e) {
             msg = "登录密码错误. Password for account " + token.getPrincipal() + " was incorrect.";
             model.addAttribute("message", msg);
@@ -91,8 +78,20 @@ public class LoginController {
             model.addAttribute("message", msg);
             System.out.println(msg);
         }
+        
+        if (subject.isAuthenticated()) {
+            SavedRequest savedRequest = WebUtils.getSavedRequest(request);
+            // 获取保存的URL
+            if (savedRequest == null || savedRequest.getRequestUrl() == null) {
+                return "redirect:/";
+            } else {
+                //String url = savedRequest.getRequestUrl().substring(12, savedRequest.getRequestUrl().length());
+            	return "redirect:" + savedRequest.getRequestUrl().replace("/", "/#");
+            }
+        } else {
+        	token.clear();
+        }
         return "login";
-  
     }
     
 }

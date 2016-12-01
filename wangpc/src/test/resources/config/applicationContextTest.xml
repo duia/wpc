@@ -16,6 +16,8 @@
      	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
      	http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 	
+	<aop:aspectj-autoproxy />
+	
 	<bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="locations">
 			<list>
@@ -81,6 +83,9 @@
 		<property name="username" value="wpc"/>
 		<property name="password" value="wpc122333"/>
 	</bean>
+	
+	<bean class="com.wpc.test.spring.AspectJTest"></bean>
+	
 </beans>
 	
 	

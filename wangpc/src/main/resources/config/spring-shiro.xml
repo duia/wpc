@@ -16,14 +16,14 @@
 	
 	<description>Shiro Configuration</description>  
   
+    <!-- 項目自定义的Realm认证登录 授权 -->  
+    <bean id="shiroDbRealm" class="com.wpc.shiro.ShiroRealm">
+        <property name="cacheManager" ref="cacheManager" />  
+    </bean>  
+
     <!-- Shiro's main business-tier object for web-enabled applications -->  
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">  
         <property name="realm" ref="shiroDbRealm" />  
-        <property name="cacheManager" ref="cacheManager" />  
-    </bean>  
-  
-    <!-- 項目自定义的Realm认证登录 授权 -->  
-    <bean id="shiroDbRealm" class="com.wpc.shiro.ShiroRealm">
         <property name="cacheManager" ref="cacheManager" />  
     </bean>  
   

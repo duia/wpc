@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,7 +15,9 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 
 import com.wpc.admin.dao.AuthPermissionDao;
 import com.wpc.admin.dao.AuthRoleDao;
@@ -57,13 +60,12 @@ public class ShiroRealm extends AuthorizingRealm {
         	// 从数据库中获取用户
             User user = userDao.getUserByAccount(username);
             // 根据用户名查询出用户 判断用户信息的有效性 然获取用户的角色权限 授权 
-//            for (AuthRole authRole : authRoleDao.queryRoleByUserId(user.getId())) {
-//        		roles.add(authRole.getRoleCode());
-//        		for (AuthPermission authPermission : authPermissionDao.queryPermissionByRoleId(authRole.getId())) {
-//        			permissions.add(authPermission.getPermissionCode());
-//				}
-//			}
-            permissions.add("data_dep1_user2");
+            for (AuthRole authRole : authRoleDao.queryRoleByUserId(user.getId())) {
+        		roles.add(authRole.getRoleCode());
+        		for (AuthPermission authPermission : authPermissionDao.queryPermissionByRoleId(authRole.getId())) {
+        			permissions.add(authPermission.getPermissionCode());
+				}
+			}
         }
         info.addRoles(roles);
         info.addStringPermissions(permissions);
@@ -76,17 +78,31 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override  
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {  
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;  
-        // 从数据库中获用户.......
         User user = userDao.getUserByAccount(token.getUsername());  
-//        User user = new User("shiro", "123456");  
         if (user == null) {  
             return null;  
         }
         SimpleAuthenticationInfo info = null;  
         if (user.getUsername().equals(token.getUsername())) {  
-            info = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());  
+            info = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), user.getUsername());
+            this.setSession("user", user);
         }  
         return info;  
+    }
+    
+    /** 
+     * 将一些数据放到ShiroSession中,以便于其它地方使用 
+     * @see 比如Controller,使用时直接用HttpSession.getAttribute(key)就可以取到 
+     */  
+    private void setSession(Object key, Object value){  
+        Subject currentUser = SecurityUtils.getSubject();  
+        if(null != currentUser){  
+            Session session = currentUser.getSession();  
+            System.out.println("Session默认超时时间为[" + session.getTimeout() + "]毫秒");  
+            if(null != session){  
+                session.setAttribute(key, value);  
+            }  
+        }  
     }
 
 }
