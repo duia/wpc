@@ -17,7 +17,7 @@ public class Test {
 		MyEvent me = new MyEvent("Hello", "msg123");
 		ac.publishEvent(me);
 		User user = (User) ac.getBean("a");
-		System.out.println(user);
+		System.out.println(user.getUsername());
 	}
 
 }
