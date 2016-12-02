@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  * 
  */
-@Component
+//@Component
 public class JobTest implements InitializingBean {
 
 	@Autowired
