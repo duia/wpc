@@ -13,35 +13,35 @@
 package com.wpc.times;
 
 /**
- * <dl>  Class Description
- *  <dd> 项目名称：springmvc
- *  <dd> 类名称：TestRun
- *  <dd> 类描述：概述类的作用
- *  <dd> 创建人：王鹏程
- *  <dd> 创建时间：2016年5月4日 下午4:01:47
- *  <dd> 修改人：无
- *  <dd> 修改时间：无
- *  <dd> 修改备注：无
+ * <dl>
+ * Class Description
+ * <dd>项目名称：springmvc
+ * <dd>类名称：TestRun
+ * <dd>类描述：概述类的作用
+ * <dd>创建人：王鹏程
+ * <dd>创建时间：2016年5月4日 下午4:01:47
+ * <dd>修改人：无
+ * <dd>修改时间：无
+ * <dd>修改备注：无
  * </dl>
+ * 
  * @author weaver
  * @see
  * @version 1.0
  * 
  */
 public class TestRun {
-  
-  private String name;
 
-  public String getName() {
-    return name;
-  }
+	public void say() {
+		System.out.println("真正的业务逻辑运行...");
+		try {
+			System.out.println("程序处理中...");
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("业务逻辑运行完成...");
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
-  
-  public void say(){
-    System.out.println("我的名字是"+name);
-  }
-  
 }

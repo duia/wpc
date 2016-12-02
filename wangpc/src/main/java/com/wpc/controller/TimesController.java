@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.wpc.times.DataWorkContext;
 import com.wpc.times.ScheduleJob;
 import com.wpc.times.SchedulerUtil;
 
@@ -54,7 +53,7 @@ public class TimesController {
 	@Autowired
 	private Scheduler scheduler;
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping
 	public String index(ModelMap model) throws Exception {
 		return "times/times";
 	}
@@ -62,30 +61,32 @@ public class TimesController {
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public void add(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 		ScheduleJob job = new ScheduleJob();
-		job.setJobId("10001" + 5);
-		job.setJobName("data_import" + 5);
-		job.setJobGroup("dataWork");
+		job.setJobId(3L);
+		job.setJobName("更新人员数据");
+		job.setJobGroup("数据同步");
 		job.setJobStatus("1");
-		job.setCronExpression("0/4 * * * * ?");
-		job.setDesc("数据导入任务");
+		job.setCronExpression("0/5 * * * * ?");
+		job.setDescription("每隔多久更新一次人员数据...");
+		job.setClassName("com.wpc.times.TestRun");
+		job.setMethodName("say");
 		SchedulerUtil.addJob(scheduler, job);
 	}
 
 	@RequestMapping(value = "pause", method = RequestMethod.GET)
 	public void pause(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
-		ScheduleJob scheduleJob = DataWorkContext.getJob("dataWork_data_import1");
+		ScheduleJob scheduleJob = new ScheduleJob("更新人员数据", "数据同步");
 		SchedulerUtil.pauseJob(scheduler, scheduleJob);
 	}
 
 	@RequestMapping(value = "resume", method = RequestMethod.GET)
 	public void resume(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
-		ScheduleJob scheduleJob = DataWorkContext.getJob("dataWork_data_import1");
+		ScheduleJob scheduleJob = new ScheduleJob("更新人员数据", "数据同步");
 		SchedulerUtil.resumeJob(scheduler, scheduleJob);
 	}
 
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public void delete(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
-		ScheduleJob scheduleJob = DataWorkContext.getJob("dataWork_data_import2");
+		ScheduleJob scheduleJob = new ScheduleJob("更新人员数据", "数据同步");
 		SchedulerUtil.deleteJob(scheduler, scheduleJob);
 	}
 

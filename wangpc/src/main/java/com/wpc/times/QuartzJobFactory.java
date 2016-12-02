@@ -12,13 +12,13 @@
  */
 package com.wpc.times;
 
+import java.lang.reflect.Method;
+
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.springframework.web.socket.TextMessage;
-
-import com.wpc.websocket.MyWebSocketHander;
+import org.springframework.util.StringUtils;
 
 /**
  * <dl>
@@ -53,12 +53,37 @@ public class QuartzJobFactory implements Job {
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		System.out.println("任务运行开始...");
-		ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap().get("scheduleJob");
-		// TestRun tr = new TestRun();
-		// tr.setName(scheduleJob.getJobName());
-		// tr.say();
+		
+		ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap().get(ScheduleJob.JOB_PARAM_KEY);
+		if(scheduleJob != null && StringUtils.hasText(scheduleJob.getClassName()) && StringUtils.hasText(scheduleJob.getMethodName())){
+			Object object = null;
+			Class<?> clazz = null;
+			try {
+				clazz = Class.forName(scheduleJob.getClassName());
+				object = clazz.newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (object == null) {
+//				log.error("任务名称 = [" + scheduleJob.getJobName() + "]---------------未启动成功，请检查是否配置正确！！！");
+				return;
+			}
+			Method method = null;
+			try {
+				method = clazz.getDeclaredMethod(scheduleJob.getMethodName());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			if (method != null) {
+				try {
+					method.invoke(object);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
-		MyWebSocketHander.sendMessageToUsers(new TextMessage("你好你好"));
+//		MyWebSocketHander.sendMessageToUsers(new TextMessage("你好你好"));
 
 		System.out.println("任务结束！！！");
 	}

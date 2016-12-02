@@ -36,14 +36,14 @@ import java.util.Map;
 public class DataWorkContext {
   private static Map<String, ScheduleJob> jobMap = new HashMap<String, ScheduleJob>();
   static {
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 5; i++) {
       ScheduleJob job = new ScheduleJob();
-      job.setJobId("10001" + i);
+      job.setJobId(Long.valueOf(i));
       job.setJobName("data_import" + i);
       job.setJobGroup("dataWork");
       job.setJobStatus("1");
       job.setCronExpression("0/"+(5+2*i)+" * * * * ?");
-      job.setDesc("数据导入任务");
+      job.setDescription("数据导入任务");
       addJob(job);
     }
   }
