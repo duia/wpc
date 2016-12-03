@@ -118,7 +118,7 @@ public class Test0 extends TestCase {
             ScheduleJob job = new ScheduleJob();
             job.setJobName(jobKey.getName());
             job.setJobGroup(jobKey.getGroup());
-            job.setDesc("触发器:" + trigger.getKey());
+            job.setDescription("触发器:" + trigger.getKey());
             Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
             job.setJobStatus(triggerState.name());
             if (trigger instanceof CronTrigger) {
@@ -150,7 +150,7 @@ public class Test0 extends TestCase {
         Trigger trigger = executingJob.getTrigger();
         job.setJobName(jobKey.getName());
         job.setJobGroup(jobKey.getGroup());
-        job.setDesc("触发器:" + trigger.getKey());
+        job.setDescription("触发器:" + trigger.getKey());
         Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
         job.setJobStatus(triggerState.name());
         if (trigger instanceof CronTrigger) {

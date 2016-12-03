@@ -43,6 +43,22 @@
 	<!-- <bean class="com.wpc.times.JobTest">
 		<property name="scheduler" ref="schedulerFactoryBean"></property>
 	</bean> -->
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.qq.com" />
+        <property name="port" value="465" />
+        <property name="username" value="wpcfree@qq.com" />
+        <property name="password" value="fwqtavxqqrlvbgjf" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.ssl.enable">true</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+           </props>
+        </property>
+    </bean>
+    
 </beans>
 	
 	

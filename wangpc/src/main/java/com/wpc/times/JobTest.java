@@ -35,7 +35,7 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  * 
  */
-//@Component
+@Component
 public class JobTest implements InitializingBean {
 
 	@Autowired
@@ -66,21 +66,21 @@ public class JobTest implements InitializingBean {
 		job.setJobName("下载文件邮件发送");
 		job.setJobGroup("邮件发送组");
 		job.setJobStatus("1");
-		job.setCronExpression("0/15 * * * * ?");
+		job.setCronExpression("0 * * * * ?");
 		job.setDescription("文件导出成功后发送下载文件邮件给某人...");
 		job.setClassName("com.wpc.times.TestRun");
 		job.setMethodName("say");
 		SchedulerUtil.addJob(scheduler, job);
-		job = new ScheduleJob();
-		job.setJobId(2L);
-		job.setJobName("有需要處理的邮件发送");
-		job.setJobGroup("邮件发送组");
-		job.setJobStatus("1");
-		job.setCronExpression("0/25 * * * * ?");
-		job.setDescription("有需要某人處理的信息邮件给某人...");
-		job.setClassName("com.wpc.times.TestRun");
-		job.setMethodName("say");
-		SchedulerUtil.addJob(scheduler, job);
+//		job = new ScheduleJob();
+//		job.setJobId(2L);
+//		job.setJobName("有需要處理的邮件发送");
+//		job.setJobGroup("邮件发送组");
+//		job.setJobStatus("1");
+//		job.setCronExpression("0/25 * * * * ?");
+//		job.setDescription("有需要某人處理的信息邮件给某人...");
+//		job.setClassName("com.wpc.times.TestRun");
+//		job.setMethodName("say");
+//		SchedulerUtil.addJob(scheduler, job);
 
 	}
 
