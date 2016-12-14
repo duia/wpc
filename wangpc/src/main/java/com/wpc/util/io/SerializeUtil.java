@@ -1,4 +1,4 @@
-package com.wpc.util;
+package com.wpc.util.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

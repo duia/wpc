@@ -10,7 +10,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
-import com.wpc.util.SerializeUtil;
+import com.wpc.util.io.SerializeUtil;
 
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
