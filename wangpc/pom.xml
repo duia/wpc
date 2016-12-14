@@ -124,6 +124,23 @@
 			<artifactId>commons-codec</artifactId> 
 			<version>1.10</version> 
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.4</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-email</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		<dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.5</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -255,17 +272,6 @@
 		    <version>9.2.19.v20160908</version>
 		</dependency> -->
 		
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-email</artifactId>
-		    <version>1.4</version>
-		</dependency>
-		<dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.5</version>
-        </dependency>
-        
         <dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi</artifactId>
