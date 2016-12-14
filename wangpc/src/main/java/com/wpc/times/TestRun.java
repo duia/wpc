@@ -12,7 +12,7 @@
  */
 package com.wpc.times;
 
-import com.wpc.util.MailSenderUtil;
+import com.wpc.util.email.MailSenderUtil;
 
 /**
  * <dl>
@@ -39,7 +39,7 @@ public class TestRun {
 		try {
 			System.out.println("程序处理中...");
 			Thread.sleep(10000);
-			MailSenderUtil.send();
+//			MailSenderUtil.send();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
