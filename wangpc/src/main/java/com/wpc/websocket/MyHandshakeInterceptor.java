@@ -48,25 +48,24 @@ public class MyHandshakeInterceptor implements org.springframework.web.socket.se
 	@Override
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response,
 					WebSocketHandler webSocketHandler, Exception exception) {
-		// TODO Auto-generated method stub
 		logger.info("afterHandshake");
-
 	}
 
 	// 进入hander之前的拦截
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
 					WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
-		logger.info("beforeHandshake");
+		logger.info("Websocket:用户[ID:"+ ((ServletServerHttpRequest) request).getServletRequest()
+						.getSession(false).getAttribute("uid") + "]已经建立连接");
 		if (request instanceof ServletServerHttpRequest) {
 			ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
 			HttpSession session = servletRequest.getServletRequest().getSession(false);
-			String userName = "xq";
-			if (session != null) {
-				// 使用userName区分WebSocketHandler，以便定向发送消息
-				// String userName = (String)
-				// session.getAttribute("WEBSOCKET_USERNAME");
-				map.put("WEBSOCKET_USERNAME", userName);
+			// 标记用户
+			Long uid = (Long) session.getAttribute("uid");
+			if (uid != null) {
+				map.put("uid", uid);
+			} else {
+				return false;
 			}
 		}
 		return true;

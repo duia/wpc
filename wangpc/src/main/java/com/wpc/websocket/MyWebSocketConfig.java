@@ -12,7 +12,10 @@
  */
 package com.wpc.websocket;
 
+import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
@@ -35,14 +38,18 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  * @version 1.0
  * 
  */
+@Component
 @Configuration
 @EnableWebSocket // 开启websocket
 public class MyWebSocketConfig implements WebSocketConfigurer {
 
+	@Resource
+	private MyWebSocketHandler handler;
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(new MyWebSocketHander(), "/echo").addInterceptors(new MyHandshakeInterceptor()); // 支持websocket的访问链接 //.setAllowedOrigins("*") 用来设置来自那些域名的请求可访问
-		registry.addHandler(new MyWebSocketHander(), "/sockjs/echo").addInterceptors(new MyHandshakeInterceptor()).withSockJS(); // 不支持websocket的访问链接 允许客户端使用SockJS
+		registry.addHandler(handler, "/echo").addInterceptors(new MyHandshakeInterceptor()); // 支持websocket的访问链接 //.setAllowedOrigins("*") 用来设置来自那些域名的请求可访问
+		registry.addHandler(handler, "/sockjs/echo").addInterceptors(new MyHandshakeInterceptor()).withSockJS(); // 不支持websocket的访问链接 允许客户端使用SockJS
 	}
 
 }
