@@ -8,15 +8,24 @@
  */
 package com.wpc.test;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.wpc.util.excel.excel.ExcelBean;
-import com.wpc.util.excel.excel.SheetBean;
-import com.wpc.util.excel.excel.WriteExcel;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFHyperlink;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.hssf.util.HSSFColor;
 
 /**   
  * @ClassName:  ExcelTest   
@@ -27,7 +36,7 @@ import com.wpc.util.excel.excel.WriteExcel;
  */
 public class ExcelTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 //		ExcelExportHelper eeh = new ExcelExportHelper();
 		
@@ -60,7 +69,7 @@ public class ExcelTest {
 //		eeh.exportExcelAndSave(header, properties, users, "用户列表", "e:\\", "用户列表");
 		
 		
-		Map<Integer, String> headNames = new HashMap<>();
+		/*Map<Integer, String> headNames = new HashMap<>();
 		headNames.put(0, "ID");
 		headNames.put(1, "账户");
 		headNames.put(2, "昵称");
@@ -87,7 +96,100 @@ public class ExcelTest {
 		eb.setSheets(sheets);
 		
 		WriteExcel we = new WriteExcel();
-		we.write(eb);
+		we.write(eb);*/
+		
+		// 创建Excel的工作书册 Workbook,对应到一个excel文档
+	    HSSFWorkbook wb = new HSSFWorkbook();
+
+	    // 创建Excel的工作sheet,对应到一个excel文档的tab
+	    HSSFSheet sheet = wb.createSheet("sheet1");
+
+	    // 设置excel每列宽度
+	    sheet.setColumnWidth(0, 8000);
+	    sheet.setColumnWidth(1, 8000);
+	    sheet.setColumnWidth(2, 8000);
+	    sheet.setColumnWidth(3, 8000);
+	    
+	    // 创建字体样式
+	    HSSFFont font = wb.createFont();
+	    font.setFontName("Verdana");
+	    font.setBoldweight((short) 100);
+	    font.setFontHeight((short) 300);
+	    font.setColor(HSSFColor.BLACK.index);
+
+	    // 创建单元格样式
+	    HSSFCellStyle style = wb.createCellStyle();
+	    style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+	    style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
+	    style.setFillForegroundColor(HSSFColor.WHITE.index);
+	    style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+	    // 设置边框
+	    style.setBottomBorderColor(HSSFColor.BLACK.index);
+	    style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	    style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+	    style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+	    style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+
+	    style.setFont(font);// 设置字体
+
+	    // 创建Excel的sheet的弟一行
+	    HSSFRow row = sheet.createRow(0);
+	    row.setHeight((short) 1000);// 设定行的高度
+	    
+	    // 创建一个Excel的第一行第一格单元格
+	    HSSFCell cell = row.createCell(0);
+
+	    // 给Excel的单元格设置样式和赋值
+	    cell.setCellStyle(style);
+	    cell.setCellValue("XXXXXXXXX");
+	    
+	    // 创建一个Excel的第一行第二格单元格
+	    cell = row.createCell(1);
+
+	    // 给Excel的单元格设置样式和赋值
+	    cell.setCellStyle(style);
+	    cell.setCellValue("XXXXXXXXX");
+
+	    //设置弟三第四格 row.createCell(1); .......
+	    cell = row.createCell(2);
+	    cell.setCellStyle(style);
+	    cell.setCellValue("XXXXXXXXX");
+	    cell = row.createCell(3);
+	    cell.setCellStyle(style);
+	    cell.setCellValue("XXXXXXXXX");
+	    
+	    //创建弟二行
+	    row = sheet.createRow(1);
+	    row.setHeight((short) 1000);// 设定行的高度
+
+	    // 创建一个Excel的第二行第一格单元格
+	    cell = row.createCell(0);
+
+	    // 给Excel的单元格设置样式和赋值
+	    cell.setCellStyle(style);
+	    cell.setCellValue("XXXXXXXXX");
+	    
+	    // 创建超链接
+	    HSSFHyperlink link = new HSSFHyperlink(HSSFHyperlink.LINK_URL);
+	    link.setAddress("http://www.baidu.com");
+	    
+	    // 创建一个Excel的第二行第二格单元格
+	    cell = row.createCell(1);
+
+	    // 给Excel的单元格设置样式和赋值
+	    cell.setCellStyle(style);
+	    cell.setCellValue("百度");
+	    cell.setHyperlink(link);// 设定单元格的链接
+
+	    //设置弟三第四格 row.createCell(1); .......
+	    
+	    //设置弟三行第四行类似......
+	    
+	    FileOutputStream os = new FileOutputStream("e://workbook.xls");
+	    wb.write(os);
+	    os.close();
+		
 	}
 	
 }
