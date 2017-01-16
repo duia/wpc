@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -180,9 +181,9 @@ public class ZipUtils {
 	}
 
 	public static void main(String[] args) {
-		// ZipUtils.zipFile(Arrays.asList(new File("E:/workspace/utils/libs").listFiles()), "E:/workspace/utils/libs_1.zip");
+		 ZipUtils.zipFile(Arrays.asList(new File("E:/excel").listFiles()), "E:/excel/libs_1.zip");
 		// ZipUtils.zip("E:/workspace/utils/test", "E:/workspace/utils/libs_2.zip");
-		ZipUtils.unzip("E:/workspace/utils/libs_2.zip", "E:/workspace/utils/wangpengcheng");
+//		ZipUtils.unzip("E:/workspace/utils/libs_2.zip", "E:/workspace/utils/wangpengcheng");
 		System.out.println("ok");
 	}
 

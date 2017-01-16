@@ -1,0 +1,68 @@
+/**  
+ * @Title:  DownLoadUtil.java   
+ * @Package com.wpc.util.file   
+ * @Description:    TODO(用一句话描述该文件做什么)   
+ * @author: wangpengcheng     
+ * @date:   2017年1月13日 下午6:28:55   
+ * @version V1.0 
+ */
+package com.wpc.util.file;
+
+import java.net.URLEncoder;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**   
+ * @ClassName:  DownLoadUtil   
+ * @Description:TODO(这里用一句话描述这个类的作用)   
+ * @author: wangpengcheng 
+ * @date:   2017年1月13日 下午6:28:55   
+ *     
+ */
+public class DownLoadUtil {
+	/** 
+     * Desc:根据文件头判断请求来自的浏览器，以便有针对性的对文件名转码 
+     * @date 2014-6-26  
+     * @param request 
+     * @return 
+     * @throws Exception 
+     */  
+    public static String transFileName(String fileName, HttpServletRequest request) {  
+          
+        String agent = request.getHeader("USER-AGENT");    
+        //fileName = fileName.trim();       //去首尾空格  
+        try {  
+            //根据文件头判断请求来自的浏览器，以便有针对性的对文件名转码  
+            if(null != agent && -1 != agent.indexOf("theworld")){   //世界之窗  
+                fileName = new String(fileName.getBytes("gb2312"), "ISO8859-1");    //解决下载的文件名中含有小括号转变义符%28%29  
+            }else if(null != agent && -1 != agent.indexOf("MSIE 8.0")){ //IE8  
+                String lenFileName = URLEncoder.encode(fileName, "UTF-8");  
+                if (lenFileName.length() > 150) {    //文件名长度是否大于150个字符  
+                    fileName = new String(fileName.getBytes("gb2312"), "ISO8859-1");   
+                } else {  
+                    fileName = URLEncoder.encode(fileName,"UTF-8").replace("+","%20");  
+                }  
+            }else if(null != agent && -1 != agent.indexOf("MSIE 7.0") && -1 != agent.indexOf("SE 2.X MetaSr 1.0")){ //sogo浏览器  
+                fileName = URLEncoder.encode(fileName,"UTF-8").replace("+","%20");  
+            }else if(null != agent && (-1 != agent.indexOf("SV1") || -1 != agent.indexOf("360SE"))){    //360安全浏览器  
+                String lenFileName = URLEncoder.encode(fileName, "UTF-8");  
+                if (lenFileName.length() > 150) {    //文件名长度是否大于150个字符  
+                    fileName = new String(fileName.getBytes("gb2312"), "ISO8859-1");   
+                } else {  
+                    fileName = URLEncoder.encode(fileName,"UTF-8").replace("+","%20");  
+                }  
+            }else if(null != agent && -1 != agent.indexOf("Chrome")){   //google  
+                fileName = new String(fileName.getBytes("gb2312"), "ISO8859-1");    //解决下载的文件名中含有小括号转变义符%28%29  
+            }else if(null != agent && -1 != agent.indexOf("Firefox")){  //Firefox  
+                fileName = new String(fileName.getBytes("gb2312"), "ISO8859-1");   
+            }else if(null != agent && -1 != agent.indexOf("Safari")){   //Firefox  
+                fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");   
+            }else { //其它浏览器  
+                fileName = new String(fileName.getBytes("gb2312"), "ISO8859-1");   
+            }  
+        } catch (Exception e) {  
+            throw new RuntimeException("transFileName error", e);  
+        }  
+        return fileName;  
+    }
+}

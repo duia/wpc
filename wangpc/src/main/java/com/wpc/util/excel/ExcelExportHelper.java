@@ -39,6 +39,9 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.ClientAnchor.AnchorType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+
+import com.wpc.admin.entity.User;
 
 /**
  * Excel 生成通用类，为了兼容，所有 Excel 统一生成 Excel2003 即：xx.xls
@@ -48,7 +51,7 @@ import org.apache.poi.ss.usermodel.ClientAnchor.AnchorType;
 public class ExcelExportHelper {
 	
 	/** 时间格式：默认为yyyy-MM-dd */
-	private String DATE_PATTERN = "yyyy-MM-dd";
+	private String DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	
 	/** 图片宽度，默认为：100 */
 	private int IMAGE_WIDTH = 30;
@@ -475,7 +478,10 @@ public class ExcelExportHelper {
 		String _fileName = "";
 		for(int i = 0 ; i < books.size() ; i ++){
 			HSSFWorkbook book = books.get(i);
-			_fileName = getFileName(fileName) + "_0" + i;
+			_fileName = getFileName(fileName);
+			if (MORE_EXCEL_FLAG.equals(flag)) { // 创建多excel
+				_fileName += "_0" + i;
+			}
 			//保存Excel文件
 			saveExcel(book, filePath, _fileName);
 		}
@@ -517,7 +523,10 @@ public class ExcelExportHelper {
 		String _fileName = "";
 		for(int i = 0 ; i < books.size() ; i ++){
 			HSSFWorkbook book = books.get(i);
-			_fileName = getFileName(fileName) + "_0" + i;
+			_fileName = getFileName(fileName);
+			if (MORE_EXCEL_FLAG.equals(flag)) { // 创建多excel
+				_fileName += "_0" + i;
+			}
 			//保存Excel文件
 			saveExcel(book, filePath, _fileName);
 		}
@@ -780,7 +789,7 @@ public class ExcelExportHelper {
 	}
 	
 	/**
-	 * 设置Excel图片的格式：字体居中、变粗、蓝色、12号
+	 * 设置Excel图片的格式：字体居中、变粗、蓝色、12号、背景灰色
 	 * @author wangpengcheng 
 	 * @date 2016年6月16日 下午8:46:49
 	 * @param headerStyle
@@ -790,8 +799,16 @@ public class ExcelExportHelper {
 	 * @version 1.0
 	 */
 	private void setHeaderStyle(HSSFCellStyle headerStyle,HSSFWorkbook book) {
-		headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);   //水平居中
+		
+		headerStyle.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+		headerStyle.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+		headerStyle.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+		headerStyle.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+		headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.index);
+		headerStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+		headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//水平居中
 		headerStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直居中 
+		
 		//设置字体
 		HSSFFont font = book.createFont();
 		font.setFontHeightInPoints((short) 12);     //字号：12号
@@ -812,6 +829,10 @@ public class ExcelExportHelper {
 	 * @version 1.0
 	 */
 	private void setCellStyle(HSSFCellStyle cellStyle, HSSFWorkbook book) {
+		cellStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		cellStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		cellStyle.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		cellStyle.setBorderLeft(HSSFCellStyle.BORDER_THIN);
 		cellStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);   //水平居中
 		cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直居中 
 		
@@ -877,8 +898,7 @@ public class ExcelExportHelper {
 			Date date = (Date) value;
 			SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
 			textValue = sdf.format(date);  
-		}
-		if(value instanceof byte[]){   //byte为图片
+		} else if(value instanceof byte[]){   //byte为图片
 			//设置图片单元格宽度、高度
 			row.setHeightInPoints((short)(IMAGE_HEIGHT * 10));
 			sheet.setColumnWidth(i, IMAGE_WIDTH * 256);
@@ -946,6 +966,7 @@ public class ExcelExportHelper {
 	 */
 	private void setCellMaxWidth(String textValue,int i ) {
 		int size = textValue.length();
+		size = size > 249 ? 249 : size;
 		int width = (size + 6) * 256;
 		if(maxWidth[i] <= width){
 			maxWidth[i] = width;
@@ -1066,5 +1087,27 @@ public class ExcelExportHelper {
 		if(!file.exists()){
 			file.mkdirs();
 		}
+	}
+	
+	public static void main(String[] args) {
+		java.text.DecimalFormat df =new java.text.DecimalFormat("#.00");
+		ExcelExportHelper excel = new ExcelExportHelper();
+		List<Object> users = new ArrayList<>();
+		User user = null;
+		for (int i = 0; i < 10000; i++) {
+			user = new User();
+			user.setId(i+1);
+			user.setAccount("wpc"+i);
+			user.setUsername(i+"wpc");
+			user.setPassword("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789");
+			user.setAge(i+3);
+			user.setUpdateTime(new Date());
+			user.setPrice(Double.parseDouble(df.format(Math.random() * 1000)));
+			users.add(user);
+		}
+		String[] header = {"ID", "账户", "昵称", "密码", "年龄", "生日", "价钱"};
+		String[] properties = {"id", "account", "username", "password", "age", "updateTime", "price"};
+		
+		excel.exportExcelForBigDataAndSave(header, properties, users, "用户列表", excel.MORE_EXCEL_FLAG, "e:\\", "用户列表");
 	}
 }
