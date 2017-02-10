@@ -21,12 +21,11 @@
 		<isDeleteTablePrefix>true</isDeleteTablePrefix>
 	</packageSetting>
 	<module>
-		<persistance>mybatis</persistance>
+		<persistance>jpa</persistance>
 		<name>admin</name>
 		<isDeleteTablePrefix>true</isDeleteTablePrefix>
-		<savePath></savePath>
+		<savePath>F:/wpc</savePath>
 		<framework>mvc</framework>
 		<table name="user"></table>
-		
 	</module>
 </configure>

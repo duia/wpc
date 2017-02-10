@@ -12,14 +12,14 @@
  */
 package com.wpc.controller;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.wpc.websocket.MyWebSocketHandler;
+import java.security.Principal;
 
 /**
  * <dl>
@@ -40,21 +40,29 @@ import com.wpc.websocket.MyWebSocketHandler;
  * 
  */
 @Controller
-@RequestMapping("/socket")
-public class SocketController {
+@RequestMapping("/socket2")
+public class SocketController2 {
 
-//	@Resource
-//	private MyWebSocketHandler handler;
-	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping
 	public String index() {
 		return "socket/hello";
 	}
 	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
-	public String login(HttpServletRequest request, Long uid) {
-		request.getSession().setAttribute("uid", uid);
-		return "socket/talk";
+	@RequestMapping(value="/login")
+	public String login() {
+		return "socket/socket";
+	}
+
+	@MessageMapping("/change-notice")
+	@SendTo("/topic/notice")
+	public String greeting(String value) {
+		return value;
+	}
+
+	@MessageMapping("/user-change-notice")
+	@SendToUser("/topic/notice")
+	public String greeting2(String value, Principal principal) {
+		return value + principal.getName();
 	}
 
 }

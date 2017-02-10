@@ -38,9 +38,9 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  * @version 1.0
  * 
  */
-@Component
-@Configuration
-@EnableWebSocket // 开启websocket
+//@Component
+//@Configuration
+//@EnableWebSocket // 开启websocket
 public class MyWebSocketConfig implements WebSocketConfigurer {
 
 	@Resource
