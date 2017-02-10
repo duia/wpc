@@ -47,7 +47,7 @@ import com.wpc.util.date.DateUtils;
  * @version 1.0
  * 
  */
-@Component
+//@Component
 public class MyWebSocketHandler implements WebSocketHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(MyWebSocketHandler.class);
